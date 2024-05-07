@@ -1,0 +1,48 @@
+/* including all tailwind layers */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --even-row-bg-col: rgb(241 245 249);
+    --even-row-bg-col2: rgb(226 232 240);
+    --header-bg-col: rgb(156 163 175);
+}
+
+
+/* view all employees - data grid styling */
+.display-employees-grid-header {
+    background-color: var(--header-bg-col);
+    
+}
+
+.even-rows {
+    background-color: var(--even-row-bg-col2);
+}
+
+.odd-rows {
+    /* */
+}
+
+
+
+.add-new-employee-form {
+    width: 70%;
+    text-align: center;
+    margin-left: 15%;
+    margin-top: 1%;
+}
+
+.add-employee-header {
+    text-align: center;
+    margin-top: 1%;
+}
+
+.add-employee-form-input-row {
+    margin-bottom: 2%;
+}
+
+.add-employee-btn {
+    background-color: rgb(34 197 94);
+    
+}
