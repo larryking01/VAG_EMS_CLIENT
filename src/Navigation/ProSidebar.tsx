@@ -34,7 +34,7 @@ const ProSidebar = ( ) => {
                 <Menu
                     >
                     <MenuItem icon={ <AiOutlineMenu size={ 20 } /> } onClick={() => setCollapse( !collapse )} >{''}</MenuItem>
-                    <MenuItem component={ <Link to='/home' /> } icon={ <MdDashboard size={ 20 } /> } >Dashboard</MenuItem>
+                    <MenuItem component={ <Link to='/' /> } icon={ <MdDashboard size={ 20 } /> } >Dashboard</MenuItem>
                     <MenuItem component={ <Link to='/add-new-employee' /> } icon={ <IoPersonAdd /> }>Add New Employee</MenuItem>
                     <MenuItem component={ <Link to='/view-all-employees' /> } icon={ <BsPeopleFill /> }>View All Employees</MenuItem>
                     <SubMenu label="Manage Employees" icon={ <FaUserEdit /> }>

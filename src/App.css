@@ -13,7 +13,6 @@
 /* view all employees - data grid styling */
 .display-employees-grid-header {
     background-color: var(--header-bg-col);
-    
 }
 
 .even-rows {
