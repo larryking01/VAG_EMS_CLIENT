@@ -5,6 +5,9 @@ import vag_logo from '../Static Files/vag_logo1.jpg'
 import { AiOutlineMenu } from 'react-icons/ai'
 import { IoPerson, IoPersonAdd } from "react-icons/io5"
 import Button from 'react-bootstrap/Button'
+import person_colour from '../Static Files/person-color.png'
+
+
 
 
 
@@ -41,7 +44,7 @@ const NavBar = ( ) => {
 
     return (
         <div>
-            <Navbar className='bg-green-400 shadow-md h-22'>
+            <Navbar className='bg-slate-50 shadow-md h-22'>
                 <Container>
                     {/* <div>
                         <AiOutlineMenu size={ 25 } className='cursor-pointer' />
@@ -52,7 +55,7 @@ const NavBar = ( ) => {
                             mobileScreen === false ?
                                 <>
                                     <img src={ vag_logo } width='55' className="rounded-full d-inline-block" alt='vag logo' /> {''} 
-                                    <h4 className='mt-3 ml-2 font-semibold'>Veterans Administration, Ghana (VAG)</h4>
+                                    <h4 className='mt-2 ml-2 font-semibold'>Veterans Administration, Ghana (VAG)</h4>
                                 </>
                                 :
                                 <>
@@ -68,7 +71,9 @@ const NavBar = ( ) => {
                         {
                             mobileScreen === false ?
                                 <>
-                                    <IoPerson size={ 20 } /> larry@gmail.com
+                                    {/* <IoPerson size={ 20 } /> admin */}
+                                    {/* <img src={ person_colour } width={ 30 } alt='' />  */}
+                                    <p className='font-semibold mt-2'>Employee Management System</p>
                                 </>
                                 :
                                 <>

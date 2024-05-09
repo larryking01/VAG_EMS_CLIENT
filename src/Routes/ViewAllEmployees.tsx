@@ -2,6 +2,11 @@ import { useState, useEffect } from 'react'
 import ProSidebar from "../Navigation/ProSidebar"
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid'
 import Avatar from '@mui/material/Avatar'
+// font awesome icons.
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+
+
 
 
 
@@ -10,6 +15,7 @@ const ViewAllEmployees = ( ) => {
 
     // setting up state.
     const [ AllEmployeesArray, setAllEmployeesArray ] = useState([ ])
+    const [ loadingAllEmployees, setLoadingAllEmployees ] = useState<boolean>( true )
 
 
     // effect hook to fetch all employees.
@@ -21,6 +27,7 @@ const ViewAllEmployees = ( ) => {
             if( response.status === 200 ) {
                 let data = await response.json() 
                 setAllEmployeesArray( data )
+                setLoadingAllEmployees( false )
                 console.log(`all employees = ${ AllEmployeesArray }`)
 
                 setTimeout(() => { console.log( AllEmployeesArray )}, 500 )
@@ -88,15 +95,25 @@ const ViewAllEmployees = ( ) => {
             </div>
 
             <div style={{ width: '93%' }}>
-                <h3 className='mt-4 ml-4'>List Of Employees</h3>
-                <div style={{ height: '85%', width: '100%', padding: '1%' }}>
-                    <DataGrid 
-                        rows={ dynamicRows } 
-                        columns={ columns } 
-                        rowHeight={ 75 }
-                        getRowClassName={( params ) => params.indexRelativeToCurrentPage % 2 === 0 ? 'even-rows' : 'odd-rows' }/>
-                </div>
+                <h3 className='mt-4 ml-4 text-center'>List Of Employees</h3>
+                {
+                    loadingAllEmployees === true ?
+                    <div className='text-center my-48'>
+                        <FontAwesomeIcon icon={ faSpinner } className='text-center mb-3' size='3x' spinPulse color='#808080' />
+                        <h6>fetching employees, please wait....</h6>
+                    </div>
+                    :
+                    <div style={{ height: '60%', width: '100%', padding: '1%' }}>
+                        <DataGrid 
+                            rows={ dynamicRows } 
+                            columns={ columns } 
+                            rowHeight={ 75 }
+                            getRowClassName={( params ) => params.indexRelativeToCurrentPage % 2 === 0 ? 'even-rows' : 'odd-rows' }/>
+                    </div>
+
+                }
             </div>
+
         </div>
     )
 }

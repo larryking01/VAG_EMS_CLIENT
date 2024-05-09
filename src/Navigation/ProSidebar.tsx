@@ -27,7 +27,7 @@ const ProSidebar = ( ) => {
                 backgroundColor='rgb(156 163 175)'
                 rootStyles={{
                 [`.${sidebarClasses.container}`]: {
-                    height: '93vh'
+                    height: '90vh'
                 }
                 }}
             >
