@@ -27,9 +27,6 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 const AddNewEmployee = ( ) => {
 
-    let online_server = 'https://vag-ems-server.onrender.com'
-    // let local_server = 'http://localhost:8000'
-
     // setting up state.
     const [ vagEmployeeID, setVagEmployeeID ] = useState<string>('')
     const [ firstName, setFirstName ] = useState<string>('')

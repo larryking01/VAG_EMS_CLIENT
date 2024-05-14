@@ -2,10 +2,6 @@ import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
 import { useState, useEffect } from 'react'
 import vag_logo from '../Static Files/vag_logo1.jpg'
-import { AiOutlineMenu } from 'react-icons/ai'
-import { IoPerson, IoPersonAdd } from "react-icons/io5"
-import Button from 'react-bootstrap/Button'
-import person_colour from '../Static Files/person-color.png'
 
 
 
