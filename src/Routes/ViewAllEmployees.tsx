@@ -5,13 +5,14 @@ import Avatar from '@mui/material/Avatar'
 // font awesome icons.
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
-
+import { useNavigate } from 'react-router-dom'
 
 
 
 
 
 const ViewAllEmployees = ( ) => {
+    const navigate = useNavigate()
 
     // setting up state.
     const [ AllEmployeesArray, setAllEmployeesArray ] = useState([ ])
@@ -21,7 +22,7 @@ const ViewAllEmployees = ( ) => {
     // effect hook to fetch all employees.
     useEffect(() => {
         const FetchAllEmployees = async () => {
-            let response = await fetch('https://vag-ems-server.onrender.com/get/fetch-all-employees', {
+            let response = await fetch( `${ import.meta.env.VITE_PROD_SERVER_URL }/get/fetch-all-employees`, {
                 method: 'GET'
             })
             if( response.status === 200 ) {
@@ -57,8 +58,8 @@ const ViewAllEmployees = ( ) => {
         { field: 'Mobile_Number', headerName: 'Mobile Number', headerClassName: 'display-employees-grid-header', width: 150 },
         { field: 'E_mail', headerName: 'E-mail', headerClassName: 'display-employees-grid-header', width: 150 },
         { field: 'Date_Of_Birth', headerName: 'Date Of Birth', headerClassName: 'display-employees-grid-header', width: 150 },
-        { field: 'Position', headerName: 'Position', headerClassName: 'display-employees-grid-header', width: 150 },
-        { field: 'Department', headerName: 'Department', headerClassName: 'display-employees-grid-header', width: 150 },
+        { field: 'Appointment', headerName: 'Appointment', headerClassName: 'display-employees-grid-header', width: 150 },
+        { field: 'Employee_Type', headerName: 'Employee Type', headerClassName: 'display-employees-grid-header', width: 150 },
         { field: 'Date_Of_Employment', headerName: 'Date of Employment', headerClassName: 'display-employees-grid-header', width: 150 },
         { field: 'Bank_Account_No', headerName: 'Bank Account No.', headerClassName: 'display-employees-grid-header', width: 150 },
         { field: 'SSNIT_No', headerName: 'SSNIT No.', headerClassName: 'display-employees-grid-header', width: 150 }
@@ -68,7 +69,7 @@ const ViewAllEmployees = ( ) => {
 
     const dynamicRows: GridRowsProp = AllEmployeesArray.map(( employee: any ) => (
         { 
-            id: employee._id,
+            id: employee.vagEmployeeID,
             Employee_Photo: employee.employeePhoto,
             Employee_ID: employee.vagEmployeeID,
             First_Name: employee.firstName,
@@ -78,8 +79,8 @@ const ViewAllEmployees = ( ) => {
             Mobile_Number: employee.primaryMobileNumber,
             E_mail: employee.primaryEmail,
             Date_Of_Birth: employee.dateOfBirth,
-            Position: employee.position,
-            Department: employee.department,
+            Appointment: employee.appointment,
+            Employee_Type: employee.typeOfEmployee,
             Date_Of_Employment: employee.dateOfEmployment,
             Bank_Account_No: employee.bankAccountNumber,
             SSNIT_No: employee.ssnitNumber
@@ -94,21 +95,31 @@ const ViewAllEmployees = ( ) => {
                 <ProSidebar />
             </div>
 
-            <div style={{ width: '93%' }}>
-                <h3 className='mt-4 ml-4 text-center'>List Of Employees</h3>
+            <div style={{ width: '94%' }}>
+                <h4 className='mt-4 ml-4 text-center font-semibold italic'>List Of Employees</h4>
                 {
                     loadingAllEmployees === true ?
-                    <div className='text-center my-48'>
-                        <FontAwesomeIcon icon={ faSpinner } className='text-center mb-3' size='3x' spinPulse color='#808080' />
-                        <h6>fetching employees, please wait....</h6>
+                    <div className='text-center md:my-48 loading-emps-div'>
+                        <FontAwesomeIcon icon={ faSpinner } className='mb-3' size='2x' spinPulse color='#808080' />
+                        <h5 className='text-blue-600 font-semibold italic fetching-emps-text-res'>fetching employees, please wait....</h5>
                     </div>
                     :
-                    <div style={{ height: '60%', width: '100%', padding: '1%' }}>
+                    <div style={{ height: '80%', width: '100%', padding: '1%' }}>
                         <DataGrid 
+                            sx={{ 
+                                boxShadow: 3, 
+                                border: 'none',
+                                '& .MuiDataGrid-row:hover': { backgroundColor: '#6495ED'},
+                            }}
                             rows={ dynamicRows } 
                             columns={ columns } 
                             rowHeight={ 75 }
-                            getRowClassName={( params ) => params.indexRelativeToCurrentPage % 2 === 0 ? 'even-rows' : 'odd-rows' }/>
+                            getRowClassName={ ( params ) => (
+                                params.indexRelativeToCurrentPage % 2 === 0 ? 'even-rows' : 'odd-rows'
+                                
+                            )} 
+                            onRowDoubleClick={( rows ) => navigate(`/fetch-employee-details/${ rows.id }`) }
+                            />
                     </div>
 
                 }

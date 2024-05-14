@@ -29,7 +29,7 @@ const App = ( ) => {
             <Route path='/' element={ <Dashboard /> } />
             <Route path='/add-new-employee' element={ <AddNewEmployee /> } />
             <Route path='/view-all-employees' element={ <ViewAllEmployees /> } />
-            <Route path='/fetch-employee-details' element={ <FetchEmployeeDetails /> } />
+            <Route path='/fetch-employee-details/:empID' element={ <FetchEmployeeDetails /> } />
             <Route path='/sidebar' element={ <ProSidebar /> } />
           </Routes>
       </BrowserRouter>

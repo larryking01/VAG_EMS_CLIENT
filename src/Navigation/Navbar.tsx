@@ -44,13 +44,10 @@ const NavBar = ( ) => {
 
     return (
         <div>
-            <Navbar className='bg-slate-50 shadow-md h-22'>
+            <Navbar className='bg-slate-50 shadow-md sm:h-24 md:h-20'>
                 <Container>
-                    {/* <div>
-                        <AiOutlineMenu size={ 25 } className='cursor-pointer' />
-                    </div> */}
-
-                    <Navbar.Brand className='flex'>
+                    <section className='navbar-wrapper-section-res'>
+                    <Navbar.Brand className='flex sm:mt-3 md:mt-1'>
                         {
                             mobileScreen === false ?
                                 <>
@@ -60,8 +57,8 @@ const NavBar = ( ) => {
                                 :
                                 <>
                                     <div className='flex'>
-                                        <img src={ vag_logo } width='50' className="rounded-full d-inline-block" alt='vag logo' />
-                                        <h4 className='mt-3 ml-2 font-semibold'>Veterans Administration, Ghana (VAG)</h4>
+                                        <img src={ vag_logo } width='40' className="rounded-full d-inline-block" alt='vag logo' />
+                                        <h4 className='mt-3 ml-2 font-semibold vag-header-text-res'>Veterans Administration, Ghana (VAG)</h4>
                                     </div>
                                 </>
                         }
@@ -71,19 +68,16 @@ const NavBar = ( ) => {
                         {
                             mobileScreen === false ?
                                 <>
-                                    {/* <IoPerson size={ 20 } /> admin */}
-                                    {/* <img src={ person_colour } width={ 30 } alt='' />  */}
-                                    <p className='font-semibold mt-2'>Employee Management System</p>
+                                    <p className='font-semibold mt-2 ml-96'>Employee Management System</p>
                                 </>
                                 :
                                 <>
-                                
+                                    <p className='font-semibold ml-12 ems-text-res'>Employee Management System</p>
                                 </>
                         }
 
-                        {/* <Button variant='outline-primary'>Sign Out</Button> */}
                     </Navbar.Text>
-
+                    </section>
                 </Container>
             </Navbar>
         </div>

@@ -24,15 +24,14 @@ const ProSidebar = ( ) => {
             <Sidebar 
                 collapsed={ collapse }
                 width='230px' 
-                backgroundColor='rgb(156 163 175)'
+                backgroundColor='rgb(226 232 240)'
                 rootStyles={{
                 [`.${sidebarClasses.container}`]: {
                     height: '90vh'
                 }
                 }}
             >
-                <Menu
-                    >
+                <Menu>
                     <MenuItem icon={ <AiOutlineMenu size={ 20 } /> } onClick={() => setCollapse( !collapse )} >{''}</MenuItem>
                     <MenuItem component={ <Link to='/' /> } icon={ <MdDashboard size={ 20 } /> } >Dashboard</MenuItem>
                     <MenuItem component={ <Link to='/add-new-employee' /> } icon={ <IoPersonAdd /> }>Add New Employee</MenuItem>
