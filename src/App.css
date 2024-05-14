@@ -1,0 +1,157 @@
+/* including all tailwind layers */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --even-row-bg-col: rgb(241 245 249);
+    --even-row-bg-col2: rgb(226 232 240);
+    --header-bg-col: rgb(156 163 175);
+    --pro-sidebar-bg-col: rgb(226 232 240)
+}
+
+
+/* view all employees - data grid styling */
+.display-employees-grid-header {
+    background-color: var(--pro-sidebar-bg-col);
+    /* color: white; */
+    
+}
+
+/* .even-rows {
+    background-color: var(--even-row-bg-col2);
+} */
+
+.odd-rows {
+    background-color: var(--even-row-bg-col2);
+}
+
+.add-new-employee-form {
+    width: 70%;
+    text-align: center;
+    margin-left: 15%;
+    margin-top: 1%;
+}
+
+.add-employee-header {
+    text-align: center;
+    margin-top: 1%;
+}
+
+.add-employee-form-input-row {
+    margin-bottom: 2%;
+}
+
+
+.adding-emp-div {
+    text-align: center;
+}
+
+
+.dashboard-content-hover-effect {
+    transition: all 0.5s ease;
+}
+
+.dashboard-content-hover-effect:hover {
+    transform: scale(1.04);
+    box-shadow: 2px 2px 8px grey;
+}
+
+.navbar-wrapper-section-res {
+    display: flex;
+
+}
+
+.form-submit-error-text {
+    color: red;
+}
+
+.display-emp-det-div {
+    height: 85%;
+    margin-left: 2%;
+    margin-right: 2%;
+    padding: 2%;
+}
+
+/* .ems-text-md-screen {
+    margin-left: 24rem;
+} */
+
+
+/* responsive styling */
+@media screen and ( max-width: 480px ) {
+    .dashboard-content-res-mb {
+        margin-bottom: 3%;
+        padding: 2%;
+    }
+
+    .title-text-res {
+        font-size: 0.85rem;
+    }
+
+    .welcome-admin-text-res {
+        font-size: 0.75rem;
+        font-weight: bold;
+    }
+
+    .dashboard-section-res {
+        margin-top: 20%;
+    }
+
+    .vag-header-text-res {
+        font-size: 0.8rem;
+        font-weight: bold;
+        
+    }
+
+    .navbar-parent-section {
+        display: block;
+    }
+
+    .navbar-wrapper-section-res {
+        display: block;
+    }
+
+    .ems-text-res {
+        font-size: 0.85rem;
+    }
+    
+    .add-new-employee-form {
+        width: 94%;
+        text-align: center;
+        margin-left: 1%;
+        margin-top: 1%;
+    }
+
+    .add-employee-form-input-row {
+        margin-bottom: 7%;
+    }
+
+    .add-employee-header {
+        text-align: center;
+        margin-top: 12%;
+        margin-bottom: 8%;
+        font-size: 1.2rem;
+    }
+
+    .fetching-emps-text-res {
+        font-size: 0.9rem;
+    }
+
+    .loading-emps-div {
+        margin-top: 40%; 
+    }
+
+    .display-emp-det-div {
+        height: 95%;
+        margin-left: 2%;
+        margin-right: 2%;
+        padding: 2%;
+    }
+    
+    
+    
+    
+
+
+}
