@@ -33,7 +33,7 @@ const Dashboard = ( ) => {
     // effect hook to fetch total staff
     useEffect(() => {
         const FetchAllStaff = async ( ) => {
-            let response = await fetch(`${ import.meta.env.VITE_DEV_SERVER_URL }/get/fetch-all-employees`, {
+            let response = await fetch(`${ import.meta.env.VITE_PROD_SERVER_URL }/get/fetch-all-employees`, {
                 method: 'GET'
             })
             if( response.status === 200 ) {
@@ -52,7 +52,7 @@ const Dashboard = ( ) => {
     // effect hook to fetch all military staff.
     useEffect(() => {
         const FetchAllMilitaryStaff = async ( ) => {
-            let response = await fetch(`${ import.meta.env.VITE_DEV_SERVER_URL }/get/fetch-military-staff`, {
+            let response = await fetch(`${ import.meta.env.VITE_PROD_SERVER_URL }/get/fetch-military-staff`, {
                 method: 'GET'
             })
             if( response.status === 200 ) {
@@ -71,7 +71,7 @@ const Dashboard = ( ) => {
     // effect hook to fetch all civilian staff.
     useEffect(() => {
         const FetchAllCivilianStaff = async ( ) => {
-            let response = await fetch(`${ import.meta.env.VITE_DEV_SERVER_URL }/get/fetch-civilian-staff`, {
+            let response = await fetch(`${ import.meta.env.VITE_PROD_SERVER_URL }/get/fetch-civilian-staff`, {
                 method: 'GET'
             })
             if( response.status === 200 ) {
@@ -90,7 +90,7 @@ const Dashboard = ( ) => {
     // effect hook to fetch all male staff.
     useEffect(() => {
         const FetchAllMaleStaff = async ( ) => {
-            let response = await fetch(`${ import.meta.env.VITE_DEV_SERVER_URL }/get/fetch-male-staff`, {
+            let response = await fetch(`${ import.meta.env.VITE_PROD_SERVER_URL }/get/fetch-male-staff`, {
                 method: 'GET'
             })
             if( response.status === 200 ) {
@@ -109,7 +109,7 @@ const Dashboard = ( ) => {
     // effect hook to fetch all female staff.
     useEffect(() => {
         const FetchAllFeMaleStaff = async ( ) => {
-            let response = await fetch(`${ import.meta.env.VITE_DEV_SERVER_URL }/get/fetch-female-staff`, {
+            let response = await fetch(`${ import.meta.env.VITE_PROD_SERVER_URL }/get/fetch-female-staff`, {
                 method: 'GET'
             })
             if( response.status === 200 ) {
