@@ -51,12 +51,14 @@ const UpdateEmployeeDetails = ( ) => {
     const [ ssnitNumber, setSsnitNumber ] = useState<string>('')
     const [ employeePhoto, setEmployeePhoto ] = useState<string>('')
     const [ formSubmitError, setFormSubmitError ] = useState<boolean>( false )
-    const [ errorText, setErrorText ] = useState<string>('')
-    const [ addingEmployee, setAddingEmployee ] = useState<boolean>(false)
+    // const [ errorText, setErrorText ] = useState<string>('')
+    // const [ addingEmployee, setAddingEmployee ] = useState<boolean>(false)
     
+
 
     useEffect( () => {
         const FetchTargetEmployee = async () => {
+            
             console.log(`target employee length = ${ targetEmployee }`)
             let response = await fetch(`${ import.meta.env.VITE_PROD_SERVER_URL }/get/fetch-employee-details/${ params.empID }`, {
                 method: 'GET'
@@ -85,6 +87,7 @@ const UpdateEmployeeDetails = ( ) => {
             }
             else {
                 console.log('failed to fetch employee')
+                let vb = formSubmitError
             }
         }
         FetchTargetEmployee()

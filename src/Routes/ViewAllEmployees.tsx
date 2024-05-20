@@ -3,8 +3,6 @@ import ProSidebar from "../Navigation/ProSidebar"
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid'
 import Avatar from '@mui/material/Avatar'
 // font awesome icons.
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
 import SpinLoading from '../Navigation/SpinLoading'
 
