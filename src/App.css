@@ -28,7 +28,7 @@
 
 .add-new-employee-form {
     width: 70%;
-    text-align: center;
+    /* text-align: center; */
     margin-left: 15%;
     margin-top: 1%;
 }
@@ -72,6 +72,29 @@
     margin-right: 2%;
     padding: 2%;
 }
+
+.add-emp-btn {
+    width: 60%;
+    background-color: blue;
+}
+
+
+.update-employee-details {
+    text-align: center;
+    margin-top: 1%;
+}
+
+.not-found-div {
+    text-align: center;
+}
+
+.not-found-icon {
+    margin-left: 38%;
+    margin-top: 7%;
+    margin-bottom: 1%;
+    width: 20%;
+}
+
 
 /* .ems-text-md-screen {
     margin-left: 24rem;
@@ -118,7 +141,7 @@
     
     .add-new-employee-form {
         width: 94%;
-        text-align: center;
+        /* text-align: center; */
         margin-left: 1%;
         margin-top: 1%;
     }
@@ -148,6 +171,33 @@
         margin-right: 2%;
         padding: 2%;
     }
+
+    .update-employee-btn {
+        margin-bottom: 5%;
+    }
+
+    .add-emp-btn {
+        width: 100%;
+        background-color: blue;
+        margin-bottom: 5%;
+    }
+
+    .update-emp-details {
+        text-align: center;
+        margin-top: 12%;
+        margin-bottom: 8%;
+        font-size: 1.2rem;
+    }
+
+    .not-found-icon {
+        margin-left: 35%;
+        margin-top: 20%;
+        margin-bottom: 4%;
+        width: 30%;
+    }
+    
+
+    
     
     
     
