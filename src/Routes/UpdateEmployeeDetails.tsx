@@ -14,8 +14,6 @@ import { MdEmail } from "react-icons/md";
 import { RiBankCardFill } from "react-icons/ri";
 import { HiMiniBuildingOffice } from "react-icons/hi2";
 import { SiOnlyoffice } from "react-icons/si";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import ProSidebar from '../Navigation/ProSidebar'
 
 // index signature
@@ -50,7 +48,7 @@ const UpdateEmployeeDetails = ( ) => {
     const [ bankAccountNumber, setBankAccountNumber ] = useState<string>('')
     const [ ssnitNumber, setSsnitNumber ] = useState<string>('')
     const [ employeePhoto, setEmployeePhoto ] = useState<string>('')
-    const [ formSubmitError, setFormSubmitError ] = useState<boolean>( false )
+    // const [ formSubmitError, setFormSubmitError ] = useState<boolean>( false )
     // const [ errorText, setErrorText ] = useState<string>('')
     // const [ addingEmployee, setAddingEmployee ] = useState<boolean>(false)
     
@@ -87,7 +85,7 @@ const UpdateEmployeeDetails = ( ) => {
             }
             else {
                 console.log('failed to fetch employee')
-                let vb = formSubmitError
+                // let vb = formSubmitError
             }
         }
         FetchTargetEmployee()
@@ -96,82 +94,82 @@ const UpdateEmployeeDetails = ( ) => {
 
 
     const UpdateEmployeeID = ( event: any ) => {
-        setFormSubmitError( false )
+        // setFormSubmitError( false )
         setVagEmployeeID( event.target.value )
     }
 
     const UpdateFirstName = ( event: any ) => {
-        setFormSubmitError( false )
+        // setFormSubmitError( false )
         setFirstName( event.target.value )
     }
 
     const UpdateLastName = ( event: any ) => {
-        setFormSubmitError( false )
+        // setFormSubmitError( false )
         setLastName( event.target.value )
     }
 
     const UpdateOtherNames = ( event: any ) => {
-        setFormSubmitError( false )
+        // setFormSubmitError( false )
         setOtherNames( event.target.value )
     }
 
     const UpdateGender = ( event: any ) => {
-        setFormSubmitError( false )
+        // setFormSubmitError( false )
         setGender( event.target.value )
     }
 
     const UpdateDateOfBirth = ( event: any ) => {
-        setFormSubmitError( false )
+        // setFormSubmitError( false )
         setDateOfBirth( event.target.value )
     }
 
     const UpdatePrimaryPhoneNumber = ( event: any ) => {
-        setFormSubmitError( false )
+        // setFormSubmitError( false )
         setPrimaryMobileNumber( event.target.value )
     }
 
     const UpdateSecondaryPhoneNumber = ( event: any ) => {
-        setFormSubmitError( false )
+        // setFormSubmitError( false )
         setSecondaryMobileNumber( event.target.value )
     }
 
     const UpdatePrimaryEmail = ( event: any ) => {
-        setFormSubmitError( false )
+        // setFormSubmitError( false )
         setPrimaryEmail( event.target.value )
     }
 
     const UpdateSecondaryEmail = ( event: any ) => {
-        setFormSubmitError( false )
+        // setFormSubmitError( false )
         setSecondaryEmail( event.target.value )
     }
 
     const UpdateAppointment = ( event: any ) => {
-        setFormSubmitError( false )
+        // setFormSubmitError( false )
         setAppointment( event.target.value )
     }
 
     const UpdateEmployeeCategory = ( event: any ) => {
-        setFormSubmitError( false )
+        // setFormSubmitError( false )
         setEmployeeCategory( event.target.value )
     }
 
     const UpdateDateOfEmployment = ( event: any ) => {
-        setFormSubmitError( false )
+        // setFormSubmitError( false )
         setDateOfEmployment( event.target.value )
     }
 
     const UpdateBankAccountNumber = ( event: any ) => {
-        setFormSubmitError( false )
+        // setFormSubmitError( false )
         setBankAccountNumber( event.target.value )
     }
 
     const UpdateSSNIT = ( event: any ) => {
-        setFormSubmitError( false )
+        // setFormSubmitError( false )
         setSsnitNumber( event.target.value )
     }
 
     const UpdateEmployeePhoto = ( event: any ) => {
-        setFormSubmitError( false )
+        // setFormSubmitError( false )
         setEmployeePhoto( event.target.value )
     }
 
