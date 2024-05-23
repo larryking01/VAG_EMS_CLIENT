@@ -5,14 +5,14 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import InputGroup from 'react-bootstrap/InputGroup'
-import { IoShieldCheckmarkSharp } from "react-icons/io5";
-import { IoPerson } from "react-icons/io5";
-import { BsCalendar2DateFill } from "react-icons/bs";
-import { FaPhone } from "react-icons/fa";
-import { MdEmail } from "react-icons/md";
-import { RiBankCardFill } from "react-icons/ri";
-import { HiMiniBuildingOffice } from "react-icons/hi2";
-import { SiOnlyoffice } from "react-icons/si";
+import { IoShieldCheckmarkSharp } from "react-icons/io5"
+import { IoPerson } from "react-icons/io5"
+import { BsCalendar2DateFill } from "react-icons/bs"
+import { FaPhone } from "react-icons/fa"
+import { MdEmail } from "react-icons/md"
+import { RiBankCardFill } from "react-icons/ri"
+import { HiMiniBuildingOffice } from "react-icons/hi2"
+import { SiOnlyoffice } from "react-icons/si"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
@@ -397,14 +397,12 @@ const AddNewEmployee = ( ) => {
 
                     <Row>
                         <div>
-                            <Button type='submit' variant='custom' aria-label='Save Employee' style={{ width: '60%', backgroundColor: 'blue', color: 'white'}} >
+                            <Button type='submit' variant='primary' aria-label='Save Employee' className='add-emp-btn' >
                                 Save New Employee
                             </Button>
                             { formSubmitError === true ? <p className='form-submit-error-text italic'>{ errorText }</p> : null }
                         </div>
                     </Row>
-
-
                 </Form>
             </div>
 

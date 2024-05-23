@@ -3,9 +3,10 @@ import ProSidebar from "../Navigation/ProSidebar"
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid'
 import Avatar from '@mui/material/Avatar'
 // font awesome icons.
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
+import SpinLoading from '../Navigation/SpinLoading'
+
+
 
 
 
@@ -96,13 +97,10 @@ const ViewAllEmployees = ( ) => {
             </div>
 
             <div style={{ width: '94%' }}>
-                <h4 className='mt-4 ml-4 text-center font-semibold italic'>List Of Employees</h4>
+                <h4 className='mt-4 ml-4 md:text-center font-semibold italic'>List Of Employees</h4>
                 {
                     loadingAllEmployees === true ?
-                    <div className='text-center md:my-48 loading-emps-div'>
-                        <FontAwesomeIcon icon={ faSpinner } className='mb-3' size='2x' spinPulse color='#808080' />
-                        <h5 className='text-blue-600 font-semibold italic fetching-emps-text-res'>fetching employees, please wait....</h5>
-                    </div>
+                    <SpinLoading />
                     :
                     <div style={{ height: '80%', width: '100%', padding: '1%' }}>
                         <DataGrid 

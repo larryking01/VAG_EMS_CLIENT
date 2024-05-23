@@ -1,10 +1,10 @@
 import ProSidebar from "../Navigation/ProSidebar"
 import { useState, useEffect } from 'react'
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-
-
+import SpinLoading from "../Navigation/SpinLoading"
+import Button from 'react-bootstrap/Button'
 
 
 // index signature
@@ -24,6 +24,7 @@ const FetchEmployeeDetails = ( ) => {
 
     const [ targetEmployee, setTargetEmployee ] = useState<fetchedEmployeeDetails>({ })
     const params = useParams()
+    const navigate = useNavigate()
     
     useEffect( () => {
         const FetchTargetEmployee = async () => {
@@ -153,9 +154,22 @@ const FetchEmployeeDetails = ( ) => {
 
                             </Row>
 
+                            <div className='md:flex md:justify-between'>
+                                <div className='update-employee-btn'>
+                                    <Button type='button' variant='primary' 
+                                            aria-label='update employee details'
+                                            onClick={() => navigate(`/update-employee-details/${ params.empID }`) }>
+                                            Update Employee Details
+                                    </Button>
+                                </div>
+                                <div>
+                                    <Button type='button' variant='primary' className=''>Other Action</Button>
+                                </div>
+                            </div>
+
                         </div>
                         :
-                        <h3>Sorry....no employee added yet </h3>
+                        <SpinLoading />
                 }
 
             </div>

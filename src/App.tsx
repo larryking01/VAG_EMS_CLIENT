@@ -11,9 +11,9 @@ import ViewAllEmployees from './Routes/ViewAllEmployees'
 import AddNewEmployee from './Routes/AddNewEmployee'
 import FetchEmployeeDetails from './Routes/FetchEmployeeDetails'
 import ProSidebar from './Navigation/ProSidebar'
-
-
-
+// import BackNextNav from './Navigation/BackNextNav'
+import UpdateEmployeeDetails from './Routes/UpdateEmployeeDetails'
+import NotFound from './Routes/NotFound'
 
 
 const App = ( ) => {
@@ -31,6 +31,9 @@ const App = ( ) => {
             <Route path='/view-all-employees' element={ <ViewAllEmployees /> } />
             <Route path='/fetch-employee-details/:empID' element={ <FetchEmployeeDetails /> } />
             <Route path='/sidebar' element={ <ProSidebar /> } />
+            {/* <Route path='/back-next-nav' element={ <BackNextNav /> } /> */}
+            <Route path='/update-employee-details/:empID' element={ <UpdateEmployeeDetails /> } />
+            <Route path='*' element={ <NotFound /> } />
           </Routes>
       </BrowserRouter>
     </div>
