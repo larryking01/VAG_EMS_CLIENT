@@ -95,6 +95,12 @@
     width: 20%;
 }
 
+.update-employee-current-image {
+    /* width: 10%; */
+    text-align: center;
+    /* margin-left: 30%; */
+    margin-bottom: 3%;
+}
 
 /* .ems-text-md-screen {
     margin-left: 24rem;
@@ -190,7 +196,7 @@
     }
 
     .not-found-icon {
-        margin-left: 35%;
+        /* margin-left: 35%; */
         margin-top: 20%;
         margin-bottom: 4%;
         width: 30%;

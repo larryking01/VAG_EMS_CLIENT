@@ -1,13 +1,20 @@
+import { useNavigate } from 'react-router-dom'
 import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
 import { useState, useEffect } from 'react'
 import vag_logo from '../Static Files/vag_logo1.jpg'
+import { IoIosArrowForward } from "react-icons/io"
+import { IoIosArrowBack } from "react-icons/io"
+
 
 
 
 
 
 const NavBar = ( ) => {
+
+    // initializing useNavigate.
+    const navigate = useNavigate()
 
     // event listener to get current screen size.
     const [ mobileScreen, setMobileScreen ] = useState( false )
@@ -47,8 +54,8 @@ const NavBar = ( ) => {
                         {
                             mobileScreen === false ?
                                 <>
-                                    <img src={ vag_logo } width='55' className="rounded-full d-inline-block" alt='vag logo' /> {''} 
-                                    <h4 className='mt-2 ml-2 font-semibold'>Veterans Administration, Ghana (VAG)</h4>
+                                    <img src={ vag_logo } width='60' className="rounded-full d-inline-block" alt='vag logo' /> {''} 
+                                    <h4 className='mt-3 ml-2 font-semibold'>Veterans Administration, Ghana (VAG)</h4>
                                 </>
                                 :
                                 <>
@@ -60,15 +67,45 @@ const NavBar = ( ) => {
                         }
                     </Navbar.Brand>
 
-                    <Navbar.Text className='d-flex'>
+                    <Navbar.Text>
                         {
                             mobileScreen === false ?
                                 <>
-                                    <p className='font-semibold mt-2 ml-96'>Employee Management System</p>
+                                    <div className='flex'>
+                                        <div>
+                                            <p className='font-semibold mt-2 ml-80'>Employee Management System</p>
+                                        </div>
+                                        
+                                        <div className='flex mt-3 ml-7'>
+                                            <div className='bg-slate-300 hover:bg-slate-500  md:mr-3 cursor-pointer md:h-10 rounded-md md:p-1'
+                                                title='Go Back' onClick={() => navigate( -1 )}>
+                                                <IoIosArrowBack size={ 30 } />
+                                            </div>
+
+                                            <div className='bg-slate-300 hover:bg-slate-500 cursor-pointer md:h-10 rounded-md md:p-1'
+                                                 title='Go Forward' onClick={() => navigate( +1 )}>
+                                                <IoIosArrowForward size={ 30 } />
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </>
                                 :
                                 <>
                                     <p className='font-semibold ml-12 ems-text-res'>Employee Management System</p>
+                                
+                                    <div className='flex mt-3 ml-12'>
+                                            <div className='bg-slate-300 hover:bg-slate-500  mr-3 cursor-pointer h-9 rounded-md p-1'
+                                                title='Go Back' onClick={() => navigate( -1 )}>
+                                                <IoIosArrowBack size={ 25 }  />
+                                            </div>
+
+                                            <div className='bg-slate-300 hover:bg-slate-500 cursor-pointer h-9 rounded-md p-1'
+                                                 title='Go Forward' onClick={() => navigate( +1 )}>
+                                                <IoIosArrowForward size={ 25 } />
+                                            </div>
+                                    </div>
+
                                 </>
                         }
 
