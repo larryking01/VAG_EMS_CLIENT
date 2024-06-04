@@ -26,6 +26,15 @@
     background-color: var(--even-row-bg-col2);
 }
 
+
+.add-new-leave-session {
+    width: 70%;
+    /* text-align: center; */
+    margin-left: 15%;
+    margin-top: 1%;
+}
+
+
 .add-new-employee-form {
     width: 70%;
     /* text-align: center; */
@@ -74,7 +83,7 @@
 }
 
 .add-emp-btn {
-    width: 60%;
+    width: 100%;
     background-color: blue;
 }
 
@@ -201,7 +210,14 @@
         margin-bottom: 4%;
         width: 30%;
     }
-    
+
+    .add-new-leave-session {
+        width: 94%;
+        /* text-align: center; */
+        margin-left: 3%;
+        margin-top: 1%;
+    }
+        
 
     
     

@@ -77,14 +77,14 @@ const NavBar = ( ) => {
                                         </div>
                                         
                                         <div className='flex mt-3 ml-7'>
-                                            <div className='bg-slate-300 hover:bg-slate-500  md:mr-3 cursor-pointer md:h-10 rounded-md md:p-1'
+                                            <div className='bg-slate-300 hover:bg-slate-500  md:mr-3 cursor-pointer md:h-8 rounded-md md:p-1'
                                                 title='Go Back' onClick={() => navigate( -1 )}>
-                                                <IoIosArrowBack size={ 30 } />
+                                                <IoIosArrowBack size={ 25 } />
                                             </div>
 
-                                            <div className='bg-slate-300 hover:bg-slate-500 cursor-pointer md:h-10 rounded-md md:p-1'
+                                            <div className='bg-slate-300 hover:bg-slate-500 cursor-pointer md:h-8 rounded-md md:p-1'
                                                  title='Go Forward' onClick={() => navigate( +1 )}>
-                                                <IoIosArrowForward size={ 30 } />
+                                                <IoIosArrowForward size={ 25 } />
                                             </div>
                                         </div>
 
@@ -95,12 +95,12 @@ const NavBar = ( ) => {
                                     <p className='font-semibold ml-12 ems-text-res'>Employee Management System</p>
                                 
                                     <div className='flex mt-3 ml-12'>
-                                            <div className='bg-slate-300 hover:bg-slate-500  mr-3 cursor-pointer h-9 rounded-md p-1'
+                                            <div className='bg-slate-300 hover:bg-slate-500  mr-3 cursor-pointer h-8 rounded-md p-1'
                                                 title='Go Back' onClick={() => navigate( -1 )}>
                                                 <IoIosArrowBack size={ 25 }  />
                                             </div>
 
-                                            <div className='bg-slate-300 hover:bg-slate-500 cursor-pointer h-9 rounded-md p-1'
+                                            <div className='bg-slate-300 hover:bg-slate-500 cursor-pointer h-8 rounded-md p-1'
                                                  title='Go Forward' onClick={() => navigate( +1 )}>
                                                 <IoIosArrowForward size={ 25 } />
                                             </div>
