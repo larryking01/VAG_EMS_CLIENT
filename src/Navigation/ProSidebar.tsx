@@ -35,7 +35,7 @@ const ProSidebar = ( ) => {
                     <MenuItem component={ <Link to='/add-new-employee' /> } icon={ <IoPersonAdd /> }>Add New Employee</MenuItem>
                     <MenuItem component={ <Link to='/view-all-employees' /> } icon={ <BsPeopleFill /> }>View All Employees</MenuItem>
                     <SubMenu label="Manage Leave/Pass" icon={ <FaUserEdit /> }>
-                        <MenuItem icon={ <FaUserEdit /> }>Create Leave Session</MenuItem>
+                        <MenuItem component={ <Link to='/create-leave-session' /> } icon={ <FaUserEdit /> }>Create Leave Session</MenuItem>
                         <MenuItem icon={ <MdDelete /> }>View Employees on Leave/Pass </MenuItem>
                     </SubMenu>
                     <SubMenu label="Manage National Service" icon={ <FaUserEdit /> }>

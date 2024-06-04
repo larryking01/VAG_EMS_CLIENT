@@ -253,6 +253,7 @@ const AddNewEmployee = ( ) => {
                         :
                         <h4 className='add-employee-header font-semibold italic'>Add New Employee</h4>
                 }
+                
                 <Form className='add-new-employee-form' onSubmit={ AddNewEmployee }>
                     <Row xs={ 1 } md={ 2 }>
                         <Col className='add-employee-form-input-row'>

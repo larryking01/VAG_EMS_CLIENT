@@ -151,7 +151,7 @@ const Dashboard = ( ) => {
                     <h4 className='text-center mb-3 font-semibold italic dashboard-section-res'>Dashboard</h4>
                     <Row xs={ 1 } md={ 3 } className='sm:mb-2 md:mb-4'>
                         <Col className='dashboard-content-res-mb'>
-                            <div className='dashboard-content-hover-effect flex justify-around py-10 bg-blue-200 rounded-md'>
+                            <div className='dashboard-content-hover-effect flex justify-around py-10 bg-slate-200 rounded-md'>
                                 <BsFillPeopleFill  size={ 50 }/>
                                 <div>
                                     <h6 className='font-semibold text-lg title-text-res'>Total Employees</h6>   
@@ -161,7 +161,7 @@ const Dashboard = ( ) => {
                         </Col>
 
                         <Col className='dashboard-content-res-mb'>
-                            <div className='dashboard-content-hover-effect flex justify-around py-10 bg-green-200 rounded-md'>
+                            <div className='dashboard-content-hover-effect flex justify-around py-10 bg-slate-200 rounded-md'>
                                 <BsFillPeopleFill  size={ 50 }/>
                                 <div>
                                     <h6 className='font-semibold text-lg title-text-res'>Male</h6>   
@@ -172,7 +172,7 @@ const Dashboard = ( ) => {
 
 
                         <Col className='dashboard-content-res-mb'>
-                            <div className='dashboard-content-hover-effect flex justify-around py-10 bg-red-200 rounded-md'>
+                            <div className='dashboard-content-hover-effect flex justify-around py-10 bg-slate-200 rounded-md'>
                                 <SlUserFemale  size={ 50 }/>
                                 <div>
                                     <h6 className='font-semibold text-lg title-text-res'>Female</h6>   
@@ -185,7 +185,7 @@ const Dashboard = ( ) => {
 
                     <Row xs={ 1 } md={ 3 } className='mb-4'>
                         <Col className='dashboard-content-res-mb'>
-                            <div className='dashboard-content-hover-effect flex justify-around py-10 bg-yellow-200 rounded-md'>
+                            <div className='dashboard-content-hover-effect flex justify-around py-10 bg-slate-200 rounded-md'>
                                 <BsFillPeopleFill  size={ 50 }/>
                                 <div>
                                     <h6 className='font-semibold text-lg title-text-res'>Civilian</h6>   
@@ -195,7 +195,7 @@ const Dashboard = ( ) => {
                         </Col>
 
                         <Col className='dashboard-content-res-mb'>
-                            <div className='dashboard-content-hover-effect flex justify-around py-10 bg-purple-200 rounded-md'>
+                            <div className='dashboard-content-hover-effect flex justify-around py-10 bg-slate-200 rounded-md'>
                                 <BsFillPeopleFill  size={ 50 }/>
                                 <div>
                                     <h6 className='font-semibold text-lg title-text-res'>Military</h6>   
