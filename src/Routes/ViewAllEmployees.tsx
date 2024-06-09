@@ -96,7 +96,7 @@ const ViewAllEmployees = ( ) => {
                 <ProSidebar />
             </div>
 
-            <div style={{ width: '94%' }}>
+            <div style={{ width: '94%' }} className='main_content_styling'>
                 <h4 className='mt-4 ml-4 md:text-center font-semibold italic'>List Of Employees</h4>
                 {
                     loadingAllEmployees === true ?

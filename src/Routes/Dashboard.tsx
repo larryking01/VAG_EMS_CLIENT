@@ -5,7 +5,6 @@ import person_colour from '../Static Files/person-color.png'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { BsFillPeopleFill } from "react-icons/bs";
-import { SlUserFemale } from "react-icons/sl";
 
 
 
@@ -131,9 +130,8 @@ const Dashboard = ( ) => {
         <div className='flex'>
             <ProSidebar />
 
-            <div className='w-full'>
+            <div className='main_content_styling'>
                 <section className='mt-4'>
-                    {/* <h3 className='text-center'>Dashboard</h3> */}
                     <div className='flex justify-between mx-3 bg-slate-200 p-1 shadow-md'>
                         <div className='flex mx-auto'>
                             <img src={ person_colour } width={ 30 } alt='' />
@@ -148,7 +146,7 @@ const Dashboard = ( ) => {
 
 
                 <section className='mx-3 mt-3 '>
-                    <h4 className='text-center mb-3 font-semibold italic dashboard-section-res'>Dashboard</h4>
+                    <h4 className='page-header-text mb-3 dashboard-section-res'>Dashboard</h4>
                     <Row xs={ 1 } md={ 3 } className='sm:mb-2 md:mb-4'>
                         <Col className='dashboard-content-res-mb'>
                             <div className='dashboard-content-hover-effect flex justify-around py-10 bg-slate-200 rounded-md'>
@@ -173,7 +171,7 @@ const Dashboard = ( ) => {
 
                         <Col className='dashboard-content-res-mb'>
                             <div className='dashboard-content-hover-effect flex justify-around py-10 bg-slate-200 rounded-md'>
-                                <SlUserFemale  size={ 50 }/>
+                                <BsFillPeopleFill  size={ 50 }/>
                                 <div>
                                     <h6 className='font-semibold text-lg title-text-res'>Female</h6>   
                                     <h5 className='font-bold text-2xl'>{ femaleStaff.length > 0 ? femaleStaff.length : 0 }</h5> 

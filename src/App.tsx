@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 // routing
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
+
 // local modules.
 import NavBar from './Navigation/Navbar'
 import Dashboard from './Routes/Dashboard'
@@ -30,7 +31,6 @@ const App = ( ) => {
     <div>
       <BrowserRouter>
           <NavBar />
-
           <Routes>
             <Route path='/' element={ <Dashboard /> } />
             <Route path='/add-new-employee' element={ <AddNewEmployee /> } />
