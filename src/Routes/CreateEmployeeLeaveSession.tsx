@@ -1,4 +1,9 @@
 import { useState } from 'react'
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+// import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
+import { DatePicker } from '@mui/x-date-pickers'
+import { Dayjs } from 'dayjs'
 import ProSidebar from "../Navigation/ProSidebar"
 import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row'
@@ -7,6 +12,10 @@ import InputGroup from 'react-bootstrap/InputGroup'
 import { IoPerson } from "react-icons/io5"
 import Button from 'react-bootstrap/Button'
 // import FloatingLabel from 'react-bootstrap/FloatingLabel'
+
+
+
+
 
 
 
@@ -23,9 +32,13 @@ const CreateEmployeeLeaveSession = ( ) => {
     const [ leaveEmployeeContactNumber, setLeaveEmployeeContactNumber ] = useState('')
     const [ employeeLeaveType, setEmployeeLeaveType] = useState('') 
     const [ reasonForLeave, setReasonForLeave ] = useState('')
-    const [ leaveStartDate, setLeaveStartDate ] = useState('')
-    const [ leaveEndDate, setLeaveEndDate ] = useState('')
-    
+    const [ leaveStartDate, setLeaveStartDate ] = useState<Dayjs | null>( null )
+    const [ leaveEndDate, setLeaveEndDate ] = useState<Dayjs | null>( null )
+    const [ leaveStartDateString, setLeaveStartDateString ] = useState<string>('')
+    const [ leaveEndDateString, setLeaveEndDateString ] = useState<string>('')
+
+
+
 
     const UpdateLeaveEmployeeID = ( event: any ) => {
         setLeaveEmployeeID( event.target.value )
@@ -55,18 +68,40 @@ const CreateEmployeeLeaveSession = ( ) => {
         setReasonForLeave( event.target.value )
     }
 
-    const UpdateLeaveEmployeeStartDate = ( event: any ) => {
-        setLeaveStartDate( event.target.value )
+    const UpdateLeaveEmployeeStartDate = ( date: Dayjs | null ) => {
+        setLeaveStartDate( date )
+        if ( date ) {
+            const formattedDate = date.format('DD-MM-YYYY') // Customize the format as needed
+            setLeaveStartDateString( formattedDate )
+            console.log( leaveStartDateString )
+          }
     }
 
-    const UpdateLeaveEmployeeEndDate = ( event: any ) => {
-        setLeaveEndDate( event.target.value )
+    const UpdateLeaveEmployeeEndDate = ( date: Dayjs | null ) => {
+        setLeaveEndDate( date )
+        if ( date ) {
+            const formattedDate = date.format('DD-MM-YYYY') // Customize the format as needed
+            setLeaveEndDateString( formattedDate )
+            console.log( leaveEndDateString )
+          }
     }
 
 
     const HandleCreateLeavePeriod = ( event: any ) => {
         event?.preventDefault()
-        alert('leave created')
+        
+        let new_leave_object = {
+            vagEmployeeID: leaveEmployeeID.trim(),
+            employeeFirstName: leaveEmployeeFirstName.trim(),
+            // employeeOtherNames: { type: String, required: false },
+            employeeLastName: leaveEmployeeLastName.trim(),
+            leaveStartDate: leaveStartDateString,
+            leaveEndDate: leaveEndDateString,
+            typeOfLeave: employeeLeaveType,
+            reasonForLeave: reasonForLeave
+        }
+
+        console.log( new_leave_object )
     }
 
 
@@ -79,10 +114,10 @@ const CreateEmployeeLeaveSession = ( ) => {
         <div className='flex'>
             <ProSidebar />
 
-            <div className='w-full'>
-                <h4 className='add-employee-header font-semibold italic'>Create Employee Leave Session</h4>
+            <div className='main_content_styling'>
+                <h4 className='page-header-text'>Create Employee Leave Session</h4>
 
-                <Form className='add-new-leave-session mt-3' onSubmit={ HandleCreateLeavePeriod }>
+                <Form className='add-user-form-styling extra-form-styling mt-3' onSubmit={ HandleCreateLeavePeriod }>
                     <Row xs={ 1 } md={ 2 }>
                         <Col>
                             <Form.Label className='text-slate-500'> Employee ID *</Form.Label>
@@ -131,13 +166,14 @@ const CreateEmployeeLeaveSession = ( ) => {
                             </InputGroup>
                         </Col>
 
+
                         <Col className='mb-2'>
                             <Form.Label className='text-slate-500'> Type Of Leave/Pass *</Form.Label>
                             <InputGroup>
                                 <Form.Select required onChange={ UpdateLeaveEmployeeLeaveType } value={ employeeLeaveType }>
-                                    <option>Select Leave/Pass Type</option>
-                                    <option value='Annual Leave'>Annual Leave</option>
-                                    <option value='Sick Leave'>Sick Leave</option>
+                                    <option id='--Select--'>--Select--</option>
+                                    <option id='Annual Leave'>Annual Leave</option>
+                                    <option id='Sick Leave'>Sick Leave</option>
                                 </Form.Select>
                             </InputGroup>
                         </Col>
@@ -147,19 +183,24 @@ const CreateEmployeeLeaveSession = ( ) => {
 
                     <Row xs={ 1 } md={ 2 }>
                         <Col className='mb-2'>
-                            <Form.Label className='text-slate-500'> Leave Start Date *</Form.Label>
-                            <InputGroup>
-                                <Form.Control required type='text' aria-label='Leave Start Date' onChange={ UpdateLeaveEmployeeStartDate } value={ leaveStartDate } />
-                                <InputGroup.Text> <IoPerson /> </InputGroup.Text>
-                            </InputGroup>
+                            <label className='label_styling'>Leave Start Date *</label>
+                            <LocalizationProvider dateAdapter={ AdapterDayjs }>
+                                <DatePicker className='datepicker_styling' 
+                                    onChange={ UpdateLeaveEmployeeStartDate } 
+                                    value={ leaveStartDate }
+                                />
+                            </LocalizationProvider>
                         </Col>
+                        
 
                         <Col className='mb-2'>
-                            <Form.Label className='text-slate-500'> Leave End Date *</Form.Label>
-                            <InputGroup>
-                                <Form.Control required type='text' aria-label='Leave End Date' onChange={ UpdateLeaveEmployeeEndDate } value={ leaveEndDate } />
-                                <InputGroup.Text> <IoPerson /> </InputGroup.Text>
-                            </InputGroup>
+                            <label className='label_styling'>Leave Start Date *</label>
+                            <LocalizationProvider dateAdapter={ AdapterDayjs }>
+                                <DatePicker className='datepicker_styling' 
+                                    onChange={ UpdateLeaveEmployeeEndDate } 
+                                    value={ leaveEndDate }
+                                />
+                            </LocalizationProvider>
                         </Col>
                     </Row>
 

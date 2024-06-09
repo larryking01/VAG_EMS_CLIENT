@@ -27,22 +27,23 @@
 }
 
 
-.add-new-leave-session {
+/* .add-new-leave-session {
+    width: 70%;
+    text-align: center;
+    margin-left: 15%;
+    margin-top: 1%;
+} */
+
+
+.add-user-form-styling {
     width: 70%;
     /* text-align: center; */
     margin-left: 15%;
     margin-top: 1%;
+    background-color: white;
 }
 
-
-.add-new-employee-form {
-    width: 70%;
-    /* text-align: center; */
-    margin-left: 15%;
-    margin-top: 1%;
-}
-
-.add-employee-header {
+.page-header {
     text-align: center;
     margin-top: 1%;
 }
@@ -111,9 +112,39 @@
     margin-bottom: 3%;
 }
 
+.datepicker_styling {
+    width: 100%;
+    height: 40%;
+}
+
 /* .ems-text-md-screen {
     margin-left: 24rem;
 } */
+
+
+/* tailwind reusable styling */
+@layer base {
+    .main_content_styling {
+        @apply w-full bg-gray-100;
+    }
+
+    .label_styling {
+        @apply text-slate-500;
+    }
+
+    .extra-form-styling {
+        @apply rounded-md bg-white p-4 mb-6 shadow-md;
+    }
+
+    .page-header-text {
+        @apply text-center font-semibold italic mt-5;
+    }
+}
+
+
+
+
+
 
 
 /* responsive styling */
@@ -227,3 +258,7 @@
 
 
 }
+
+
+
+
