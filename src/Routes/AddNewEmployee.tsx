@@ -3,6 +3,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import { DatePicker } from '@mui/x-date-pickers'
+import { Dayjs } from 'dayjs'
 
 import ProSidebar from "../Navigation/ProSidebar"
 import Form from 'react-bootstrap/Form'
@@ -19,7 +20,7 @@ import { HiMiniBuildingOffice } from "react-icons/hi2"
 import { SiOnlyoffice } from "react-icons/si"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
-import { Dayjs } from 'dayjs'
+// import { IoKey } from "react-icons/io5"
 
 
 
@@ -390,7 +391,7 @@ const AddNewEmployee = ( ) => {
                         </Col>
                     </Row>
 
-                    <Row xs={ 1 } md={ 2 }>
+                    <Row xs={ 1 } md={ 2 } className='add-user-form-last-row'>
                         <Col className='add-employee-form-input-row'>
                             <label className='label_styling'>SSNIT No. *</label>
                             <InputGroup>
@@ -411,7 +412,7 @@ const AddNewEmployee = ( ) => {
 
                     <Row>
                         <div>
-                            <Button type='submit' variant='primary' aria-label='Save Employee' className='add-emp-btn' >
+                            <Button type='submit' variant='custom' aria-label='Save Employee' className='add-emp-btn' style={{ backgroundColor: 'rgb(3 7 18)', color: 'white' }} >
                                 Save New Employee
                             </Button>
                             { formSubmitError === true ? <p className='form-submit-error-text italic'>{ errorText }</p> : null }

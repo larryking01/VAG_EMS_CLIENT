@@ -67,7 +67,7 @@ const ProSidebar = ( ) => {
                         <MenuItem icon={ <MdDelete /> }>View Employees on Leave/Pass </MenuItem>
                     </SubMenu>
                     <SubMenu label="Manage NSPs" icon={ <FaUserEdit /> }>
-                        <MenuItem icon={ <FaUserEdit /> }>Add NSP</MenuItem>
+                        <MenuItem component={ <Link to='/add-new-nsp' /> } icon={ <FaUserEdit /> }>Add NSP</MenuItem>
                         <MenuItem icon={ <MdDelete /> }>View All NSPs</MenuItem>
                     </SubMenu>
                 </Menu>
