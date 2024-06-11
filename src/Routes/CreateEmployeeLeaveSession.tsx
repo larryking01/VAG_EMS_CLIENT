@@ -213,7 +213,9 @@ const CreateEmployeeLeaveSession = ( ) => {
                     </Row>
 
                     <Row>
-                        <Button variant='primary' type='submit'>Create Leave Period</Button>
+                        <Button variant='custom' type='submit' style={{ backgroundColor: 'rgb(3 7 18)', color: 'white' }}>
+                            Create Leave Period
+                        </Button>
                     </Row>
                 </Form>
             </div>

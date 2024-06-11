@@ -15,6 +15,7 @@ import ProSidebar from './Navigation/ProSidebar'
 import UpdateEmployeeDetails from './Routes/UpdateEmployeeDetails'
 import NotFound from './Routes/NotFound'
 import CreateEmployeeLeaveSession from './Routes/CreateEmployeeLeaveSession'
+import AddNewNSP from './Routes/AddNewNSP'
 
 
 
@@ -38,6 +39,7 @@ const App = ( ) => {
             <Route path='/fetch-employee-details/:empID' element={ <FetchEmployeeDetails /> } />
             <Route path='/update-employee-details/:empID' element={ <UpdateEmployeeDetails /> } />
             <Route path='/create-leave-session' element={ <CreateEmployeeLeaveSession /> } />
+            <Route path='/add-new-nsp' element={ <AddNewNSP /> } />
             <Route path='/sidebar' element={ <ProSidebar /> } />
             <Route path='*' element={ <NotFound /> } />
           </Routes>
