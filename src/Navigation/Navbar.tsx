@@ -54,13 +54,15 @@ const NavBar = ( ) => {
                         {
                             mobileScreen === false ?
                                 <>
-                                    <img src={ vag_logo } width='50' className="rounded-full d-inline-block" alt='vag logo' /> {''} 
+                                    <img src={ vag_logo } width='50' className="cursor-pointer rounded-full d-inline-block" 
+                                         alt='vag logo' onClick={() => navigate('/') } /> {''} 
                                     <h4 className='mt-3 ml-2 font-semibold'>Veterans Administration, Ghana (VAG)</h4>
                                 </>
                                 :
                                 <>
                                     <div className='flex'>
-                                        <img src={ vag_logo } width='40' className="rounded-full d-inline-block" alt='vag logo' />
+                                        <img src={ vag_logo } width='40' className="cursor-pointer rounded-full d-inline-block" 
+                                             alt='vag logo' onClick={() => navigate('/') } />
                                         <h4 className='mt-3 ml-2 font-semibold vag-header-text-res'>Veterans Administration, Ghana (VAG)</h4>
                                     </div>
                                 </>

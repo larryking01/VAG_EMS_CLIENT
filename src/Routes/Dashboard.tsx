@@ -14,6 +14,13 @@ import { BsFillPeopleFill } from "react-icons/bs";
 
 const Dashboard = ( ) => {
 
+    // server urls
+    // dev_server = import.meta.env.VITE_DEV_SERVER_URL
+    // online_server = import.meta.env.VITE_PROD_SERVER_URL
+    let server_url = import.meta.env.VITE_PROD_SERVER_URL
+    
+
+
     // setting up state
     const [ date, setDate ] = useState('')
     const [ totalStaff, setTotalStaff ] = useState([ ])
@@ -32,7 +39,7 @@ const Dashboard = ( ) => {
     // effect hook to fetch total staff
     useEffect(() => {
         const FetchAllStaff = async ( ) => {
-            let response = await fetch(`${ import.meta.env.VITE_PROD_SERVER_URL }/get/fetch-all-employees`, {
+            let response = await fetch(`${ server_url }/get/fetch-all-employees`, {
                 method: 'GET'
             })
             if( response.status === 200 ) {
@@ -51,11 +58,13 @@ const Dashboard = ( ) => {
     // effect hook to fetch all military staff.
     useEffect(() => {
         const FetchAllMilitaryStaff = async ( ) => {
-            let response = await fetch(`${ import.meta.env.VITE_PROD_SERVER_URL }/get/fetch-military-staff`, {
-                method: 'GET'
+            let response = await fetch(`${ server_url }/get/fetch-military-staff`, {
+                method: 'GET',
             })
             if( response.status === 200 ) {
+                // console.log( response.json())
                 let totalMilitaryStaff = await response.json()
+                console.log( totalMilitaryStaff )
                 setMilitaryStaff( totalMilitaryStaff )
             }
             else {
@@ -70,7 +79,7 @@ const Dashboard = ( ) => {
     // effect hook to fetch all civilian staff.
     useEffect(() => {
         const FetchAllCivilianStaff = async ( ) => {
-            let response = await fetch(`${ import.meta.env.VITE_PROD_SERVER_URL }/get/fetch-civilian-staff`, {
+            let response = await fetch(`${ server_url }/get/fetch-civilian-staff`, {
                 method: 'GET'
             })
             if( response.status === 200 ) {
@@ -89,7 +98,7 @@ const Dashboard = ( ) => {
     // effect hook to fetch all male staff.
     useEffect(() => {
         const FetchAllMaleStaff = async ( ) => {
-            let response = await fetch(`${ import.meta.env.VITE_PROD_SERVER_URL }/get/fetch-male-staff`, {
+            let response = await fetch(`${ server_url }/get/fetch-male-staff`, {
                 method: 'GET'
             })
             if( response.status === 200 ) {
@@ -108,7 +117,7 @@ const Dashboard = ( ) => {
     // effect hook to fetch all female staff.
     useEffect(() => {
         const FetchAllFeMaleStaff = async ( ) => {
-            let response = await fetch(`${ import.meta.env.VITE_PROD_SERVER_URL }/get/fetch-female-staff`, {
+            let response = await fetch(`${ server_url }/get/fetch-female-staff`, {
                 method: 'GET'
             })
             if( response.status === 200 ) {
@@ -152,7 +161,7 @@ const Dashboard = ( ) => {
                             <div className='dashboard-content-hover-effect dashboard-object-styling'>
                                 <BsFillPeopleFill  size={ 50 }/>
                                 <div>
-                                    <h6 className='font-semibold text-lg title-text-res'>Total Employees</h6>   
+                                    <h6 className='font-semibold text-lg title-text-res'>Total Staff</h6>   
                                     <h5 className='font-bold text-2xl'>{ totalStaff.length > 0 ? totalStaff.length : 0 }</h5> 
                                 </div>
                             </div>
@@ -162,7 +171,7 @@ const Dashboard = ( ) => {
                             <div className='dashboard-content-hover-effect dashboard-object-styling'>
                                 <BsFillPeopleFill  size={ 50 }/>
                                 <div>
-                                    <h6 className='font-semibold text-lg title-text-res'>Male</h6>   
+                                    <h6 className='font-semibold text-lg title-text-res'>Male Staff</h6>   
                                     <h5 className='font-bold text-2xl'>{ maleStaff.length > 0 ? maleStaff.length : 0 }</h5> 
                                 </div>
                             </div>
@@ -173,7 +182,7 @@ const Dashboard = ( ) => {
                             <div className='dashboard-content-hover-effect dashboard-object-styling'>
                                 <BsFillPeopleFill  size={ 50 }/>
                                 <div>
-                                    <h6 className='font-semibold text-lg title-text-res'>Female</h6>   
+                                    <h6 className='font-semibold text-lg title-text-res'>Female Staff</h6>   
                                     <h5 className='font-bold text-2xl'>{ femaleStaff.length > 0 ? femaleStaff.length : 0 }</h5> 
                                 </div>
                             </div>
@@ -186,7 +195,7 @@ const Dashboard = ( ) => {
                             <div className='dashboard-content-hover-effect dashboard-object-styling'>
                                 <BsFillPeopleFill  size={ 50 }/>
                                 <div>
-                                    <h6 className='font-semibold text-lg title-text-res'>Civilian</h6>   
+                                    <h6 className='font-semibold text-lg title-text-res'>Civilian Staff</h6>   
                                     <h5 className='font-bold text-2xl'>{ civilianStaff.length > 0 ? civilianStaff.length : 0 }</h5> 
                                 </div>
                             </div>
@@ -196,30 +205,15 @@ const Dashboard = ( ) => {
                             <div className='dashboard-content-hover-effect dashboard-object-styling'>
                                 <BsFillPeopleFill  size={ 50 }/>
                                 <div>
-                                    <h6 className='font-semibold text-lg title-text-res'>Military</h6>   
+                                    <h6 className='font-semibold text-lg title-text-res'>Military Staff</h6>   
                                     <h5 className='font-bold text-2xl'>{ militaryStaff.length > 0 ? militaryStaff.length : 0 }</h5> 
                                 </div>
                             </div>
                         </Col>
 
-
-                        {/* <Col>
-                            <div className='flex justify-around py-10 bg-red-400'>
-                                <BsFillPeopleFill  size={ 60 }/>
-                                <div>
-                                    <h6 className='font-semibold text-lg'>Civilian Staff</h6>   
-                                    <h5 className='font-bold text-2xl'>125</h5> 
-                                </div>
-                            </div>
-                        </Col> */}
                     </Row>
 
                 </section>
-
-
-
-
-
 
             </div>
 
