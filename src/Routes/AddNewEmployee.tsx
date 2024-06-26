@@ -31,6 +31,11 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 const AddNewEmployee = ( ) => {
 
+    // server urls
+    // dev_server = import.meta.env.VITE_DEV_SERVER_URL
+    // online_server = import.meta.env.VITE_PROD_SERVER_URL
+    let server_url = import.meta.env.VITE_PROD_SERVER_URL
+
     // setting up state.
     const [ vagEmployeeID, setVagEmployeeID ] = useState<string>('')
     const [ firstName, setFirstName ] = useState<string>('')
@@ -154,7 +159,6 @@ const AddNewEmployee = ( ) => {
         // console.log('date of employment is ', dateOfEmploymentString )
         event.preventDefault()
         setFormSubmitError( false )
-        setAddingEmployee( true )
         if( dateOfBirth === null ) {
             setFormSubmitError( true )
             setErrorText('Date of birth is required *')
@@ -172,6 +176,7 @@ const AddNewEmployee = ( ) => {
             setErrorText('The type of employment is required')
         }
         else {
+        setAddingEmployee( true )
         let newEmployee = {
             vagEmployeeID: vagEmployeeID.trim(),
             firstName: firstName.trim().toUpperCase(),
@@ -193,7 +198,7 @@ const AddNewEmployee = ( ) => {
 
         console.log( newEmployee )
         // adding the new employee to the database.
-        let response = await fetch( `${ import.meta.env.VITE_DEV_SERVER_URL }/post/add-new-employee`, {
+        let response = await fetch( `${ server_url }/post/add-new-employee`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -244,7 +249,7 @@ const AddNewEmployee = ( ) => {
                             <FontAwesomeIcon icon={ faSpinner } className='text-center' size='1x' spinPulse color='#808080' />
                         </div>
                         :
-                        <h4 className='page-header-text'>Add New Employee</h4>
+                        <h4 className='page-header-text'>Employee Enrollment: Add New Staff</h4>
                 }
                 
                 <Form className='add-user-form-styling extra-form-styling' onSubmit={ AddNewEmployee }>

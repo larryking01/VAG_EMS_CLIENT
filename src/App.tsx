@@ -16,7 +16,8 @@ import UpdateEmployeeDetails from './Routes/UpdateEmployeeDetails'
 import NotFound from './Routes/NotFound'
 import CreateEmployeeLeaveSession from './Routes/CreateEmployeeLeaveSession'
 import AddNewNSP from './Routes/AddNewNSP'
-
+import ViewAllEmployeesOnLeave from './Routes/ViewEmployeesOnLeave'
+import ViewAllNSPs from './Routes/ViewAllNSPs'
 
 
 
@@ -34,13 +35,16 @@ const App = ( ) => {
           <NavBar />
           <Routes>
             <Route path='/' element={ <Dashboard /> } />
-            <Route path='/add-new-employee' element={ <AddNewEmployee /> } />
-            <Route path='/view-all-employees' element={ <ViewAllEmployees /> } />
+            <Route path='/employee-enrollment' element={ <AddNewEmployee /> } />
+            <Route path='/employee-roster' element={ <ViewAllEmployees /> } />
             <Route path='/fetch-employee-details/:empID' element={ <FetchEmployeeDetails /> } />
             <Route path='/update-employee-details/:empID' element={ <UpdateEmployeeDetails /> } />
-            <Route path='/create-leave-session' element={ <CreateEmployeeLeaveSession /> } />
-            <Route path='/add-new-nsp' element={ <AddNewNSP /> } />
+            <Route path='/nsp-enrollment' element={ <AddNewNSP /> } />
+            <Route path='/nsp-roster' element={ <ViewAllNSPs /> } />
+            <Route path='/pass-request' element={ <CreateEmployeeLeaveSession /> } />
+            <Route path='/employee-pass-log' element={ <ViewAllEmployeesOnLeave /> } />
             <Route path='/sidebar' element={ <ProSidebar /> } />
+            <Route path='/navbar' element={ <NavBar /> } />
             <Route path='*' element={ <NotFound /> } />
           </Routes>
       </BrowserRouter>

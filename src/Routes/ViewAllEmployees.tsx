@@ -13,6 +13,12 @@ import SpinLoading from '../Navigation/SpinLoading'
 
 
 const ViewAllEmployees = ( ) => {
+
+    // server urls
+    // dev_server = import.meta.env.VITE_DEV_SERVER_URL
+    // online_server = import.meta.env.VITE_PROD_SERVER_URL
+    let server_url = import.meta.env.VITE_PROD_SERVER_URL
+
     const navigate = useNavigate()
 
     // setting up state.
@@ -23,7 +29,7 @@ const ViewAllEmployees = ( ) => {
     // effect hook to fetch all employees.
     useEffect(() => {
         const FetchAllEmployees = async () => {
-            let response = await fetch( `${ import.meta.env.VITE_PROD_SERVER_URL }/get/fetch-all-employees`, {
+            let response = await fetch( `${ server_url }/get/fetch-all-employees`, {
                 method: 'GET'
             })
             if( response.status === 200 ) {
@@ -97,12 +103,12 @@ const ViewAllEmployees = ( ) => {
             </div>
 
             <div style={{ width: '94%' }} className='main_content_styling'>
-                <h4 className='mt-4 ml-4 md:text-center font-semibold italic'>List Of Employees</h4>
+                <h4 className='mt-4 ml-4 md:text-center font-semibold italic'>Employee Roster: Workforce Details</h4>
                 {
                     loadingAllEmployees === true ?
                     <SpinLoading />
                     :
-                    <div style={{ height: '80%', width: '100%', padding: '1%' }}>
+                    <div style={{ height: '80%', width: '97%', padding: '2%', marginLeft: '1%' }}>
                         <DataGrid 
                             sx={{ 
                                 boxShadow: 3, 

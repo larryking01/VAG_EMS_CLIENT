@@ -225,7 +225,7 @@ const UpdateEmployeeDetails = ( ) => {
             <div className='w-full'>
             {
                 Object.keys( targetEmployee ).length > 2 ? 
-                    <div>
+                    <div className='details-form'>
                         <h4 className='update-employee-details font-semibold italic'>Update Employee Details</h4>
                         <Form className='add-new-employee-form' onSubmit={ UpdateEmployeeDetails }>
                             <Row>

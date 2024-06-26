@@ -41,6 +41,7 @@ const AddNewNSP = ( ) => {
     const [ nssEndDate, setNssEndDate ] = useState<Dayjs | null>( null )
     const [ nssStartDateString, setNssStartDateString ] = useState<string>('')
     const [ nssEndDateString, setNssEndDateString ] = useState<string>('')
+    // const [ nspPhoto, setNspPhoto ] = useState<string>('')
 
 
     const UpdateNspUniqueID = ( event: any ) => {
@@ -95,10 +96,21 @@ const AddNewNSP = ( ) => {
 
 
     const HandleAddNewNSP = ( event: any ) => {
-        event.preventDefault()
+        event?.preventDefault()
 
         // let newNSP = {
-
+        //     uniqueNSPID: uniqueNssID,
+        //     nspFirstName: firstName,
+        //     nspLastName: lastName,
+        //     nspOtherNames: otherNames,
+        //     nspInstitutionAttended: universityAttended,
+        //     nspProgrammeStudied: programmeStudied,
+        //     nspPhoneNumber: phoneNumber,
+        //     nspEmail: email,
+        //     nssStartDate: nssStartDateString,
+        //     nssEndDate: nssEndDateString,
+        //     nspPhoto: nspPhoto
+        
         // }
 
 
@@ -111,7 +123,7 @@ const AddNewNSP = ( ) => {
             <ProSidebar />
 
             <div className='main_content_styling'>
-                <h4 className='page-header-text'>Add New National Service Personnel</h4>
+                <h4 className='page-header-text'>New NSP/Temp Staff: Registration Form</h4>
 
                 <Form onSubmit={ HandleAddNewNSP } className='add-user-form-styling extra-form-styling'>
                     <Row xs={ 1 } md={ 2 }>

@@ -21,6 +21,11 @@ import Button from 'react-bootstrap/Button'
 
 
 const CreateEmployeeLeaveSession = ( ) => {
+
+    // server urls
+    // dev_server = import.meta.env.VITE_DEV_SERVER_URL
+    // online_server = import.meta.env.VITE_PROD_SERVER_URL
+    let server_url = import.meta.env.VITE_PROD_SERVER_URL
     
 
     // initializing state.
@@ -36,6 +41,8 @@ const CreateEmployeeLeaveSession = ( ) => {
     const [ leaveEndDate, setLeaveEndDate ] = useState<Dayjs | null>( null )
     const [ leaveStartDateString, setLeaveStartDateString ] = useState<string>('')
     const [ leaveEndDateString, setLeaveEndDateString ] = useState<string>('')
+    const [ errorMessage, setErrorMessage ] = useState<string>('')
+    const [ error, setError ] = useState<boolean>( false )
 
 
 
@@ -61,14 +68,17 @@ const CreateEmployeeLeaveSession = ( ) => {
     }
 
     const UpdateLeaveEmployeeLeaveType = ( event: any ) => {
+        setError( false )
         setEmployeeLeaveType( event.target.value )
     }
 
     const UpdateLeaveEmployeeReasonForLeave = ( event: any ) => {
+        setError( true )
         setReasonForLeave( event.target.value )
     }
 
     const UpdateLeaveEmployeeStartDate = ( date: Dayjs | null ) => {
+        setError( false )
         setLeaveStartDate( date )
         if ( date ) {
             const formattedDate = date.format('DD-MM-YYYY') // Customize the format as needed
@@ -78,6 +88,7 @@ const CreateEmployeeLeaveSession = ( ) => {
     }
 
     const UpdateLeaveEmployeeEndDate = ( date: Dayjs | null ) => {
+        setError( false )
         setLeaveEndDate( date )
         if ( date ) {
             const formattedDate = date.format('DD-MM-YYYY') // Customize the format as needed
@@ -87,21 +98,66 @@ const CreateEmployeeLeaveSession = ( ) => {
     }
 
 
-    const HandleCreateLeavePeriod = ( event: any ) => {
+    const HandleCreateLeavePeriod = async ( event: any ) => {
         event?.preventDefault()
-        
-        let new_leave_object = {
-            vagEmployeeID: leaveEmployeeID.trim(),
-            employeeFirstName: leaveEmployeeFirstName.trim(),
-            // employeeOtherNames: { type: String, required: false },
-            employeeLastName: leaveEmployeeLastName.trim(),
-            leaveStartDate: leaveStartDateString,
-            leaveEndDate: leaveEndDateString,
-            typeOfLeave: employeeLeaveType,
-            reasonForLeave: reasonForLeave
-        }
 
+        if( employeeLeaveType === '' || employeeLeaveType === '--Select--' ) {
+            setError( true )
+            setErrorMessage('The type of leave is required')
+        }
+        else if( leaveStartDate === null ) {
+            setError( true )
+            setErrorMessage('The starting date of the leave is required')
+        }
+        else if( leaveEndDate === null ) {
+            setError( true )
+            setErrorMessage('The ending date of the leave is required')
+        }
+        else if( reasonForLeave === '' ) {
+            setError( true )
+            setErrorMessage('Enter the employee\'s reason for requesting a leave')
+        }
+        else {
+            let new_leave_object = {
+                vagEmployeeID: leaveEmployeeID.trim(),
+                employeeFirstName: leaveEmployeeFirstName.trim(),
+                // employeeOtherNames: { type: String, required: false },
+                employeeLastName: leaveEmployeeLastName.trim(),
+                leaveStartDate: leaveStartDateString,
+                leaveEndDate: leaveEndDateString,
+                typeOfLeave: employeeLeaveType,
+                reasonForLeave: reasonForLeave
+            }
+
+            // actually saving the leave record into the database.
+            let response = await fetch(`${ server_url }/post/create-employee-leave`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify( new_leave_object )
+            })
+
+            if( response.status === 200 ) {
+                alert('leave session created successfully...')
+                setLeaveEmployeeID('')
+                setLeaveEmployeeFirstName('')
+                setLeaveEmployeeLastName('')
+                setLeaveEmployeeDepartment('')
+                setLeaveEmployeeContactNumber('')
+                setEmployeeLeaveType('')
+                setLeaveStartDate( null )
+                setLeaveStartDateString('')
+                setLeaveEndDate( null )
+                setReasonForLeave('')
+            }
+
+
+    
         console.log( new_leave_object )
+        }
+        
+
     }
 
 
@@ -115,7 +171,7 @@ const CreateEmployeeLeaveSession = ( ) => {
             <ProSidebar />
 
             <div className='main_content_styling'>
-                <h4 className='page-header-text'>Create Employee Leave Session</h4>
+                <h4 className='page-header-text'>Leave/Pass Request Form: Employee Time Off</h4>
 
                 <Form className='add-user-form-styling extra-form-styling mt-3' onSubmit={ HandleCreateLeavePeriod }>
                     <Row xs={ 1 } md={ 2 }>
@@ -217,6 +273,14 @@ const CreateEmployeeLeaveSession = ( ) => {
                             Create Leave Period
                         </Button>
                     </Row>
+
+                    {   
+                        error === true ? 
+                            <p style={{ color: 'red'}}>{ errorMessage }</p> : null
+                    }
+
+
+
                 </Form>
             </div>
         </div>
