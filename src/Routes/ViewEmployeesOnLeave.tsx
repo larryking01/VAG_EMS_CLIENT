@@ -10,7 +10,7 @@ const ViewAllEmployeesOnLeave = ( ) => {
             <ProSidebar /> 
 
             <div style={{ width: '94%' }} className='main_content_styling'>
-                <h4 className='mt-4 ml-4 md:text-center font-semibold italic'>On Leave: Employee Pass Log</h4>
+                <h4 className='page-header-text'>On Leave: Employee Pass Log</h4>
             </div>
 
         </div>

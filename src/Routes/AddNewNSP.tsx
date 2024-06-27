@@ -16,6 +16,9 @@ import { FaUniversity } from "react-icons/fa"
 import { IoSchool } from "react-icons/io5"
 import { FaPhone } from "react-icons/fa"
 import { MdEmail } from "react-icons/md"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+
 // import { IoShieldCheckmarkSharp } from "react-icons/io5"
 
 
@@ -28,6 +31,11 @@ import { MdEmail } from "react-icons/md"
 
 
 const AddNewNSP = ( ) => {
+
+    // server urls
+    // dev_server = import.meta.env.VITE_DEV_SERVER_URL
+    // online_server = import.meta.env.VITE_PROD_SERVER_URL
+    let server_url = import.meta.env.VITE_PROD_SERVER_URL
 
     const [ uniqueNssID, setUniqueNssID ] = useState('')
     const [ firstName, setFirstName ] = useState('')
@@ -42,7 +50,7 @@ const AddNewNSP = ( ) => {
     const [ nssStartDateString, setNssStartDateString ] = useState<string>('')
     const [ nssEndDateString, setNssEndDateString ] = useState<string>('')
     // const [ nspPhoto, setNspPhoto ] = useState<string>('')
-
+    const [ addingNSP, setAddingNSP ] = useState<boolean>(false)
 
     const UpdateNspUniqueID = ( event: any ) => {
         setUniqueNssID( event.target.value )
@@ -95,24 +103,55 @@ const AddNewNSP = ( ) => {
     }
 
 
-    const HandleAddNewNSP = ( event: any ) => {
+    const HandleAddNewNSP = async ( event: any ) => {
         event?.preventDefault()
 
-        // let newNSP = {
-        //     uniqueNSPID: uniqueNssID,
-        //     nspFirstName: firstName,
-        //     nspLastName: lastName,
-        //     nspOtherNames: otherNames,
-        //     nspInstitutionAttended: universityAttended,
-        //     nspProgrammeStudied: programmeStudied,
-        //     nspPhoneNumber: phoneNumber,
-        //     nspEmail: email,
-        //     nssStartDate: nssStartDateString,
-        //     nssEndDate: nssEndDateString,
-        //     nspPhoto: nspPhoto
-        
-        // }
+        setAddingNSP( true )
+        let newNSP = {
+            uniqueNSPID: uniqueNssID,
+            nspFirstName: firstName,
+            nspLastName: lastName,
+            nspOtherNames: otherNames,
+            nspInstitutionAttended: universityAttended,
+            nspProgrammeStudied: programmeStudied,
+            nspPhoneNumber: phoneNumber,
+            nspEmail: email,
+            nssStartDate: nssStartDateString,
+            nssEndDate: nssEndDateString,
+            // nspPhoto: nspPhoto
+        }
 
+        let response = await fetch(`${ server_url }/post/add-new-nsp`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify( newNSP )
+        })
+
+        if( response.status === 200 ) {
+            alert('new nsp added successfully....')
+            setAddingNSP( false )
+            setUniqueNssID('')
+            setFirstName('')
+            setLastName('')
+            setOtherNames('')
+            setUniversityAttended('')
+            setProgrammeStudied('')
+            setPhoneNumber('')
+            setEmail('')
+            setNssStartDate( null )
+            setNssStartDateString('')
+            setNssEndDate( null )
+            setNssEndDateString('')
+            console.log( await response.json() )
+
+            }
+            else {
+                console.log('failed to add new nsp')
+                alert('failed to add new nsp')
+                setAddingNSP( false )
+            }
 
     }
 
@@ -123,14 +162,23 @@ const AddNewNSP = ( ) => {
             <ProSidebar />
 
             <div className='main_content_styling'>
-                <h4 className='page-header-text'>New NSP/Temp Staff: Registration Form</h4>
+                {
+                    addingNSP === true ?
+                        <div className='adding-emp-div'>
+                            <h5 className='page-header-text mb-1 text-blue-600 '>Saving New NSP to database...</h5>
+                            <FontAwesomeIcon icon={ faSpinner } className='text-center' size='1x' spinPulse color='#808080' />
+                        </div>
+                    :
+                        <h4 className='page-header-text'>New NSP/Temporary Staff: Registration Form</h4>
+
+                }
 
                 <Form onSubmit={ HandleAddNewNSP } className='add-user-form-styling extra-form-styling'>
                     <Row xs={ 1 } md={ 2 }>
                         <Col className='add-user-form-col-mb'>
                             <label>Unique National Service ID *</label>
                             <InputGroup>
-                                <Form.Control type='text' onChange={ UpdateNspUniqueID } value={ uniqueNssID } />
+                                <Form.Control type='text' required onChange={ UpdateNspUniqueID } value={ uniqueNssID } />
                                 <InputGroup.Text> <IoKey /> </InputGroup.Text>
                             </InputGroup>
                         </Col>
@@ -139,7 +187,7 @@ const AddNewNSP = ( ) => {
                         <Col className='add-user-form-col-mb'>
                             <label>First Name *</label>
                             <InputGroup>
-                                <Form.Control type='text' onChange={ UpdateFirstName } value={ firstName } />
+                                <Form.Control type='text' required onChange={ UpdateFirstName } value={ firstName } />
                                 <InputGroup.Text> <IoPerson /> </InputGroup.Text>
                             </InputGroup>
                         </Col>
@@ -150,7 +198,7 @@ const AddNewNSP = ( ) => {
                         <Col className='add-user-form-col-mb'>
                             <label>Last Name *</label>
                             <InputGroup>
-                                <Form.Control type='text' onChange={ UpdateLastName } value={ lastName } />
+                                <Form.Control type='text' required onChange={ UpdateLastName } value={ lastName } />
                                 <InputGroup.Text> <IoPerson /> </InputGroup.Text>
                             </InputGroup>
                         </Col>
@@ -159,7 +207,7 @@ const AddNewNSP = ( ) => {
                         <Col className='add-user-form-col-mb'>
                             <label>Other Name(s)</label>
                             <InputGroup>
-                                <Form.Control type='text' onChange={ UpdateOtherNames } value={ otherNames } />
+                                <Form.Control type='text' required onChange={ UpdateOtherNames } value={ otherNames } />
                                 <InputGroup.Text> <IoPerson /> </InputGroup.Text>
                             </InputGroup>
                         </Col>
@@ -170,7 +218,7 @@ const AddNewNSP = ( ) => {
                         <Col className='add-user-form-col-mb'>
                             <label>University/Institution Attended *</label>
                             <InputGroup>
-                                <Form.Control type='text' onChange={ UpdateUniversityAttended } value={ universityAttended } />
+                                <Form.Control type='text' required onChange={ UpdateUniversityAttended } value={ universityAttended } />
                                 <InputGroup.Text> <FaUniversity /> </InputGroup.Text>
                             </InputGroup>
                         </Col>
@@ -179,7 +227,7 @@ const AddNewNSP = ( ) => {
                         <Col className='add-user-form-col-mb'>
                             <label>Programme Studied *</label>
                             <InputGroup>
-                                <Form.Control type='text' onChange={ UpdateProgrammeStudied } value={ programmeStudied } />
+                                <Form.Control type='text' required onChange={ UpdateProgrammeStudied } value={ programmeStudied } />
                                 <InputGroup.Text> <IoSchool /> </InputGroup.Text>
                             </InputGroup>
                         </Col>
@@ -190,7 +238,7 @@ const AddNewNSP = ( ) => {
                         <Col className='add-user-form-col-mb'>
                             <label>Phone Number *</label>
                             <InputGroup>
-                                <Form.Control type='text' onChange={ UpdatePhoneNumber } value={ phoneNumber } />
+                                <Form.Control type='text' required onChange={ UpdatePhoneNumber } value={ phoneNumber } />
                                 <InputGroup.Text> <FaPhone /> </InputGroup.Text>
                             </InputGroup>
                         </Col>
@@ -199,7 +247,7 @@ const AddNewNSP = ( ) => {
                         <Col className='add-user-form-col-mb'>
                             <label>Email *</label>
                             <InputGroup>
-                                <Form.Control type='text' onChange={ UpdateEmail } value={ email } />
+                                <Form.Control type='text' required onChange={ UpdateEmail } value={ email } />
                                 <InputGroup.Text> <MdEmail /> </InputGroup.Text>
                             </InputGroup>
                         </Col>
@@ -227,7 +275,7 @@ const AddNewNSP = ( ) => {
 
 
                     <Row>
-                        <Button type='submit' variant='custom' style={{ backgroundColor: 'rgb(3 7 18)', color: 'white' }}>
+                        <Button type='submit' variant='custom' style={{ backgroundColor: '#4B49AC', color: 'white' }}>
                             Add National Service Personnel
                         </Button>
                     </Row>

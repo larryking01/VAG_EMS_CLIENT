@@ -5,7 +5,19 @@ export default {
     "./src/**/*.{tsx, ts}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        lora: ['Lora'],
+        heebo: ['Heebo'],
+        roboto: ['Roboto'],
+        poppins: ['Poppins'],
+        playfair: ['Playfair Display'],
+        lato: ['Lato'],
+        inter: ['Inter'],
+        robotoslab: ['Roboto Slab'],
+        merriweather: ['Merriweather']    
+      }
+    },
   },
   plugins: [],
 }

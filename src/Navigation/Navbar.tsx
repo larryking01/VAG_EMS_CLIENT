@@ -47,7 +47,7 @@ const NavBar = ( ) => {
 
     return (
         <div>
-            <Navbar className='bg-slate-50 shadow-md sm:h-24 md:h-20'>
+            <Navbar className='shadow-md sm:h-24 md:h-20'>
                 <Container>
                     <section className='navbar-wrapper-section-res'>
                     <Navbar.Brand className='flex sm:mt-3 md:mt-1'>
@@ -56,7 +56,7 @@ const NavBar = ( ) => {
                                 <>
                                     <img src={ vag_logo } width='50' className="cursor-pointer rounded-full d-inline-block" 
                                          alt='vag logo' onClick={() => navigate('/') } /> {''} 
-                                    <h4 className='mt-3 ml-2 font-semibold'>Veterans Administration, Ghana (VAG)</h4>
+                                    <h5 className='mt-2 ml-2 font-semibold'>Veterans Administration, Ghana (VAG)</h5>
                                 </>
                                 :
                                 <>
@@ -78,7 +78,7 @@ const NavBar = ( ) => {
                                             <p className='font-semibold mt-2 ml-80'>Employee Management System</p>
                                         </div>
                                         
-                                        <div className='flex mt-3 ml-7'>
+                                        <div className='flex mt-2 ml-7'>
                                             <div className='bg-slate-300 hover:bg-slate-500  md:mr-3 cursor-pointer md:h-8 rounded-md md:p-1'
                                                 title='Go Back' onClick={() => navigate( -1 )}>
                                                 <IoIosArrowBack size={ 25 } />

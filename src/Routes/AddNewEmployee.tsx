@@ -417,7 +417,7 @@ const AddNewEmployee = ( ) => {
 
                     <Row>
                         <div>
-                            <Button type='submit' variant='custom' aria-label='Save Employee' className='add-emp-btn' style={{ backgroundColor: 'rgb(3 7 18)', color: 'white' }} >
+                            <Button type='submit' variant='custom' aria-label='Save Employee' className='add-emp-btn' style={{ backgroundColor: '#4B49AC', color: 'white' }} >
                                 Save New Employee
                             </Button>
                             { formSubmitError === true ? <p className='form-submit-error-text italic'>{ errorText }</p> : null }

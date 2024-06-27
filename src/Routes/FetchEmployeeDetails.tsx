@@ -52,7 +52,7 @@ const FetchEmployeeDetails = ( ) => {
             <ProSidebar />
 
             <div className='w-full mt-4'>
-                <h3 className='text-center font-semibold italic'>View Employee Details </h3>
+                <h3 className='page-header-text'>View Employee Details </h3>
                 {
                     Object.keys( targetEmployee ).length > 2?
                         <div className='shadow-lg rounded-md display-emp-det-div'>
@@ -156,14 +156,15 @@ const FetchEmployeeDetails = ( ) => {
 
                             <div className='md:flex md:justify-between'>
                                 <div className='update-employee-btn'>
-                                    <Button type='button' variant='primary' 
+                                    <Button type='button' variant='custom' 
                                             aria-label='update employee details'
+                                            style={{ backgroundColor: '#4B49AC', color: 'white' }}
                                             onClick={() => navigate(`/update-employee-details/${ params.empID }`) }>
                                             Update Employee Details
                                     </Button>
                                 </div>
                                 <div>
-                                    <Button type='button' variant='primary' className=''>Other Action</Button>
+                                    <Button type='button' variant='custom' style={{ backgroundColor: '#4B49AC', color: 'white' }}>Other Action</Button>
                                 </div>
                             </div>
 
