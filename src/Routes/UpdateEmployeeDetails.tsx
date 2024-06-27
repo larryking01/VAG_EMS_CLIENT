@@ -226,7 +226,7 @@ const UpdateEmployeeDetails = ( ) => {
             {
                 Object.keys( targetEmployee ).length > 2 ? 
                     <div className='details-form'>
-                        <h4 className='update-employee-details font-semibold italic'>Update Employee Details</h4>
+                        <h4 className='page-header-text'>Update Employee Details</h4>
                         <Form className='add-new-employee-form' onSubmit={ UpdateEmployeeDetails }>
                             <Row>
                                 <Col>
@@ -423,8 +423,9 @@ const UpdateEmployeeDetails = ( ) => {
 
                             <Row>
                                 <div className='text-center my-3'>
-                                    <Button type='submit' variant='primary' aria-label='Save Employee' 
-                                            className='add-emp-btn' onClick={ UpdateEmployeeDetails }>
+                                    <Button type='submit' variant='custom' aria-label='Save Employee' 
+                                            className='add-emp-btn' style={{ backgroundColor: '#4B49AC', color: 'white' }}
+                                            onClick={ UpdateEmployeeDetails }>
                                         Save New Employee
                                     </Button>
                                     {/* { formSubmitError === true ? <p className='form-submit-error-text italic'>{ errorText }</p> : null } */}

@@ -269,7 +269,7 @@ const CreateEmployeeLeaveSession = ( ) => {
                     </Row>
 
                     <Row>
-                        <Button variant='custom' type='submit' style={{ backgroundColor: 'rgb(3 7 18)', color: 'white' }}>
+                        <Button variant='custom' type='submit' style={{ backgroundColor: '#4B49AC', color: 'white' }}>
                             Create Leave Period
                         </Button>
                     </Row>

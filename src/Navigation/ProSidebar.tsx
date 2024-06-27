@@ -39,23 +39,24 @@ const ProSidebar = ( ) => {
             <Sidebar 
                 collapsed={ collapse }
                 width='240px' 
-                backgroundColor='rgb(3 7 18)'
+                backgroundColor='white'
                 rootStyles={{
                     [`.${ sidebarClasses.container }`]: {
                         height: '100vh',
-                        color: 'white',
+                        color: '#4B49AC'
                     }
                 }}
             >
                 <Menu
                     menuItemStyles={{
                         subMenuContent: {
-                            backgroundColor: 'rgb(75 85 99)',
-                            color: 'white'
+                            backgroundColor: 'rgb(203 213 225)',
+                            color: '#4B49AC'
                         },
                         button: {
                             ':hover': {
-                                backgroundColor: 'rgb(21 128 61)'
+                                backgroundColor: '#4B49AC',
+                                color: 'white'
                             }
                             // [`&.active`]: {
                             //     backgroundColor: 'rgb(74 222 128)'

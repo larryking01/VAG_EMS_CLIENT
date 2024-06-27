@@ -1,3 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Heebo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+
+
+
 /* including all tailwind layers */
 @tailwind base;
 @tailwind components;
@@ -148,11 +159,11 @@
     }
 
     .page-header-text {
-        @apply text-center font-semibold italic mt-5;
+        @apply text-center font-inter text-[#4B49AC] font-semibold mt-5;
     }
 
     .dashboard-object-styling {
-        @apply flex justify-around py-10 bg-slate-400 rounded-md;
+        @apply flex justify-around py-10 rounded-md;
     }
 
     .add-user-form-col-mb {
@@ -247,7 +258,7 @@
 
     .add-emp-btn {
         width: 100%;
-        background-color: rgb(3 7 18);
+        background-color: #4B49AC;
         margin-bottom: 5%;
     }
 

@@ -141,49 +141,49 @@ const Dashboard = ( ) => {
 
             <div className='main_content_styling'>
                 <section className='mt-4'>
-                    <div className='flex justify-between mx-3 bg-slate-200 p-1 shadow-md'>
+                    <div className='flex justify-between mx-3 bg-slate-300 p-1 shadow-md'>
                         <div className='flex mx-auto'>
                             <img src={ person_colour } width={ 30 } alt='' />
-                            <h6 className='font-semibold pt-2 ml-2 welcome-admin-text-res'>Welcome Admin</h6>
+                            <h6 className='font-lora font-semibold pt-2 ml-2 welcome-admin-text-res'>Welcome Admin</h6>
                         </div>
 
                         <div className='mx-auto'>
-                            <h6 className='font-semibold pt-2 ml-2 welcome-admin-text-res'>{ date }</h6>
+                            <h6 className='font-lora font-semibold pt-2 ml-2 welcome-admin-text-res'>{ date }</h6>
                         </div>
                     </div>
                 </section>
 
 
-                <section className='mx-3 mt-3 '>
+                <section className='mx-3 mt-3'>
                     <h4 className='page-header-text mb-3 dashboard-section-res'>Dashboard</h4>
                     <Row xs={ 1 } md={ 3 } className='sm:mb-2 md:mb-4'>
                         <Col className='dashboard-content-res-mb'>
-                            <div className='dashboard-content-hover-effect dashboard-object-styling'>
-                                <BsFillPeopleFill  size={ 50 }/>
+                            <div className='dashboard-content-hover-effect dashboard-object-styling bg-yellow-400'>
+                                <BsFillPeopleFill  size={ 50 } color='white' />
                                 <div>
-                                    <h6 className='font-semibold text-lg title-text-res'>Total Staff</h6>   
-                                    <h5 className='font-bold text-2xl'>{ totalStaff.length > 0 ? totalStaff.length : 0 }</h5> 
+                                    <h6 className='font-semibold text-xl title-text-res text-white'>Total Staff</h6>   
+                                    <h5 className='font-bold text-2xl text-white'>{ totalStaff.length > 0 ? totalStaff.length : 0 }</h5> 
                                 </div>
                             </div>
                         </Col>
 
                         <Col className='dashboard-content-res-mb'>
-                            <div className='dashboard-content-hover-effect dashboard-object-styling'>
-                                <BsFillPeopleFill  size={ 50 }/>
+                            <div className='dashboard-content-hover-effect dashboard-object-styling bg-[#F3797E]'>
+                                <BsFillPeopleFill  size={ 50 } color='white' />
                                 <div>
-                                    <h6 className='font-semibold text-lg title-text-res'>Male Staff</h6>   
-                                    <h5 className='font-bold text-2xl'>{ maleStaff.length > 0 ? maleStaff.length : 0 }</h5> 
+                                    <h6 className='font-semibold text-xl title-text-res text-white'>Male Staff</h6>   
+                                    <h5 className='font-bold text-2xl text-white'>{ maleStaff.length > 0 ? maleStaff.length : 0 }</h5> 
                                 </div>
                             </div>
                         </Col>
 
 
                         <Col className='dashboard-content-res-mb'>
-                            <div className='dashboard-content-hover-effect dashboard-object-styling'>
-                                <BsFillPeopleFill  size={ 50 }/>
+                            <div className='dashboard-content-hover-effect dashboard-object-styling bg-gray-500'>
+                                <BsFillPeopleFill  size={ 50 } color='white' />
                                 <div>
-                                    <h6 className='font-semibold text-lg title-text-res'>Female Staff</h6>   
-                                    <h5 className='font-bold text-2xl'>{ femaleStaff.length > 0 ? femaleStaff.length : 0 }</h5> 
+                                    <h6 className='font-semibold text-xl title-text-res text-white'>Female Staff</h6>   
+                                    <h5 className='font-bold text-2xl text-white'>{ femaleStaff.length > 0 ? femaleStaff.length : 0 }</h5> 
                                 </div>
                             </div>
                         </Col>
@@ -192,27 +192,32 @@ const Dashboard = ( ) => {
 
                     <Row xs={ 1 } md={ 3 } className='mb-4'>
                         <Col className='dashboard-content-res-mb'>
-                            <div className='dashboard-content-hover-effect dashboard-object-styling'>
-                                <BsFillPeopleFill  size={ 50 }/>
+                            <div className='dashboard-content-hover-effect dashboard-object-styling bg-green-400'>
+                                <BsFillPeopleFill  size={ 50 } color='white' />
                                 <div>
-                                    <h6 className='font-semibold text-lg title-text-res'>Civilian Staff</h6>   
-                                    <h5 className='font-bold text-2xl'>{ civilianStaff.length > 0 ? civilianStaff.length : 0 }</h5> 
+                                    <h6 className='font-semibold text-xl title-text-res text-white'>Civilian Staff</h6>   
+                                    <h5 className='font-bold text-2xl text-white'>{ civilianStaff.length > 0 ? civilianStaff.length : 0 }</h5> 
                                 </div>
                             </div>
                         </Col>
 
                         <Col className='dashboard-content-res-mb'>
-                            <div className='dashboard-content-hover-effect dashboard-object-styling'>
-                                <BsFillPeopleFill  size={ 50 }/>
+                            <div className='dashboard-content-hover-effect dashboard-object-styling bg-[#7978E9]'>
+                                <BsFillPeopleFill  size={ 50 } color='white' />
                                 <div>
-                                    <h6 className='font-semibold text-lg title-text-res'>Military Staff</h6>   
-                                    <h5 className='font-bold text-2xl'>{ militaryStaff.length > 0 ? militaryStaff.length : 0 }</h5> 
+                                    <h6 className='font-semibold text-xl title-text-res text-white'>Military Staff</h6>   
+                                    <h5 className='font-bold text-2xl text-white'>{ militaryStaff.length > 0 ? militaryStaff.length : 0 }</h5> 
                                 </div>
                             </div>
                         </Col>
 
                     </Row>
 
+                </section>
+
+
+                <section className='mx-3 mt-3'>
+                    <h4 className='page-header-text'>Upcoming Events</h4>
                 </section>
 
             </div>
