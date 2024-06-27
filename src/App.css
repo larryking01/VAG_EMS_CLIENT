@@ -162,8 +162,12 @@
         @apply text-center font-inter text-[#4B49AC] font-semibold mt-5;
     }
 
-    .dashboard-object-styling {
-        @apply flex justify-around py-10 rounded-md;
+    .dashboard-object-styling-four-cols {
+        @apply flex justify-around py-8 md:py-8 sm:w-72 rounded-md;
+    }
+
+    .dashboard-object-styling-three-cols {
+        @apply flex justify-around py-8 md:py-8 rounded-md;
     }
 
     .add-user-form-col-mb {
@@ -218,6 +222,15 @@
     .ems-text-res {
         font-size: 0.85rem;
     }
+
+    .add-user-form-styling {
+        width: 94%;
+        /* text-align: center; */
+        margin-left: 1%;
+        margin-top: 1%;
+        background-color: white;
+    }
+    
     
     .add-new-employee-form {
         width: 94%;

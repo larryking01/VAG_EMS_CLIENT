@@ -28,6 +28,8 @@ const Dashboard = ( ) => {
     const [ civilianStaff, setCivilianStaff ] = useState([ ])
     const [ maleStaff, setMaleStaff ] = useState([ ])
     const [ femaleStaff, setFemaleStaff ] = useState([ ])
+    const [ shortTermStaff, setShortTermStaff ] = useState([ ])
+    const [ staffOnLeaveOrPass, setStaffOnLeaveOrPass ] = useState([ ])
 
 
     // effect hook to calculate date
@@ -133,6 +135,45 @@ const Dashboard = ( ) => {
     }, [ ])
 
 
+    // effect hook to fetch all short-term staff.
+    useEffect(() => {
+        const FetchAllShortTermStaff = async ( ) => {
+            let response = await fetch(`${ server_url }/get/fetch-all-nsps`, {
+            method: 'GET'
+            })
+            if( response.status === 200 ) {
+                let totalShortTermStaff = await response.json()
+                setShortTermStaff( totalShortTermStaff )
+                console.log( totalShortTermStaff )
+            }
+            else {
+                setShortTermStaff([ ])
+            }
+        }
+        FetchAllShortTermStaff()
+
+    }, [ ])
+
+
+    // effect hook to fetch all staff on leave/pass.
+    useEffect(() => {
+        const FetchAllStaffOnLeaveOrPass = async ( ) => {
+            let response = await fetch(`${ server_url }/get/fetch-all-leave-records`, {
+            method: 'GET'
+            })
+            if( response.status === 200 ) {
+                let totalStaffOnLeaveOrPass = await response.json()
+                setStaffOnLeaveOrPass( totalStaffOnLeaveOrPass )
+            }
+            else {
+                setStaffOnLeaveOrPass([ ])
+            }
+        }
+        FetchAllStaffOnLeaveOrPass()
+
+    }, [ ])
+
+
 
     
     return (
@@ -156,9 +197,9 @@ const Dashboard = ( ) => {
 
                 <section className='mx-3 mt-3'>
                     <h4 className='page-header-text mb-3 dashboard-section-res'>Dashboard</h4>
-                    <Row xs={ 1 } md={ 3 } className='sm:mb-2 md:mb-4'>
+                    <Row xs={ 1 } md={ 4 } className='sm:mb-2 md:mb-4'>
                         <Col className='dashboard-content-res-mb'>
-                            <div className='dashboard-content-hover-effect dashboard-object-styling bg-yellow-400'>
+                            <div className='dashboard-content-hover-effect dashboard-object-styling-four-cols bg-yellow-400'>
                                 <BsFillPeopleFill  size={ 50 } color='white' />
                                 <div>
                                     <h6 className='font-semibold text-xl title-text-res text-white'>Total Staff</h6>   
@@ -168,7 +209,7 @@ const Dashboard = ( ) => {
                         </Col>
 
                         <Col className='dashboard-content-res-mb'>
-                            <div className='dashboard-content-hover-effect dashboard-object-styling bg-[#F3797E]'>
+                            <div className='dashboard-content-hover-effect dashboard-object-styling-four-cols bg-[#F3797E]'>
                                 <BsFillPeopleFill  size={ 50 } color='white' />
                                 <div>
                                     <h6 className='font-semibold text-xl title-text-res text-white'>Male Staff</h6>   
@@ -179,7 +220,7 @@ const Dashboard = ( ) => {
 
 
                         <Col className='dashboard-content-res-mb'>
-                            <div className='dashboard-content-hover-effect dashboard-object-styling bg-gray-500'>
+                            <div className='dashboard-content-hover-effect dashboard-object-styling-four-cols bg-gray-500'>
                                 <BsFillPeopleFill  size={ 50 } color='white' />
                                 <div>
                                     <h6 className='font-semibold text-xl title-text-res text-white'>Female Staff</h6>   
@@ -187,12 +228,9 @@ const Dashboard = ( ) => {
                                 </div>
                             </div>
                         </Col>
-                    </Row>
 
-
-                    <Row xs={ 1 } md={ 3 } className='mb-4'>
                         <Col className='dashboard-content-res-mb'>
-                            <div className='dashboard-content-hover-effect dashboard-object-styling bg-green-400'>
+                            <div className='dashboard-content-hover-effect dashboard-object-styling-four-cols bg-green-400'>
                                 <BsFillPeopleFill  size={ 50 } color='white' />
                                 <div>
                                     <h6 className='font-semibold text-xl title-text-res text-white'>Civilian Staff</h6>   
@@ -201,12 +239,37 @@ const Dashboard = ( ) => {
                             </div>
                         </Col>
 
+                    </Row>
+
+
+                    <Row xs={ 1 } md={ 3 } className='mb-4'>
+
                         <Col className='dashboard-content-res-mb'>
-                            <div className='dashboard-content-hover-effect dashboard-object-styling bg-[#7978E9]'>
+                            <div className='dashboard-content-hover-effect dashboard-object-styling-three-cols bg-[#7978E9]'>
                                 <BsFillPeopleFill  size={ 50 } color='white' />
                                 <div>
                                     <h6 className='font-semibold text-xl title-text-res text-white'>Military Staff</h6>   
                                     <h5 className='font-bold text-2xl text-white'>{ militaryStaff.length > 0 ? militaryStaff.length : 0 }</h5> 
+                                </div>
+                            </div>
+                        </Col>
+
+                        <Col className='dashboard-content-res-mb'>
+                            <div className='dashboard-content-hover-effect dashboard-object-styling-three-cols bg-[#ee22a0]'>
+                                <BsFillPeopleFill  size={ 50 } color='white' />
+                                <div>
+                                    <h6 className='font-semibold text-xl title-text-res text-white'>Short-Term Staff</h6>   
+                                    <h5 className='font-bold text-2xl text-white'>{ shortTermStaff.length > 0 ? shortTermStaff.length : 0 }</h5> 
+                                </div>
+                            </div>
+                        </Col>
+
+                        <Col className='dashboard-content-res-mb'>
+                            <div className='dashboard-content-hover-effect dashboard-object-styling-three-cols bg-[#f17b0c]'>
+                                <BsFillPeopleFill  size={ 50 } color='white' />
+                                <div>
+                                    <h6 className='font-semibold text-xl title-text-res text-white'>Staff On Leave/Pass</h6>   
+                                    <h5 className='font-bold text-2xl text-white'>{ staffOnLeaveOrPass.length > 0 ? staffOnLeaveOrPass.length : 0 }</h5> 
                                 </div>
                             </div>
                         </Col>
@@ -216,7 +279,7 @@ const Dashboard = ( ) => {
                 </section>
 
 
-                <section className='mx-3 mt-3'>
+                <section className='mx-3 mt-5'>
                     <h4 className='page-header-text'>Upcoming Events</h4>
                 </section>
 
