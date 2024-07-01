@@ -18,14 +18,15 @@
     --even-row-bg-col: rgb(241 245 249);
     --even-row-bg-col2: rgb(226 232 240);
     --header-bg-col: rgb(156 163 175);
-    --pro-sidebar-bg-col: rgb(226 232 240)
+    --pro-sidebar-bg-col: rgb(226 232 240);
+    --mui-table-header-col: #4B49AC;
 }
 
 
 /* view all employees - data grid styling */
 .display-employees-grid-header {
-    background-color: var(--pro-sidebar-bg-col);
-    /* color: white; */
+    background-color: var(--mui-table-header-col);
+    color: white;
     
 }
 
@@ -66,6 +67,7 @@
 
 .adding-emp-div {
     text-align: center;
+    display: flex;
 }
 
 
@@ -97,6 +99,7 @@
 .add-emp-btn {
     width: 100%;
     background-color: blue;
+    
 }
 
 
@@ -137,6 +140,9 @@
     background-color: red;
 }
 
+.form-control-border {
+    border-color: red
+}
 
 
 /* .ems-text-md-screen {
@@ -151,15 +157,15 @@
     }
 
     .label_styling {
-        @apply text-slate-500;
+        @apply text-slate-500 text-sm md:text-base;
     }
 
     .extra-form-styling {
-        @apply rounded-md bg-white p-7 mb-6 shadow-md;
+        @apply rounded-md bg-white p-2 md:p-7 mb-6 shadow-md;
     }
 
     .page-header-text {
-        @apply text-center font-inter text-[#4B49AC] font-semibold mt-5;
+        @apply text-center font-inter text-[#4B49AC] text-lg md:text-2xl mt-5 p-1;
     }
 
     .dashboard-object-styling-four-cols {
@@ -177,6 +183,20 @@
     .add-user-form-last-row {
         @apply mb-3;
     }
+
+    .saving-emp-text {
+        @apply mb-1 text-white ml-64;
+    }
+
+    .saving-emp-spin {
+        @apply ml-4 mt-1
+    }
+
+    .input-form-ctrl-mb {
+        @apply mb-3;
+    }
+
+
 }
 
 

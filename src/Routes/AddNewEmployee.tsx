@@ -242,22 +242,14 @@ const AddNewEmployee = ( ) => {
             <ProSidebar />
 
             <div className='main_content_styling'>
-                {
-                    addingEmployee === true ?
-                        <div className='adding-emp-div'>
-                            <h5 className='page-header-text mb-1 text-blue-600 '>Saving New Employee To Database...</h5>
-                            <FontAwesomeIcon icon={ faSpinner } className='text-center' size='1x' spinPulse color='#808080' />
-                        </div>
-                        :
-                        <h4 className='page-header-text'>Employee Enrollment: Add New Staff</h4>
-                }
+                <h4 className='page-header-text'>Employee Enrollment: Add New Staff</h4>
                 
                 <Form className='add-user-form-styling extra-form-styling' onSubmit={ AddNewEmployee }>
                     <Row xs={ 1 } md={ 2 }>
                         <Col className='add-employee-form-input-row'>
                             <label className='label_styling'>Employee ID *</label>
                             <InputGroup>
-                                <Form.Control type='text' required  placeholder='' aria-label='Employee ID' onChange={ UpdateEmployeeID } value={ vagEmployeeID } />
+                                <Form.Control className='form-control-border' type='text' required  placeholder='' aria-label='Employee ID' onChange={ UpdateEmployeeID } value={ vagEmployeeID } />
                                 <InputGroup.Text><IoShieldCheckmarkSharp /></InputGroup.Text>
                             </InputGroup>
                         </Col>
@@ -292,7 +284,7 @@ const AddNewEmployee = ( ) => {
 
                     <Row xs={ 1 } md={ 2 }>
                         <Col className='add-employee-form-input-row'>
-                            <label className='label_styling'>Date Of Birth (MM/DD/YYYY) *</label>
+                            <label className='label_styling'>Date Of Birth (mm/dd/yyyy) *</label>
                             <LocalizationProvider dateAdapter={ AdapterDayjs }>
                                 <DatePicker className='datepicker_styling' 
                                     onChange={ UpdateDateOfBirth } 
@@ -302,7 +294,7 @@ const AddNewEmployee = ( ) => {
                         </Col>
 
                         <Col className='add-employee-form-input-row'>
-                            <label className='label_styling'>Date Of Employment (MM/DD/YYYY) *</label>
+                            <label className='label_styling'>Date Of Employment (mm/dd/yyyy) *</label>
                             <LocalizationProvider dateAdapter={ AdapterMoment }>
                                 <DatePicker className='datepicker_styling' 
                                     onChange={ UpdateDateOfEmployment } 
@@ -418,7 +410,15 @@ const AddNewEmployee = ( ) => {
                     <Row>
                         <div>
                             <Button type='submit' variant='custom' aria-label='Save Employee' className='add-emp-btn' style={{ backgroundColor: '#4B49AC', color: 'white' }} >
-                                Save New Employee
+                                { 
+                                    addingEmployee === true ? 
+                                        <div className='text-center flex'>
+                                            <h6 className='saving-emp-text'>Saving New Employee To Database...</h6>
+                                            <FontAwesomeIcon icon={ faSpinner } className='saving-emp-spin' size='1x' spinPulse color='white' />
+                                        </div>
+                                        :
+                                        <h6>Save New Employee</h6>
+                                }
                             </Button>
                             { formSubmitError === true ? <p className='form-submit-error-text italic'>{ errorText }</p> : null }
                         </div>

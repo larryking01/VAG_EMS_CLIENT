@@ -52,6 +52,9 @@ const AddNewNSP = ( ) => {
     // const [ nspPhoto, setNspPhoto ] = useState<string>('')
     const [ addingNSP, setAddingNSP ] = useState<boolean>(false)
 
+
+
+
     const UpdateNspUniqueID = ( event: any ) => {
         setUniqueNssID( event.target.value )
     }
@@ -162,21 +165,12 @@ const AddNewNSP = ( ) => {
             <ProSidebar />
 
             <div className='main_content_styling'>
-                {
-                    addingNSP === true ?
-                        <div className='adding-emp-div'>
-                            <h5 className='page-header-text mb-1 text-blue-600 '>Saving New NSP to database...</h5>
-                            <FontAwesomeIcon icon={ faSpinner } className='text-center' size='1x' spinPulse color='#808080' />
-                        </div>
-                    :
-                        <h4 className='page-header-text'>New NSP/Temporary Staff: Registration Form</h4>
-
-                }
+                <h4 className='page-header-text'>New NSP/Temporary Staff: Registration Form</h4>
 
                 <Form onSubmit={ HandleAddNewNSP } className='add-user-form-styling extra-form-styling'>
                     <Row xs={ 1 } md={ 2 }>
                         <Col className='add-user-form-col-mb'>
-                            <label>Unique National Service ID *</label>
+                            <label className='label_styling'>Unique National Service ID *</label>
                             <InputGroup>
                                 <Form.Control type='text' required onChange={ UpdateNspUniqueID } value={ uniqueNssID } />
                                 <InputGroup.Text> <IoKey /> </InputGroup.Text>
@@ -185,7 +179,7 @@ const AddNewNSP = ( ) => {
 
 
                         <Col className='add-user-form-col-mb'>
-                            <label>First Name *</label>
+                            <label className='label_styling'>First Name *</label>
                             <InputGroup>
                                 <Form.Control type='text' required onChange={ UpdateFirstName } value={ firstName } />
                                 <InputGroup.Text> <IoPerson /> </InputGroup.Text>
@@ -196,7 +190,7 @@ const AddNewNSP = ( ) => {
 
                     <Row xs={ 1 } md={ 2 }>
                         <Col className='add-user-form-col-mb'>
-                            <label>Last Name *</label>
+                            <label className='label_styling'>Last Name *</label>
                             <InputGroup>
                                 <Form.Control type='text' required onChange={ UpdateLastName } value={ lastName } />
                                 <InputGroup.Text> <IoPerson /> </InputGroup.Text>
@@ -205,7 +199,7 @@ const AddNewNSP = ( ) => {
 
 
                         <Col className='add-user-form-col-mb'>
-                            <label>Other Name(s)</label>
+                            <label className='label_styling'>Other Name(s)</label>
                             <InputGroup>
                                 <Form.Control type='text' required onChange={ UpdateOtherNames } value={ otherNames } />
                                 <InputGroup.Text> <IoPerson /> </InputGroup.Text>
@@ -216,7 +210,7 @@ const AddNewNSP = ( ) => {
 
                     <Row xs={ 1 } md={ 2 }>
                         <Col className='add-user-form-col-mb'>
-                            <label>University/Institution Attended *</label>
+                            <label className='label_styling'>University/Institution Attended *</label>
                             <InputGroup>
                                 <Form.Control type='text' required onChange={ UpdateUniversityAttended } value={ universityAttended } />
                                 <InputGroup.Text> <FaUniversity /> </InputGroup.Text>
@@ -225,7 +219,7 @@ const AddNewNSP = ( ) => {
 
 
                         <Col className='add-user-form-col-mb'>
-                            <label>Programme Studied *</label>
+                            <label className='label_styling'>Programme Studied *</label>
                             <InputGroup>
                                 <Form.Control type='text' required onChange={ UpdateProgrammeStudied } value={ programmeStudied } />
                                 <InputGroup.Text> <IoSchool /> </InputGroup.Text>
@@ -236,7 +230,7 @@ const AddNewNSP = ( ) => {
 
                     <Row xs={ 1 } md={ 2 }>
                         <Col className='add-user-form-col-mb'>
-                            <label>Phone Number *</label>
+                            <label className='label_styling'>Phone Number *</label>
                             <InputGroup>
                                 <Form.Control type='text' required onChange={ UpdatePhoneNumber } value={ phoneNumber } />
                                 <InputGroup.Text> <FaPhone /> </InputGroup.Text>
@@ -245,7 +239,7 @@ const AddNewNSP = ( ) => {
 
 
                         <Col className='add-user-form-col-mb'>
-                            <label>Email *</label>
+                            <label className='label_styling'>Email *</label>
                             <InputGroup>
                                 <Form.Control type='text' required onChange={ UpdateEmail } value={ email } />
                                 <InputGroup.Text> <MdEmail /> </InputGroup.Text>
@@ -256,7 +250,7 @@ const AddNewNSP = ( ) => {
 
                     <Row xs={ 1 } md={ 2 } className='add-user-form-last-row'>
                         <Col className='add-user-form-col-mb'>
-                            <label>NSS Start Date *</label>
+                            <label className='label_styling'>NSS Start Date *</label>
                             <LocalizationProvider dateAdapter={ AdapterDayjs }>
                                 <DatePicker className='datepicker_styling' 
                                     onChange={ UpdateNssStartDate } value={ nssStartDate } />
@@ -265,7 +259,7 @@ const AddNewNSP = ( ) => {
 
 
                         <Col className='add-user-form-col-mb'>
-                            <label>NSS End Date *</label>
+                            <label className='label_styling'>NSS End Date *</label>
                             <LocalizationProvider dateAdapter={ AdapterDayjs }>
                                 <DatePicker className='datepicker_styling' 
                                     onChange={ UpdateNssEndDate } value={ nssEndDate } />
@@ -275,15 +269,19 @@ const AddNewNSP = ( ) => {
 
 
                     <Row>
-                        <Button type='submit' variant='custom' style={{ backgroundColor: '#4B49AC', color: 'white' }}>
-                            Add National Service Personnel
+                        <Button type='submit' variant='custom' aria-label='Save Employee' className='add-emp-btn' style={{ backgroundColor: '#4B49AC', color: 'white' }} >
+                            { 
+                                addingNSP === true ? 
+                                    <div className='text-center flex'>
+                                        <h6 className='saving-emp-text'>Saving New Short-Term Staff...</h6>
+                                        <FontAwesomeIcon icon={ faSpinner } className='saving-emp-spin' size='1x' spinPulse color='white' />
+                                    </div>
+                                    :
+                                    <h6>Save New Employee</h6>
+                            }
                         </Button>
                     </Row>
 
-
-
-
-                
                 </Form>
 
             </div>
