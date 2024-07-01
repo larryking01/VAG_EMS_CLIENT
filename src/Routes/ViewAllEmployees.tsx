@@ -53,23 +53,24 @@ const ViewAllEmployees = ( ) => {
 
     // data table.
     const columns: GridColDef[] = [
-        { field: 'Employee_Photo', headerName: 'Photo',
+        { field: 'Employee_Photo', headerName: 'Photo', width:100,
+        //   renderHeader: ( ) => ( <p className='font-bold'> Photo </p>),
           headerClassName: 'display-employees-grid-header',
           renderCell: (( params: any ) => <Avatar src={ params.value } sx={{ width: 60, height: 60, marginTop: 1 }} /> )
         },
-        { field: 'Employee_ID', headerName: 'Employee ID', headerClassName: 'display-employees-grid-header', width: 150 },
-        { field: 'First_Name', headerName: 'First Name', headerClassName: 'display-employees-grid-header', width: 150 },
-        { field: 'Last_Name', headerName: 'Last Name', headerClassName: 'display-employees-grid-header', width: 150 },
-        { field: 'Other_Names', headerName: 'Other Name(s)', headerClassName: 'display-employees-grid-header', width: 150 },
-        { field: 'Gender', headerName: 'Gender', headerClassName: 'display-employees-grid-header', width: 150 },
-        { field: 'Mobile_Number', headerName: 'Mobile Number', headerClassName: 'display-employees-grid-header', width: 150 },
-        { field: 'E_mail', headerName: 'E-mail', headerClassName: 'display-employees-grid-header', width: 150 },
-        { field: 'Date_Of_Birth', headerName: 'Date Of Birth', headerClassName: 'display-employees-grid-header', width: 150 },
-        { field: 'Appointment', headerName: 'Appointment', headerClassName: 'display-employees-grid-header', width: 150 },
-        { field: 'Employee_Type', headerName: 'Employee Type', headerClassName: 'display-employees-grid-header', width: 150 },
-        { field: 'Date_Of_Employment', headerName: 'Date of Employment', headerClassName: 'display-employees-grid-header', width: 150 },
-        { field: 'Bank_Account_No', headerName: 'Bank Account No.', headerClassName: 'display-employees-grid-header', width: 150 },
-        { field: 'SSNIT_No', headerName: 'SSNIT No.', headerClassName: 'display-employees-grid-header', width: 150 }
+        { field: 'Employee_ID', headerName: 'Employee ID', headerClassName: 'display-employees-grid-header', width: 120, /*renderHeader: ( ) => ( <p className='font-bold'> Employee ID </p>)*/ },
+        { field: 'First_Name', headerName: 'First Name', headerClassName: 'display-employees-grid-header', width: 120, /*renderHeader: ( ) => ( <p className='font-bold'> Employee ID </p>)*/ },
+        { field: 'Last_Name', headerName: 'Last Name', headerClassName: 'display-employees-grid-header', width: 120, /*renderHeader: ( ) => ( <p className='font-bold'> Employee ID </p>)*/ },
+        { field: 'Other_Names', headerName: 'Other Name(s)', headerClassName: 'display-employees-grid-header', width: 120, /*renderHeader: ( ) => ( <p className='font-bold'> Employee ID </p>)*/ },
+        { field: 'Sex', headerName: 'Sex', headerClassName: 'display-employees-grid-header', width: 100, /*renderHeader: ( ) => ( <p className='font-bold'> Employee ID </p>)*/ },
+        { field: 'Mobile_Number', headerName: 'Mobile Number', headerClassName: 'display-employees-grid-header', width: 120, /*renderHeader: ( ) => ( <p className='font-bold'> Employee ID </p>)*/ },
+        { field: 'E_mail', headerName: 'E-mail', headerClassName: 'display-employees-grid-header', width: 120, /*renderHeader: ( ) => ( <p className='font-bold'> Employee ID </p>)*/ },
+        { field: 'Date_Of_Birth', headerName: 'Date Of Birth', headerClassName: 'display-employees-grid-header', width: 120, /*renderHeader: ( ) => ( <p className='font-bold'> Employee ID </p>)*/ },
+        { field: 'Appointment', headerName: 'Appointment', headerClassName: 'display-employees-grid-header', width: 120, /*renderHeader: ( ) => ( <p className='font-bold'> Employee ID </p>)*/ },
+        { field: 'Employee_Type', headerName: 'Employee Type', headerClassName: 'display-employees-grid-header', width: 120, /*renderHeader: ( ) => ( <p className='font-bold'> Employee ID </p>)*/ },
+        { field: 'Date_Of_Employment', headerName: 'Date of Employment', headerClassName: 'display-employees-grid-header', width: 120, /*renderHeader: ( ) => ( <p className='font-bold'> Employee ID </p>)*/ },
+        { field: 'Bank_Account_No', headerName: 'Bank Account No.', headerClassName: 'display-employees-grid-header', width: 120, /*renderHeader: ( ) => ( <p className='font-bold'> Employee ID </p>)*/ },
+        { field: 'SSNIT_No', headerName: 'SSNIT No.', headerClassName: 'display-employees-grid-header', width: 120, /*renderHeader: ( ) => ( <p className='font-bold'> Employee ID </p>)*/ }
 
     ];
             
@@ -82,7 +83,7 @@ const ViewAllEmployees = ( ) => {
             First_Name: employee.firstName,
             Last_Name: employee.lastName,
             Other_Names: employee.otherNames,
-            Gender: employee.gender,
+            Sex: employee.gender,
             Mobile_Number: employee.primaryMobileNumber,
             E_mail: employee.primaryEmail,
             Date_Of_Birth: employee.dateOfBirth,
