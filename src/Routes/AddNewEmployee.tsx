@@ -5,6 +5,9 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import { DatePicker } from '@mui/x-date-pickers'
 import { Dayjs } from 'dayjs'
 
+import { firebaseStorage } from '../Navigation/FirebaseConfig'
+// import FileUpload from '../Navigation/FileUploadModule'
+
 import ProSidebar from "../Navigation/ProSidebar"
 import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row'
@@ -54,7 +57,8 @@ const AddNewEmployee = ( ) => {
     const [ employeeCategory, setEmployeeCategory ] = useState<string>('')
     const [ bankAccountNumber, setBankAccountNumber ] = useState<string>('')
     const [ ssnitNumber, setSsnitNumber ] = useState<string>('')
-    const [ employeePhoto, setEmployeePhoto ] = useState<string>('')
+    const [ employeePhoto, setEmployeePhoto ] = useState<any>(null)
+    // const [ employeePhotoUrl, setEmployeePhotoUrl ] = useState<string>('')
     const [ formSubmitError, setFormSubmitError ] = useState<boolean>( false )
     const [ errorText, setErrorText ] = useState<string>('')
     const [ addingEmployee, setAddingEmployee ] = useState<boolean>(false)
@@ -147,9 +151,30 @@ const AddNewEmployee = ( ) => {
         setSsnitNumber( event.target.value )
     }
 
-    const UpdateEmployeePhoto = ( event: any ) => {
+    const UpdateEmployeePhoto = async ( event: any ) => {
         setFormSubmitError( false )
         setEmployeePhoto( event.target.value )
+        // console.log( employeePhoto )
+
+        if( event.target.files ) {
+            setEmployeePhoto( event.target.files[0] )
+
+            // saving the chosen employee photo into firebase storage and retrieving the url.
+            // let uploadTask = firebaseStorage.ref('VAG Permanent Staff Profile Photos')
+            // .child(`${ vagEmployeeID }_${ firstName }_${ lastName }`)
+            // let uploadProgress = await uploadTask.put( employeePhoto )
+            // .snapshot.ref.getDownloadURL()
+
+            // console.log( uploadProgress )
+            
+            // uploadTask.snapshot.ref.getDownloadURL().then( downloadUrl => {
+            //     setEmployeePhotoUrl( downloadUrl )
+            //     console.log(`file download url = ${ downloadUrl }`)
+            // })
+        }
+        else {
+            setEmployeePhoto( null )
+        }
     }
 
 
@@ -176,64 +201,143 @@ const AddNewEmployee = ( ) => {
             setErrorText('The type of employment is required')
         }
         else {
-        setAddingEmployee( true )
-        let newEmployee = {
-            vagEmployeeID: vagEmployeeID.trim(),
-            firstName: firstName.trim().toUpperCase(),
-            lastName: lastName.trim().toUpperCase(),
-            otherNames: otherNames.trim().toUpperCase(),
-            gender: gender.trim().toUpperCase(),
-            primaryMobileNumber: primaryMobileNumber.trim(),
-            secondaryMobileNumber: secondaryMobileNumber.trim(),
-            primaryEmail: primaryEmail.trim(),
-            secondaryEmail: secondaryEmail.trim(),
-            dateOfBirth: dateOfBirthString,
-            appointment: appointment.trim().toUpperCase(),
-            typeOfEmployee: employeeCategory.trim().toUpperCase(),
-            dateOfEmployment: dateOfEmploymentString,
-            bankAccountNumber: bankAccountNumber.trim(),
-            ssnitNumber: ssnitNumber.trim(),
-            employeePhoto
-        }
-
-        console.log( newEmployee )
-        // adding the new employee to the database.
-        let response = await fetch( `${ server_url }/post/add-new-employee`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
+            // saving the chosen employee photo into firebase storage and retrieving the url.
+            let uploadTask = firebaseStorage.ref('VAG Permanent Staff Profile Photos')
+            .child(`${ vagEmployeeID }_${ firstName }_${ lastName }`).put( employeePhoto )
+            uploadTask.on('state_changed', ( snapshot ) => {
+                let progress = ( snapshot.bytesTransferred / snapshot.totalBytes ) * 100
+                console.log(`upload is ${ progress }% done`)
             },
-            body: JSON.stringify( newEmployee )
-        })
+            ( error ) => {
+                console.error( error )
+            }, 
+            () => {
+                // uploading employee photo to firestore database
+                setAddingEmployee( true )
+                uploadTask.snapshot.ref.getDownloadURL().then( async (downloadUrl) => {
+                    console.log( `download url is ${ downloadUrl }`)
+                    let newEmployee = {
+                        vagEmployeeID: vagEmployeeID.trim(),
+                        firstName: firstName.trim().toUpperCase(),
+                        lastName: lastName.trim().toUpperCase(),
+                        otherNames: otherNames.trim().toUpperCase(),
+                        gender: gender.trim().toUpperCase(),
+                        primaryMobileNumber: primaryMobileNumber.trim(),
+                        secondaryMobileNumber: secondaryMobileNumber.trim(),
+                        primaryEmail: primaryEmail.trim(),
+                        secondaryEmail: secondaryEmail.trim(),
+                        dateOfBirth: dateOfBirthString,
+                        appointment: appointment.trim().toUpperCase(),
+                        typeOfEmployee: employeeCategory.trim().toUpperCase(),
+                        dateOfEmployment: dateOfEmploymentString,
+                        bankAccountNumber: bankAccountNumber.trim(),
+                        ssnitNumber: ssnitNumber.trim(),
+                        employeePhoto: downloadUrl
+                    }
+                    console.log( newEmployee )
+
+                    // saving the employee to the mongodb database
+                    let response = await fetch( `${ server_url }/post/add-new-employee`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify( newEmployee )
+                    })
+
+                    if( response.status === 200 ) {
+                        alert('new employee added')
+                        setAddingEmployee( false )
+                        setVagEmployeeID('')
+                        setFirstName('')
+                        setLastName('')
+                        setOtherNames('')
+                        setGender('')
+                        setDateOfBirth(null)
+                        setDateOfBirthString('')
+                        setPrimaryMobileNumber('')
+                        setSecondaryMobileNumber('')
+                        setPrimaryEmail('')
+                        setSecondaryEmail('')
+                        setAppointment('')
+                        setEmployeeCategory('')
+                        setBankAccountNumber('')
+                        setSsnitNumber('')
+                        setEmployeePhoto(null)
+                        setDateOfEmployment(null)
+                        setDateOfEmploymentString('')
+                        console.log( await response.json() )
+                    }
+                    else {
+                        setAddingEmployee( false )
+                        alert('failed to add new employee')
+                    }
+                })
+            })
+
+
+            
+            // let uploadTask = await employeePhotoReference.put( employeePhoto ).snapshot.ref.getDownloadURL()
+            // setEmployeePhotoUrl( uploadTask )
+            // console.log(`download url = ${ uploadTask }`)
+
+            // let newEmployee = {
+            //     vagEmployeeID: vagEmployeeID.trim(),
+            //     firstName: firstName.trim().toUpperCase(),
+            //     lastName: lastName.trim().toUpperCase(),
+            //     otherNames: otherNames.trim().toUpperCase(),
+            //     gender: gender.trim().toUpperCase(),
+            //     primaryMobileNumber: primaryMobileNumber.trim(),
+            //     secondaryMobileNumber: secondaryMobileNumber.trim(),
+            //     primaryEmail: primaryEmail.trim(),
+            //     secondaryEmail: secondaryEmail.trim(),
+            //     dateOfBirth: dateOfBirthString,
+            //     appointment: appointment.trim().toUpperCase(),
+            //     typeOfEmployee: employeeCategory.trim().toUpperCase(),
+            //     dateOfEmployment: dateOfEmploymentString,
+            //     bankAccountNumber: bankAccountNumber.trim(),
+            //     ssnitNumber: ssnitNumber.trim(),
+            //     employeePhoto: employeePhotoUrl
+            // }
+
+            // console.log( newEmployee )
+            // adding the new employee to the database.
+            // let response = await fetch( `${ server_url }/post/add-new-employee`, {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     },
+            //     body: JSON.stringify( newEmployee )
+            // })
         
-        if( response.status === 200 ) {
-            setAddingEmployee( false )
-            alert('new employee added')
-            setVagEmployeeID('')
-            setFirstName('')
-            setLastName('')
-            setOtherNames('')
-            setGender('')
-            setDateOfBirth(null)
-            setDateOfBirthString('')
-            setPrimaryMobileNumber('')
-            setSecondaryMobileNumber('')
-            setPrimaryEmail('')
-            setSecondaryEmail('')
-            setAppointment('')
-            setEmployeeCategory('')
-            setBankAccountNumber('')
-            setSsnitNumber('')
-            setEmployeePhoto('')
-            setDateOfEmployment(null)
-            setDateOfEmploymentString('')
-            console.log( await response.json() )
-        }
-        else {
-            setAddingEmployee( false )
-            console.log('failed to add new employee')
-        }
-        }
+            // if( response.status === 200 ) {
+            //     console.log( await response.json() )
+            //     setAddingEmployee( false )
+            //     alert('new employee added')
+            //     setVagEmployeeID('')
+            //     setFirstName('')
+            //     setLastName('')
+            //     setOtherNames('')
+            //     setGender('')
+            //     setDateOfBirth(null)
+            //     setDateOfBirthString('')
+            //     setPrimaryMobileNumber('')
+            //     setSecondaryMobileNumber('')
+            //     setPrimaryEmail('')
+            //     setSecondaryEmail('')
+            //     setAppointment('')
+            //     setEmployeeCategory('')
+            //     setBankAccountNumber('')
+            //     setSsnitNumber('')
+            //     setEmployeePhoto(null)
+            //     setDateOfEmployment(null)
+            //     setDateOfEmploymentString('')
+            // }
+            // else {
+            //     setAddingEmployee( false )
+            //     console.log('failed to add new employee')
+            // }
+            }
     }
 
 
@@ -401,7 +505,7 @@ const AddNewEmployee = ( ) => {
                             <label className='label_styling'>Employee Photo *</label>
                             <InputGroup>
                                 <Form.Control type='file' required placeholder='' aria-label='Employee Photo' 
-                                    accept='.jpg, .jpeg, .png' onChange={ UpdateEmployeePhoto } value={ employeePhoto } />
+                                    accept='.jpg, .jpeg, .png' onChange={ UpdateEmployeePhoto } />
                                 <InputGroup.Text><IoPerson /></InputGroup.Text>
                             </InputGroup>
                         </Col>
