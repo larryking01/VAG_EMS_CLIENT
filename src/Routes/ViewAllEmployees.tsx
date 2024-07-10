@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react'
 import ProSidebar from "../Navigation/ProSidebar"
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid'
 import Avatar from '@mui/material/Avatar'
+import IconButton from '@mui/material/IconButton'
 // font awesome icons.
 import { useNavigate } from 'react-router-dom'
 import SpinLoading from '../Navigation/SpinLoading'
-
-
+// import { Button } from '@mui/material'
+import { MdModeEdit } from "react-icons/md"
+import { MdDelete } from "react-icons/md"
 
 
 
@@ -53,6 +55,23 @@ const ViewAllEmployees = ( ) => {
 
     // data table.
     const columns: GridColDef[] = [
+        {
+            field: 'Actions',
+            headerName: 'Actions',
+            headerClassName: 'display-employees-grid-header',
+            width: 100,
+            renderCell: (( params: any ) => 
+                <div>
+                    <IconButton aria-label='Edit Staff' onClick={() => navigate(`/fetch-employee-details/${ params.id }`)}>
+                        <MdModeEdit color='#4B49AC' />
+                    </IconButton>
+
+                    <IconButton aria-label='Delete Staff' onClick={() => {}}>
+                        <MdDelete color='#D22B2B' />
+                    </IconButton>
+                </div>
+            )
+        },
         { field: 'Employee_Photo', headerName: 'Photo', width:100,
         //   renderHeader: ( ) => ( <p className='font-bold'> Photo </p>),
           headerClassName: 'display-employees-grid-header',

@@ -18,8 +18,8 @@ import CreateEmployeeLeaveSession from './Routes/CreateEmployeeLeaveSession'
 import AddNewNSP from './Routes/AddNewNSP'
 import ViewAllEmployeesOnLeave from './Routes/ViewEmployeesOnLeave'
 import ViewAllNSPs from './Routes/ViewAllNSPs'
-
-
+import ViewLeaveRecordDetails from './Routes/ViewLeaveRecordDetails'
+import ViewShortTermStaffDetails from './Routes/ViewShortTermStaffDetails'
 
 
 
@@ -41,8 +41,10 @@ const App = ( ) => {
             <Route path='/update-employee-details/:empID' element={ <UpdateEmployeeDetails /> } />
             <Route path='/nsp-enrollment' element={ <AddNewNSP /> } />
             <Route path='/nsp-roster' element={ <ViewAllNSPs /> } />
+            <Route path='/short-term-staff-details/:nspID' element={ <ViewShortTermStaffDetails /> } />
             <Route path='/pass-request' element={ <CreateEmployeeLeaveSession /> } />
             <Route path='/employee-pass-log' element={ <ViewAllEmployeesOnLeave /> } />
+            <Route path='/leave-record-details/:empID' element={ <ViewLeaveRecordDetails /> } />
             <Route path='/sidebar' element={ <ProSidebar /> } />
             <Route path='/navbar' element={ <NavBar /> } />
             <Route path='*' element={ <NotFound /> } />

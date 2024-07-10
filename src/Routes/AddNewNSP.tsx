@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { firebaseStorage } from '../Navigation/FirebaseConfig'
 import ProSidebar from "../Navigation/ProSidebar"
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
@@ -51,6 +52,7 @@ const AddNewNSP = ( ) => {
     const [ nssEndDateString, setNssEndDateString ] = useState<string>('')
     // const [ nspPhoto, setNspPhoto ] = useState<string>('')
     const [ addingNSP, setAddingNSP ] = useState<boolean>(false)
+    const [ profilePhoto, setProfilePhoto ] = useState<any>(null)
 
 
 
@@ -105,56 +107,133 @@ const AddNewNSP = ( ) => {
           }
     }
 
+    const UpdateProfilePhoto = ( event: any ) => {
+        if( event.target.files ) {
+            console.log( event.target.files[0])
+            setProfilePhoto( event.target.files[ 0 ] )
+        }
+        else {
+            setProfilePhoto( null )
+        }
+    }
+
 
     const HandleAddNewNSP = async ( event: any ) => {
         event?.preventDefault()
 
-        setAddingNSP( true )
-        let newNSP = {
-            uniqueNSPID: uniqueNssID,
-            nspFirstName: firstName,
-            nspLastName: lastName,
-            nspOtherNames: otherNames,
-            nspInstitutionAttended: universityAttended,
-            nspProgrammeStudied: programmeStudied,
-            nspPhoneNumber: phoneNumber,
-            nspEmail: email,
-            nssStartDate: nssStartDateString,
-            nssEndDate: nssEndDateString,
-            // nspPhoto: nspPhoto
+        let uploadTask = firebaseStorage.ref('Short Term Staff Profile Photos')
+        .child(`${ uniqueNssID }_${ firstName }_${ lastName }`).put( profilePhoto )
+        uploadTask.on('state_changed', ( snapshot ) => {
+            let progress = ( snapshot.bytesTransferred / snapshot.totalBytes ) * 100
+            console.log(`upload progress is ${ progress } %...`)
+        },
+        ( error ) => {
+            console.error( error )
+        },
+        () => {
+            // actually saving the new short term staff to the database.
+            uploadTask.snapshot.ref.getDownloadURL().then( async (downloadUrl) => {
+                console.log( `download url is ${ downloadUrl }`)
+                setAddingNSP( true )
+                let newNSP = {
+                    uniqueNSPID: uniqueNssID,
+                    nspFirstName: firstName,
+                    nspLastName: lastName,
+                    nspOtherNames: otherNames,
+                    nspInstitutionAttended: universityAttended,
+                    nspProgrammeStudied: programmeStudied,
+                    nspPhoneNumber: phoneNumber,
+                    nspEmail: email,
+                    nssStartDate: nssStartDateString,
+                    nssEndDate: nssEndDateString,
+                    nspPhoto: downloadUrl
+                }
+                console.log( newNSP )
+
+                let response = await fetch(`${ server_url }/post/add-new-nsp`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify( newNSP )
+                })
+
+                if( response.status === 200 ) {
+                    setAddingNSP( false )
+                    alert('new nsp added successfully....')
+                    setUniqueNssID('')
+                    setFirstName('')
+                    setLastName('')
+                    setOtherNames('')
+                    setUniversityAttended('')
+                    setProgrammeStudied('')
+                    setPhoneNumber('')
+                    setEmail('')
+                    setNssStartDate( null )
+                    setNssStartDateString('')
+                    setNssEndDate( null )
+                    setNssEndDateString('')
+                    setProfilePhoto( null )
+                    console.log( await response.json() )
+        
+                    }
+                    else {
+                        // console.log('failed to add new nsp')
+                        alert('failed to add new nsp')
+                        setAddingNSP( false )
+                    }
+                
+            })
         }
+    
+        )
 
-        let response = await fetch(`${ server_url }/post/add-new-nsp`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify( newNSP )
-        })
+        // setAddingNSP( true )
+        // let newNSP = {
+        //     uniqueNSPID: uniqueNssID,
+        //     nspFirstName: firstName,
+        //     nspLastName: lastName,
+        //     nspOtherNames: otherNames,
+        //     nspInstitutionAttended: universityAttended,
+        //     nspProgrammeStudied: programmeStudied,
+        //     nspPhoneNumber: phoneNumber,
+        //     nspEmail: email,
+        //     nssStartDate: nssStartDateString,
+        //     nssEndDate: nssEndDateString,
+        //     // nspPhoto: nspPhoto
+        // }
 
-        if( response.status === 200 ) {
-            alert('new nsp added successfully....')
-            setAddingNSP( false )
-            setUniqueNssID('')
-            setFirstName('')
-            setLastName('')
-            setOtherNames('')
-            setUniversityAttended('')
-            setProgrammeStudied('')
-            setPhoneNumber('')
-            setEmail('')
-            setNssStartDate( null )
-            setNssStartDateString('')
-            setNssEndDate( null )
-            setNssEndDateString('')
-            console.log( await response.json() )
+        // let response = await fetch(`${ server_url }/post/add-new-nsp`, {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify( newNSP )
+        // })
 
-            }
-            else {
-                console.log('failed to add new nsp')
-                alert('failed to add new nsp')
-                setAddingNSP( false )
-            }
+        // if( response.status === 200 ) {
+        //     alert('new nsp added successfully....')
+        //     setAddingNSP( false )
+        //     setUniqueNssID('')
+        //     setFirstName('')
+        //     setLastName('')
+        //     setOtherNames('')
+        //     setUniversityAttended('')
+        //     setProgrammeStudied('')
+        //     setPhoneNumber('')
+        //     setEmail('')
+        //     setNssStartDate( null )
+        //     setNssStartDateString('')
+        //     setNssEndDate( null )
+        //     setNssEndDateString('')
+        //     console.log( await response.json() )
+
+        //     }
+        //     else {
+        //         console.log('failed to add new nsp')
+        //         alert('failed to add new nsp')
+        //         setAddingNSP( false )
+        //     }
 
     }
 
@@ -265,6 +344,17 @@ const AddNewNSP = ( ) => {
                                     onChange={ UpdateNssEndDate } value={ nssEndDate } />
                             </LocalizationProvider>
                         </Col>
+                    </Row>
+
+
+                    <Row className='add-user-form-last-row'>
+                        <label className='label_styling'>Photo *</label>
+                        <InputGroup>
+                            <Form.Control type='file' required placeholder='' aria-label='Short Term Staff Photo'
+                                          accept='.jpg, .jpeg, .png' onChange={ UpdateProfilePhoto } />
+                            <InputGroup.Text><IoPerson /></InputGroup.Text>
+                        </InputGroup>
+
                     </Row>
 
 

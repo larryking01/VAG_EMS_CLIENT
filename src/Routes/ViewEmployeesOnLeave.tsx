@@ -1,12 +1,18 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import ProSidebar from "../Navigation/ProSidebar"
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid'
 import SpinLoading from '../Navigation/SpinLoading'
+import IconButton from '@mui/material/IconButton'
+import { MdModeEdit } from "react-icons/md"
+import { MdDelete } from "react-icons/md"
 
 
 
 
 const ViewAllEmployeesOnLeave = ( ) => {
+
+    const navigate = useNavigate()
 
     // server urls
     // dev_server = import.meta.env.VITE_DEV_SERVER_URL
@@ -45,6 +51,20 @@ const ViewAllEmployeesOnLeave = ( ) => {
 
     // the data-table definition
     const columns: GridColDef[ ] = [
+        { field: 'Actions', headerName:'Actions', headerClassName: 'display-employees-grid-header', width: 120,
+          renderCell: (( params: any ) => 
+            <div>
+                <IconButton aria-label='Edit Leave Record' onClick={() => navigate(`/leave-record-details/${ params.id }`)}>
+                    <MdModeEdit color='#4B49AC' />
+                </IconButton>
+
+                <IconButton aria-label='Delete Leave Record' onClick={() => console.log( params.id )}>
+                    <MdDelete color='#D22B2B' />
+                </IconButton>
+
+            </div>
+            ) 
+         },
         { field: 'Employee_ID', headerName: 'Employee ID', headerClassName: 'display-employees-grid-header', width: 150 },
         { field: 'First_Name', headerName: 'First Name', headerClassName: 'display-employees-grid-header', width: 150 },
         { field: 'Last_Name', headerName: 'Last Name', headerClassName: 'display-employees-grid-header', width: 150 },

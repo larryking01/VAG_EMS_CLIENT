@@ -1,14 +1,20 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import ProSidebar from "../Navigation/ProSidebar"
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid'
 import SpinLoading from '../Navigation/SpinLoading'
-
+import IconButton from '@mui/material/IconButton'
+import { MdModeEdit } from "react-icons/md"
+import { MdDelete } from "react-icons/md"
+import Avatar from '@mui/material/Avatar'
 
 
 
 
 
 const ViewAllNSPs = ( ) => {
+
+    const navigate = useNavigate()
 
     // server urls
     // dev_server = import.meta.env.VITE_DEV_SERVER_URL
@@ -47,6 +53,25 @@ const ViewAllNSPs = ( ) => {
 
     // the data-table definition
     const columns: GridColDef[ ] = [
+        { field: 'Actions', headerName: 'Actions', headerClassName: 'display-employees-grid-header', width: 120,
+          renderCell: (( params: any ) => 
+            <div>
+                <IconButton aria-label='Edit Short-Term Staff' onClick={() => { console.log( params.id )}}>
+                    <MdModeEdit color='#4B49AC'/>
+                </IconButton>
+
+                <IconButton aria-label='Delete Short-Term Staff' onClick={() => { console.log( params.id )}}>
+                    <MdDelete color='#D22B2B'/>
+                </IconButton>
+
+            </div>
+            )
+         },
+         { field: 'Photo', headerName: 'Photo', width:100,
+            //   renderHeader: ( ) => ( <p className='font-bold'> Photo </p>),
+              headerClassName: 'display-employees-grid-header',
+              renderCell: (( params: any ) => <Avatar src={ params.value } sx={{ width: 60, height: 60, marginTop: 1 }} /> )
+            },
         { field: 'NSP_ID', headerName: 'NSP ID', headerClassName: 'display-employees-grid-header', width: 150 },
         { field: 'First_Name', headerName: 'First Name', headerClassName: 'display-employees-grid-header', width: 150 },
         { field: 'Last_Name', headerName: 'Last Name', headerClassName: 'display-employees-grid-header', width: 150 },
@@ -72,13 +97,10 @@ const ViewAllNSPs = ( ) => {
             NSP_Mobile_Number: nsp.nspPhoneNumber,
             NSP_Programme_Studied: nsp.nspProgrammeStudied,
             NSP_Institution_Attended: nsp.nspInstitutionAttended,
-            Email: nsp.nspEmail
+            Email: nsp.nspEmail,
+            Photo: nsp.nspPhoto
         }
     ))
-
-
-
-
 
 
     return (
@@ -105,7 +127,7 @@ const ViewAllNSPs = ( ) => {
                                     params.indexRelativeToCurrentPage % 2 === 0 ? 'even-rows' : 'odd-rows'
                                     
                                 )} 
-                                // onRowDoubleClick={( rows ) => navigate(`/fetch-employee-details/${ rows.id }`) }
+                                onRowDoubleClick={( rows ) => navigate(`/short-term-staff-details/${ rows.id }`) }
                                 />
                         </div>
                     
