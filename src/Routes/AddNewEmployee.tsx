@@ -6,7 +6,6 @@ import { DatePicker } from '@mui/x-date-pickers'
 import { Dayjs } from 'dayjs'
 
 import { firebaseStorage } from '../Navigation/FirebaseConfig'
-// import FileUpload from '../Navigation/FileUploadModule'
 
 import ProSidebar from "../Navigation/ProSidebar"
 import Form from 'react-bootstrap/Form'
@@ -158,19 +157,6 @@ const AddNewEmployee = ( ) => {
 
         if( event.target.files ) {
             setEmployeePhoto( event.target.files[0] )
-
-            // saving the chosen employee photo into firebase storage and retrieving the url.
-            // let uploadTask = firebaseStorage.ref('VAG Permanent Staff Profile Photos')
-            // .child(`${ vagEmployeeID }_${ firstName }_${ lastName }`)
-            // let uploadProgress = await uploadTask.put( employeePhoto )
-            // .snapshot.ref.getDownloadURL()
-
-            // console.log( uploadProgress )
-            
-            // uploadTask.snapshot.ref.getDownloadURL().then( downloadUrl => {
-            //     setEmployeePhotoUrl( downloadUrl )
-            //     console.log(`file download url = ${ downloadUrl }`)
-            // })
         }
         else {
             setEmployeePhoto( null )
@@ -180,8 +166,6 @@ const AddNewEmployee = ( ) => {
 
     // function to add new employment to database.
     const AddNewEmployee = async ( event: any ) => {
-        // console.log('date of birth is: ', dateOfBirthString )
-        // console.log('date of employment is ', dateOfEmploymentString )
         event.preventDefault()
         setFormSubmitError( false )
         if( dateOfBirth === null ) {
@@ -275,68 +259,6 @@ const AddNewEmployee = ( ) => {
                 })
             })
 
-
-            
-            // let uploadTask = await employeePhotoReference.put( employeePhoto ).snapshot.ref.getDownloadURL()
-            // setEmployeePhotoUrl( uploadTask )
-            // console.log(`download url = ${ uploadTask }`)
-
-            // let newEmployee = {
-            //     vagEmployeeID: vagEmployeeID.trim(),
-            //     firstName: firstName.trim().toUpperCase(),
-            //     lastName: lastName.trim().toUpperCase(),
-            //     otherNames: otherNames.trim().toUpperCase(),
-            //     gender: gender.trim().toUpperCase(),
-            //     primaryMobileNumber: primaryMobileNumber.trim(),
-            //     secondaryMobileNumber: secondaryMobileNumber.trim(),
-            //     primaryEmail: primaryEmail.trim(),
-            //     secondaryEmail: secondaryEmail.trim(),
-            //     dateOfBirth: dateOfBirthString,
-            //     appointment: appointment.trim().toUpperCase(),
-            //     typeOfEmployee: employeeCategory.trim().toUpperCase(),
-            //     dateOfEmployment: dateOfEmploymentString,
-            //     bankAccountNumber: bankAccountNumber.trim(),
-            //     ssnitNumber: ssnitNumber.trim(),
-            //     employeePhoto: employeePhotoUrl
-            // }
-
-            // console.log( newEmployee )
-            // adding the new employee to the database.
-            // let response = await fetch( `${ server_url }/post/add-new-employee`, {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     },
-            //     body: JSON.stringify( newEmployee )
-            // })
-        
-            // if( response.status === 200 ) {
-            //     console.log( await response.json() )
-            //     setAddingEmployee( false )
-            //     alert('new employee added')
-            //     setVagEmployeeID('')
-            //     setFirstName('')
-            //     setLastName('')
-            //     setOtherNames('')
-            //     setGender('')
-            //     setDateOfBirth(null)
-            //     setDateOfBirthString('')
-            //     setPrimaryMobileNumber('')
-            //     setSecondaryMobileNumber('')
-            //     setPrimaryEmail('')
-            //     setSecondaryEmail('')
-            //     setAppointment('')
-            //     setEmployeeCategory('')
-            //     setBankAccountNumber('')
-            //     setSsnitNumber('')
-            //     setEmployeePhoto(null)
-            //     setDateOfEmployment(null)
-            //     setDateOfEmploymentString('')
-            // }
-            // else {
-            //     setAddingEmployee( false )
-            //     console.log('failed to add new employee')
-            // }
             }
     }
 
