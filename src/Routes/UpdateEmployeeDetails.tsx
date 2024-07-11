@@ -61,7 +61,6 @@ const UpdateEmployeeDetails = ( ) => {
 
     useEffect( () => {
         const FetchTargetEmployee = async () => {
-            
             // console.log(`target employee length = ${ targetEmployee }`)
             let response = await fetch(`${ import.meta.env.VITE_PROD_SERVER_URL }/get/fetch-employee-details/${ params.empID }`, {
                 method: 'GET'

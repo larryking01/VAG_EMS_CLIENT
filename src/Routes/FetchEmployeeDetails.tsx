@@ -58,31 +58,29 @@ const FetchEmployeeDetails = ( ) => {
                         <div className='shadow-lg rounded-md display-emp-det-div'>
                             <Row xs={ 1 } md={ 2 }>
                                 <Col md={ 4 } className='mt-5'>
-                                    <img src={ targetEmployee.employeePhoto } className='rounded-full p-2' alt='' width={ 400 } />
+                                    <img src={ targetEmployee.employeePhoto } className='rounded-full p-2 aspect-square' alt='' width={ 400 } />
                                 </Col>
 
                                 <Col md={ 8 }>
                                     <Row xs={ 1 } md={ 2 } className='mt-5 mb-3'>
                                         <Col>
-                                            <h6 className='font-semibold text-slate-500 italic'>First Name: <span className='text-black not-italic'> { targetEmployee.firstName } </span> </h6>
+                                            <h6 className='font-semibold text-slate-500 italic'>Employee ID: <span className='text-black not-italic'>  { targetEmployee.vagEmployeeID } </span></h6>
                                         </Col>
 
                                         <Col>
-                                            <h6 className='font-semibold text-slate-500 italic'>Last Name: <span className='text-black not-italic'>  { targetEmployee.lastName } </span></h6>
+                                            <h6 className='font-semibold text-slate-500 italic'>First Name: <span className='text-black not-italic'> { targetEmployee.firstName } </span> </h6>
                                         </Col>
-
                                     </Row>
 
 
                                     <Row xs={ 1 } md={ 2 } className='mb-3'>
                                         <Col>
-                                            <h6 className='font-semibold text-slate-500 italic'>Other Name(s): <span className='text-black not-italic'> { targetEmployee.otherNames } </span> </h6>
+                                            <h6 className='font-semibold text-slate-500 italic'>Last Name: <span className='text-black not-italic'>  { targetEmployee.lastName } </span></h6>
                                         </Col>
 
                                         <Col>
-                                            <h6 className='font-semibold text-slate-500 italic'>Employee ID: <span className='text-black not-italic'>  { targetEmployee.vagEmployeeID } </span></h6>
+                                            <h6 className='font-semibold text-slate-500 italic'>Other Name(s): <span className='text-black not-italic'> { targetEmployee.otherNames } </span> </h6>
                                         </Col>
-
                                     </Row>
 
                                     
@@ -144,29 +142,33 @@ const FetchEmployeeDetails = ( ) => {
                                     </Row>
 
 
-                                    <Row xs={ 1 } md={ 2 } className='mb-3'>
+                                    <Row xs={ 1 } md={ 2 } className='mb-4 md:mb-10'>
                                         <Col>
                                             <h6 className='font-semibold text-slate-500 italic'>SSNIT Number: <span className='text-black not-italic'> { targetEmployee.ssnitNumber } </span></h6>
+                                        </Col>
+                                    </Row>
+
+                                    <Row xs={ 1 } md={ 2 }>
+                                        <Col className='mb-2 md:mb-1'>
+                                            <Button type='button' variant='custom' 
+                                                aria-label='update details'
+                                                style={{ backgroundColor: '#4B49AC', color: 'white', width: '80%' }}
+                                                onClick={() => navigate(`/update-employee-details/${ params.empID }`) }>
+                                                Update Details
+                                            </Button>
+                                        </Col>
+
+                                        <Col>
+                                            <Button type='button' variant='custom' aria-label='update details' 
+                                                    style={{ backgroundColor: '#4B49AC', color: 'white', width: '80%' }}>
+                                                Other Action
+                                            </Button>
                                         </Col>
                                     </Row>
 
                                 </Col>
 
                             </Row>
-
-                            <div className='md:flex md:justify-between'>
-                                <div className='update-employee-btn'>
-                                    <Button type='button' variant='custom' 
-                                            aria-label='update employee details'
-                                            style={{ backgroundColor: '#4B49AC', color: 'white' }}
-                                            onClick={() => navigate(`/update-employee-details/${ params.empID }`) }>
-                                            Update Employee Details
-                                    </Button>
-                                </div>
-                                <div>
-                                    <Button type='button' variant='custom' style={{ backgroundColor: '#4B49AC', color: 'white' }}>Other Action</Button>
-                                </div>
-                            </div>
 
                         </div>
                         :
