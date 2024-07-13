@@ -268,7 +268,7 @@ const AddNewEmployee = ( ) => {
             <ProSidebar />
 
             <div className='main_content_styling'>
-                <h4 className='page-header-text'>Employee Enrollment: Add New Staff</h4>
+                <h4 className='page-header-text'>Employee Enrollment: Add New Staff.</h4>
                 
                 <Form className='add-user-form-styling extra-form-styling' onSubmit={ AddNewEmployee }>
                     <Row xs={ 1 } md={ 2 }>
