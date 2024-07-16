@@ -31,21 +31,29 @@ const ViewAllEmployees = ( ) => {
     // effect hook to fetch all employees.
     useEffect(() => {
         const FetchAllEmployees = async () => {
-            let response = await fetch( `${ server_url }/get/fetch-all-employees`, {
-                method: 'GET'
-            })
-            if( response.status === 200 ) {
-                let data = await response.json() 
-                setAllEmployeesArray( data )
-                setLoadingAllEmployees( false )
-                console.log(`all employees = ${ AllEmployeesArray }`)
-
-                setTimeout(() => { console.log( AllEmployeesArray )}, 500 )
-            }
-            else {
-                console.log('failed to fetch all employees due to error')
-            }
-
+            try {
+                const controller = new AbortController()   // instantiating the abort controller
+                const id = setTimeout( () => controller.abort(), 10000 )  // aborting the async fetch operation after 10secs
+                let response = await fetch( `${ server_url }/get/fetch-all-employees`, {
+                    method: 'GET',
+                    signal: controller.signal   // listener for the fetch request to listen to the abort operation
+                })
+                if( response.status === 200 ) {
+                    let data = await response.json() 
+                    setAllEmployeesArray( data )
+                    setLoadingAllEmployees( false )
+                    console.log(`all employees = ${ AllEmployeesArray }`)
+                }
+                else {
+                    console.log('failed to fetch all employees due to error')
+                }
+                clearTimeout( id )  // clear timeout in case fetch completes before abort timeout.
+                }
+                catch( error ) {
+                    console.log(`error is ${ error }`)
+                    alert('bad network connection.. try again later')
+                    setLoadingAllEmployees( false )
+                }
         }
         FetchAllEmployees()
 
