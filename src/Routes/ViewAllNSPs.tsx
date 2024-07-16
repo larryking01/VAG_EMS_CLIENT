@@ -29,19 +29,29 @@ const ViewAllNSPs = ( ) => {
     // effect hook to fetch all staff on leave.
     useEffect(() => {
         const FetchAllShortTermStaff = async ( ) => {
-            let response = await fetch(`${ server_url }/get/fetch-all-nsps`, {
-            method: 'GET'
-            })
-            if( response.status === 200 ) {
-                let totalNSPs = await response.json()
-                setLoadingAllNSPs( false )
-                setAllNSPsArray( totalNSPs )
-                console.log('all nsps fetched successfully')
-                console.log( AllNSPsArray )
+            try {
+                const controller = new AbortController()
+                const id = setTimeout( () => controller.abort(), 10000 )
+                let response = await fetch(`${ server_url }/get/fetch-all-nsps`, {
+                    method: 'GET'
+                    })
+                    if( response.status === 200 ) {
+                        let totalNSPs = await response.json()
+                        setLoadingAllNSPs( false )
+                        setAllNSPsArray( totalNSPs )
+                        console.log('all nsps fetched successfully')
+                        console.log( AllNSPsArray )
+                    }
+                    else {
+                        console.log(`failed to fetch all staff on leave`)
+                        setAllNSPsArray([ ])
+                    }
+                    clearTimeout( id )
             }
-            else {
-                console.log(`failed to fetch all staff on leave`)
-                setAllNSPsArray([ ])
+            catch( error ) {
+                console.log(`error is ${ error }`)
+                alert('bad network connection.. try again later')
+                setLoadingAllNSPs( false )
             }
         }
         FetchAllShortTermStaff()

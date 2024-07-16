@@ -27,19 +27,30 @@ const ViewAllEmployeesOnLeave = ( ) => {
     // effect hook to fetch all staff on leave.
     useEffect(() => {
         const FetchAllStaffOnLeaveOrPass = async ( ) => {
-            let response = await fetch(`${ server_url }/get/fetch-all-leave-records`, {
-            method: 'GET'
-            })
-            if( response.status === 200 ) {
-                let totalStaffOnLeaveOrPass = await response.json()
-                setLoadingAllStaffOnLeave( false )
-                setAllStaffOnLeaveArray( totalStaffOnLeaveOrPass )
-                console.log('all staff on leave fetched successfully')
-                console.log( AllStaffOnLeaveArray )
+            try {
+                const controller = new AbortController()
+                const id = setTimeout(() => controller.abort, 10000 )
+                let response = await fetch(`${ server_url }/get/fetch-all-leave-records`, {
+                    method: 'GET',
+                    signal: controller.signal
+                })
+                if( response.status === 200 ) {
+                    let totalStaffOnLeaveOrPass = await response.json()
+                    setLoadingAllStaffOnLeave( false )
+                    setAllStaffOnLeaveArray( totalStaffOnLeaveOrPass )
+                    console.log('all staff on leave fetched successfully')
+                    console.log( AllStaffOnLeaveArray )
+                }
+                else {
+                    console.log(`failed to fetch all staff on leave`)
+                    setAllStaffOnLeaveArray([ ])
+                }
+                clearTimeout( id )
             }
-            else {
-                console.log(`failed to fetch all staff on leave`)
-                setAllStaffOnLeaveArray([ ])
+            catch( error ) {
+                console.log(`error is ${ error }`)
+                alert('bad network connection.. try again later')
+                setLoadingAllStaffOnLeave( false )
             }
         }
         FetchAllStaffOnLeaveOrPass()
