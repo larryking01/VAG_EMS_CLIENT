@@ -24,7 +24,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 // import { IoKey } from "react-icons/io5"
 
-
+import SuccessDialog from './SuccessDialog'
 
 
 
@@ -61,11 +61,23 @@ const AddNewEmployee = ( ) => {
     const [ formSubmitError, setFormSubmitError ] = useState<boolean>( false )
     const [ errorText, setErrorText ] = useState<string>('')
     const [ addingEmployee, setAddingEmployee ] = useState<boolean>(false)
+    
+    // for the success dialog
+    const [ openSuccessDialog, setOpenSuccessDialog ] = useState<boolean>( false )
+    const HandleOpenSuccessDialog = ( ) => {
+        setOpenSuccessDialog( true )
+    }
+
+    const HandleCloseSuccessDialog = ( ) => {
+        setOpenSuccessDialog( false )
+    }
+
 
 
     const UpdateEmployeeID = ( event: any ) => {
         setFormSubmitError( false )
         setVagEmployeeID( event.target.value )
+        // HandleOpenSuccessDialog()
     }
 
     const UpdateFirstName = ( event: any ) => {
@@ -164,6 +176,7 @@ const AddNewEmployee = ( ) => {
     }
 
 
+
     // function to add new employment to database.
     const AddNewEmployee = async ( event: any ) => {
         event.preventDefault()
@@ -185,6 +198,7 @@ const AddNewEmployee = ( ) => {
             setErrorText('The type of employment is required')
         }
         else {
+            setAddingEmployee( true )
             // saving the chosen employee photo into firebase storage and retrieving the url.
             let uploadTask = firebaseStorage.ref('VAG Permanent Staff Profile Photos')
             .child(`${ vagEmployeeID }_${ firstName }_${ lastName }`).put( employeePhoto )
@@ -197,7 +211,7 @@ const AddNewEmployee = ( ) => {
             }, 
             () => {
                 // uploading employee photo to firestore database
-                setAddingEmployee( true )
+                // setAddingEmployee( true )
                 uploadTask.snapshot.ref.getDownloadURL().then( async (downloadUrl) => {
                     console.log( `download url is ${ downloadUrl }`)
                     let newEmployee = {
@@ -230,7 +244,7 @@ const AddNewEmployee = ( ) => {
                     })
 
                     if( response.status === 200 ) {
-                        alert('new employee added')
+                        // alert('new employee added')
                         setAddingEmployee( false )
                         setVagEmployeeID('')
                         setFirstName('')
@@ -250,6 +264,7 @@ const AddNewEmployee = ( ) => {
                         setEmployeePhoto(null)
                         setDateOfEmployment(null)
                         setDateOfEmploymentString('')
+                        HandleOpenSuccessDialog()
                         console.log( await response.json() )
                     }
                     else {
@@ -450,6 +465,10 @@ const AddNewEmployee = ( ) => {
                         </div>
                     </Row>
                 </Form>
+
+                <SuccessDialog open={ openSuccessDialog } handleClose={ HandleCloseSuccessDialog }
+                    dialogContentText='Woohoo!... New staff successfully onboarded.'/> 
+
             </div>
 
         </div>

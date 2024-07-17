@@ -19,6 +19,7 @@ import { FaPhone } from "react-icons/fa"
 import { MdEmail } from "react-icons/md"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import SuccessDialog from './SuccessDialog'
 
 // import { IoShieldCheckmarkSharp } from "react-icons/io5"
 
@@ -53,6 +54,18 @@ const AddNewNSP = ( ) => {
     // const [ nspPhoto, setNspPhoto ] = useState<string>('')
     const [ addingNSP, setAddingNSP ] = useState<boolean>(false)
     const [ profilePhoto, setProfilePhoto ] = useState<any>(null)
+
+    // for the success dialog
+    const [ openSuccessDialog, setOpenSuccessDialog ] = useState<boolean>( false )
+
+    const HandleOpenSuccessDialog = ( ) => {
+        setOpenSuccessDialog( true )
+    }
+
+    const HandleCloseSuccessDialog = ( ) => {
+        setOpenSuccessDialog( false )
+    }
+    
 
 
 
@@ -120,6 +133,7 @@ const AddNewNSP = ( ) => {
 
     const HandleAddNewNSP = async ( event: any ) => {
         event?.preventDefault()
+        setAddingNSP( true )
 
         let uploadTask = firebaseStorage.ref('Short Term Staff Profile Photos')
         .child(`${ uniqueNssID }_${ firstName }_${ lastName }`).put( profilePhoto )
@@ -134,7 +148,7 @@ const AddNewNSP = ( ) => {
             // actually saving the new short term staff to the database.
             uploadTask.snapshot.ref.getDownloadURL().then( async (downloadUrl) => {
                 console.log( `download url is ${ downloadUrl }`)
-                setAddingNSP( true )
+                // setAddingNSP( true )
                 let newNSP = {
                     uniqueNSPID: uniqueNssID,
                     nspFirstName: firstName,
@@ -160,7 +174,7 @@ const AddNewNSP = ( ) => {
 
                 if( response.status === 200 ) {
                     setAddingNSP( false )
-                    alert('new nsp added successfully....')
+                    HandleOpenSuccessDialog()
                     setUniqueNssID('')
                     setFirstName('')
                     setLastName('')
@@ -188,52 +202,6 @@ const AddNewNSP = ( ) => {
     
         )
 
-        // setAddingNSP( true )
-        // let newNSP = {
-        //     uniqueNSPID: uniqueNssID,
-        //     nspFirstName: firstName,
-        //     nspLastName: lastName,
-        //     nspOtherNames: otherNames,
-        //     nspInstitutionAttended: universityAttended,
-        //     nspProgrammeStudied: programmeStudied,
-        //     nspPhoneNumber: phoneNumber,
-        //     nspEmail: email,
-        //     nssStartDate: nssStartDateString,
-        //     nssEndDate: nssEndDateString,
-        //     // nspPhoto: nspPhoto
-        // }
-
-        // let response = await fetch(`${ server_url }/post/add-new-nsp`, {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify( newNSP )
-        // })
-
-        // if( response.status === 200 ) {
-        //     alert('new nsp added successfully....')
-        //     setAddingNSP( false )
-        //     setUniqueNssID('')
-        //     setFirstName('')
-        //     setLastName('')
-        //     setOtherNames('')
-        //     setUniversityAttended('')
-        //     setProgrammeStudied('')
-        //     setPhoneNumber('')
-        //     setEmail('')
-        //     setNssStartDate( null )
-        //     setNssStartDateString('')
-        //     setNssEndDate( null )
-        //     setNssEndDateString('')
-        //     console.log( await response.json() )
-
-        //     }
-        //     else {
-        //         console.log('failed to add new nsp')
-        //         alert('failed to add new nsp')
-        //         setAddingNSP( false )
-        //     }
 
     }
 
@@ -367,12 +335,14 @@ const AddNewNSP = ( ) => {
                                         <FontAwesomeIcon icon={ faSpinner } className='saving-emp-spin' size='1x' spinPulse color='white' />
                                     </div>
                                     :
-                                    <h6>Save New Employee</h6>
+                                    <h6>Save New Short-Term Staff</h6>
                             }
                         </Button>
                     </Row>
-
                 </Form>
+
+                <SuccessDialog open={ openSuccessDialog } handleClose={ HandleCloseSuccessDialog }
+                               dialogContentText='Done! Short-term staff details have been entered.' />
 
             </div>
 
