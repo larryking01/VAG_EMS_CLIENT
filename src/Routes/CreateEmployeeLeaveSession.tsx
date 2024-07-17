@@ -13,7 +13,7 @@ import { IoPerson } from "react-icons/io5"
 import Button from 'react-bootstrap/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
-
+import SuccessDialog from './SuccessDialog'
 // import FloatingLabel from 'react-bootstrap/FloatingLabel'
 
 
@@ -47,6 +47,17 @@ const CreateEmployeeLeaveSession = ( ) => {
     const [ errorMessage, setErrorMessage ] = useState<string>('')
     const [ error, setError ] = useState<boolean>( false )
     const [ creatingLeavePeriod, setCreatingLeavePeriod ] = useState<boolean>( false )
+
+    // for the success dialog
+    const [ openSuccessDialog, setOpenSuccessDialog ] = useState<boolean>( false )
+
+    const HandleOpenSuccessDialog = ( ) => {
+        setOpenSuccessDialog( true )
+    }
+
+    const HandleCloseSuccessDialog = ( ) => {
+        setOpenSuccessDialog( false )
+    }
 
 
 
@@ -144,7 +155,8 @@ const CreateEmployeeLeaveSession = ( ) => {
             })
 
             if( response.status === 200 ) {
-                alert('leave session created successfully...')
+                // alert('leave session created successfully...')
+                HandleOpenSuccessDialog()
                 setCreatingLeavePeriod( false )
                 setLeaveEmployeeID('')
                 setLeaveEmployeeFirstName('')
@@ -290,10 +302,10 @@ const CreateEmployeeLeaveSession = ( ) => {
                         error === true ? 
                             <p style={{ color: 'red'}}>{ errorMessage }</p> : null
                     }
-
-
-
                 </Form>
+
+                <SuccessDialog open={ openSuccessDialog } handleClose={ HandleCloseSuccessDialog }
+                               dialogContentText='All set! Staff leave details are now in the system.' />
             </div>
         </div>
     )

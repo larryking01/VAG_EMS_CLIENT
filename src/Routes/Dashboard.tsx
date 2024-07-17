@@ -5,7 +5,7 @@ import person_colour from '../Static Files/person-color.png'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { BsFillPeopleFill } from "react-icons/bs";
-
+import ErrorDialog from './ErrorDialog'
 
 
 
@@ -18,7 +18,6 @@ const Dashboard = ( ) => {
     // dev_server = import.meta.env.VITE_DEV_SERVER_URL
     // online_server = import.meta.env.VITE_PROD_SERVER_URL
     let server_url = import.meta.env.VITE_PROD_SERVER_URL
-    
 
 
     // setting up state
@@ -31,25 +30,42 @@ const Dashboard = ( ) => {
     const [ shortTermStaff, setShortTermStaff ] = useState([ ])
     const [ staffOnLeaveOrPass, setStaffOnLeaveOrPass ] = useState([ ])
 
+    // for error dialog
+    const [ openErrorDialog, setOpenErrorDialog ] = useState<boolean>( false )
+
+
 
     // effect hook to calculate date
     useEffect(() => {
         setDate( new Date().toDateString() )
+
     }, [])
 
 
     // effect hook to fetch total staff
     useEffect(() => {
         const FetchAllStaff = async ( ) => {
-            let response = await fetch(`${ server_url }/get/fetch-all-employees`, {
-                method: 'GET'
-            })
-            if( response.status === 200 ) {
-                let totalEmployees = await response.json()
-                setTotalStaff( totalEmployees )
+            try {
+                // for aborting fetch operation after given time.
+                const controller = new AbortController()
+                const id = setTimeout(() => controller.abort(), 10000)
+                let response = await fetch(`${ server_url }/get/fetch-all-employees`, {
+                    method: 'GET',
+                    signal: controller.signal
+                })
+                if( response.status === 200 ) {
+                    let totalEmployees = await response.json()
+                    setTotalStaff( totalEmployees )
+                    // alert(`total staff = ${ totalStaff }`)
+                }
+                else {
+                    setTotalStaff([ ])
+                }
+                clearTimeout( id )
             }
-            else {
-                setTotalStaff([ ])
+            catch( error ) {
+                console.log( error )
+                HandleOpenErrorDialog()
             }
         }
         FetchAllStaff()
@@ -66,8 +82,9 @@ const Dashboard = ( ) => {
             if( response.status === 200 ) {
                 // console.log( response.json())
                 let totalMilitaryStaff = await response.json()
-                console.log( totalMilitaryStaff )
+                // console.log( totalMilitaryStaff )
                 setMilitaryStaff( totalMilitaryStaff )
+                // alert(`total military staff = ${ militaryStaff }`)
             }
             else {
                 setMilitaryStaff([ ])
@@ -87,6 +104,7 @@ const Dashboard = ( ) => {
             if( response.status === 200 ) {
                 let totalCivilianStaff = await response.json()
                 setCivilianStaff( totalCivilianStaff )
+                // alert(`total civilian staff = ${ civilianStaff }`)
             }
             else {
                 setCivilianStaff([ ])
@@ -106,6 +124,7 @@ const Dashboard = ( ) => {
             if( response.status === 200 ) {
                 let totalMaleStaff = await response.json()
                 setMaleStaff( totalMaleStaff )
+                // alert(`total male staff = ${ maleStaff }`)
             }
             else {
                 setMaleStaff([ ])
@@ -125,6 +144,7 @@ const Dashboard = ( ) => {
             if( response.status === 200 ) {
                 let totalFemaleStaff = await response.json()
                 setFemaleStaff( totalFemaleStaff )
+                // alert(`total female staff = ${ femaleStaff }`)
             }
             else {
                 setFemaleStaff([ ])
@@ -144,7 +164,8 @@ const Dashboard = ( ) => {
             if( response.status === 200 ) {
                 let totalShortTermStaff = await response.json()
                 setShortTermStaff( totalShortTermStaff )
-                console.log( totalShortTermStaff )
+                // console.log( totalShortTermStaff )
+                // alert(`total short term staff = ${ shortTermStaff }`)
             }
             else {
                 setShortTermStaff([ ])
@@ -164,6 +185,7 @@ const Dashboard = ( ) => {
             if( response.status === 200 ) {
                 let totalStaffOnLeaveOrPass = await response.json()
                 setStaffOnLeaveOrPass( totalStaffOnLeaveOrPass )
+                // alert(`leave or pass staff = ${ staffOnLeaveOrPass }`)
             }
             else {
                 setStaffOnLeaveOrPass([ ])
@@ -172,6 +194,16 @@ const Dashboard = ( ) => {
         FetchAllStaffOnLeaveOrPass()
 
     }, [ ])
+
+
+    // for the error dialog
+    const HandleOpenErrorDialog = ( ) => {
+        setOpenErrorDialog( true )
+    }
+
+    const HandleCloseErrorDialog = ( ) => {
+        setOpenErrorDialog( false )
+    }
 
 
 
@@ -282,6 +314,9 @@ const Dashboard = ( ) => {
                 <section className='mx-3 mt-5'>
                     <h4 className='page-header-text'>Upcoming Events</h4>
                 </section>
+
+                <ErrorDialog open={ openErrorDialog } handleClose={ HandleCloseErrorDialog }
+                             dialogContentText="Oops! It looks like we're having trouble loading the dashboard. Please check your internet connection and refresh the page." />
 
             </div>
 
