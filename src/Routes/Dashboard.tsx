@@ -312,7 +312,7 @@ const Dashboard = ( ) => {
 
 
                 <section className='mx-3 mt-5'>
-                    <h4 className='page-header-text'>Upcoming Events</h4>
+                    <h4 className='page-header-text'>Upcoming Events.</h4>
                 </section>
 
                 <ErrorDialog open={ openErrorDialog } handleClose={ HandleCloseErrorDialog }
