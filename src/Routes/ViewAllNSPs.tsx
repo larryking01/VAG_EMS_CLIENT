@@ -8,6 +8,7 @@ import { MdModeEdit } from "react-icons/md"
 import { MdDelete } from "react-icons/md"
 import Avatar from '@mui/material/Avatar'
 
+import ErrorDialog from './ErrorDialog'
 
 
 
@@ -24,6 +25,8 @@ const ViewAllNSPs = ( ) => {
     const [ AllNSPsArray, setAllNSPsArray ] = useState([ ])
     const [ loadingAllNSPs, setLoadingAllNSPs ] = useState<boolean>( true )
 
+    // for error dialog
+    const [ openErrorDialog, setOpenErrorDialog ] = useState<boolean>( false )
 
 
     // effect hook to fetch all staff on leave.
@@ -50,8 +53,10 @@ const ViewAllNSPs = ( ) => {
             }
             catch( error ) {
                 console.log(`error is ${ error }`)
-                alert('bad network connection.. try again later')
                 setLoadingAllNSPs( false )
+                // alert('bad network connection.. try again later')
+                HandleOpenErrorDialog()
+                
             }
         }
         FetchAllShortTermStaff()
@@ -59,6 +64,15 @@ const ViewAllNSPs = ( ) => {
     
     }, [ ])
 
+
+    // for the error dialog
+    const HandleOpenErrorDialog = ( ) => {
+        setOpenErrorDialog( true )
+    }
+
+    const HandleCloseErrorDialog = ( ) => {
+        setOpenErrorDialog( false )
+    }
 
 
     // the data-table definition
@@ -143,6 +157,9 @@ const ViewAllNSPs = ( ) => {
                     
                 }
             </div>
+
+            <ErrorDialog open={ openErrorDialog } handleClose={ HandleCloseErrorDialog }
+                          dialogContentText="Oops! It looks like we're having trouble loading the dashboard. Please check your internet connection and refresh the page."/>
 
         </div>
     )

@@ -7,6 +7,7 @@ import IconButton from '@mui/material/IconButton'
 import { MdModeEdit } from "react-icons/md"
 import { MdDelete } from "react-icons/md"
 
+import ErrorDialog from './ErrorDialog'
 
 
 
@@ -21,6 +22,10 @@ const ViewAllEmployeesOnLeave = ( ) => {
 
     const [ AllStaffOnLeaveArray, setAllStaffOnLeaveArray ] = useState([ ])
     const [ loadingAllStaffOnLeave, setLoadingAllStaffOnLeave ] = useState<boolean>( true )
+
+    // for error dialog
+    const [ openErrorDialog, setOpenErrorDialog ] = useState<boolean>( false )
+
 
 
 
@@ -49,8 +54,10 @@ const ViewAllEmployeesOnLeave = ( ) => {
             }
             catch( error ) {
                 console.log(`error is ${ error }`)
-                alert('bad network connection.. try again later')
                 setLoadingAllStaffOnLeave( false )
+                HandleOpenErrorDialog()
+                // alert('bad network connection.. try again later')
+                
             }
         }
         FetchAllStaffOnLeaveOrPass()
@@ -58,6 +65,15 @@ const ViewAllEmployeesOnLeave = ( ) => {
     
     }, [ ])
 
+
+    // for the error dialog
+    const HandleOpenErrorDialog = ( ) => {
+        setOpenErrorDialog( true )
+    }
+
+    const HandleCloseErrorDialog = ( ) => {
+        setOpenErrorDialog( false )
+    }
 
 
     // the data-table definition
@@ -133,9 +149,11 @@ const ViewAllEmployeesOnLeave = ( ) => {
                                 // onRowDoubleClick={( rows ) => navigate(`/fetch-employee-details/${ rows.id }`) }
                                 />
                         </div>
-                    
                 }
             </div>
+
+            <ErrorDialog open={ openErrorDialog } handleClose={ HandleCloseErrorDialog }
+                         dialogContentText="Oops! It looks like we're having trouble loading the dashboard. Please check your internet connection and refresh the page."/>
 
         </div>
     )
