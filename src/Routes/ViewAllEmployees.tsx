@@ -10,6 +10,8 @@ import SpinLoading from '../Navigation/SpinLoading'
 import { MdModeEdit } from "react-icons/md"
 import { MdDelete } from "react-icons/md"
 
+import ErrorDialog from './ErrorDialog'
+
 
 
 
@@ -26,6 +28,10 @@ const ViewAllEmployees = ( ) => {
     // setting up state.
     const [ AllEmployeesArray, setAllEmployeesArray ] = useState([ ])
     const [ loadingAllEmployees, setLoadingAllEmployees ] = useState<boolean>( true )
+
+    // for error dialog
+    const [ openErrorDialog, setOpenErrorDialog ] = useState<boolean>( false )
+
 
 
     // effect hook to fetch all employees.
@@ -51,13 +57,24 @@ const ViewAllEmployees = ( ) => {
                 }
                 catch( error ) {
                     console.log(`error is ${ error }`)
-                    alert('bad network connection.. try again later')
+                    // alert('bad network connection.. try again later')
                     setLoadingAllEmployees( false )
+                    HandleOpenErrorDialog()
                 }
         }
         FetchAllEmployees()
 
     }, [ ])
+
+
+    // for the error dialog
+    const HandleOpenErrorDialog = ( ) => {
+        setOpenErrorDialog( true )
+    }
+
+    const HandleCloseErrorDialog = ( ) => {
+        setOpenErrorDialog( false )
+    }
 
 
 
@@ -156,6 +173,9 @@ const ViewAllEmployees = ( ) => {
 
                 }
             </div>
+
+            <ErrorDialog open={ openErrorDialog } handleClose={ HandleCloseErrorDialog }
+                          dialogContentText="Oops! It looks like we're having trouble loading the dashboard. Please check your internet connection and refresh the page."/>
 
         </div>
     )
