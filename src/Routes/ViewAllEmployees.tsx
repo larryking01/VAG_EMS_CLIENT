@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import ProSidebar from "../Navigation/ProSidebar"
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid'
 import Avatar from '@mui/material/Avatar'
@@ -11,7 +11,7 @@ import { MdModeEdit } from "react-icons/md"
 import { MdDelete } from "react-icons/md"
 
 import ErrorDialog from './ErrorDialog'
-
+import ActionDialog from './ActionDialog'
 
 
 
@@ -32,36 +32,45 @@ const ViewAllEmployees = ( ) => {
     // for error dialog
     const [ openErrorDialog, setOpenErrorDialog ] = useState<boolean>( false )
 
+    // for action dialog
+    const [ openActionDialog, setOpenActionDialog ] = useState<boolean>( false )
 
+    // getting the id of the selected record.
+    let staffToDeleteID = useRef<any>( )
+    
+
+
+
+    // function to fetch all employees
+    const FetchAllEmployees = async () => {
+        try {
+            const controller = new AbortController()   // instantiating the abort controller
+            const id = setTimeout( () => controller.abort(), 10000 )  // aborting the async fetch operation after 10secs
+            let response = await fetch( `${ server_url }/get/fetch-all-employees`, {
+                method: 'GET',
+                signal: controller.signal   // listener for the fetch request to listen to the abort operation
+            })
+            if( response.status === 200 ) {
+                let data = await response.json() 
+                setAllEmployeesArray( data )
+                setLoadingAllEmployees( false )
+                console.log(`all employees = ${ AllEmployeesArray }`)
+            }
+            else {
+                console.log('failed to fetch all employees due to error')
+            }
+            clearTimeout( id )  // clear timeout in case fetch completes before abort timeout.
+            }
+            catch( error ) {
+                console.log(`error is ${ error }`)
+                // alert('bad network connection.. try again later')
+                setLoadingAllEmployees( false )
+                HandleOpenErrorDialog()
+            }
+    }
 
     // effect hook to fetch all employees.
     useEffect(() => {
-        const FetchAllEmployees = async () => {
-            try {
-                const controller = new AbortController()   // instantiating the abort controller
-                const id = setTimeout( () => controller.abort(), 10000 )  // aborting the async fetch operation after 10secs
-                let response = await fetch( `${ server_url }/get/fetch-all-employees`, {
-                    method: 'GET',
-                    signal: controller.signal   // listener for the fetch request to listen to the abort operation
-                })
-                if( response.status === 200 ) {
-                    let data = await response.json() 
-                    setAllEmployeesArray( data )
-                    setLoadingAllEmployees( false )
-                    console.log(`all employees = ${ AllEmployeesArray }`)
-                }
-                else {
-                    console.log('failed to fetch all employees due to error')
-                }
-                clearTimeout( id )  // clear timeout in case fetch completes before abort timeout.
-                }
-                catch( error ) {
-                    console.log(`error is ${ error }`)
-                    // alert('bad network connection.. try again later')
-                    setLoadingAllEmployees( false )
-                    HandleOpenErrorDialog()
-                }
-        }
         FetchAllEmployees()
 
     }, [ ])
@@ -74,6 +83,34 @@ const ViewAllEmployees = ( ) => {
 
     const HandleCloseErrorDialog = ( ) => {
         setOpenErrorDialog( false )
+    }
+
+
+    // for the action dialog
+    const HandleOpenActionDialog = ( ) => {
+        setOpenActionDialog( true )
+    }
+
+    const HandleCloseActionDialog = ( ) => {
+        setOpenActionDialog( false )
+    }
+
+
+    // function to delete record.
+    const DeleteStaffRecord = async ( params: any ) => {
+        let response = await fetch(`${ server_url }/del/delete-employee/${ params.current }`, {
+            method: 'DELETE'
+        })
+        if( response.status === 200 ) {
+            HandleCloseActionDialog()
+            // setTimeout(() => alert(`Staff, ${ params.current } removed from database`), 500)
+            FetchAllEmployees()
+        }
+        else {
+            HandleCloseActionDialog()
+            alert(`failed to delete staff, ${ params.current }`)
+        }
+        
     }
 
 
@@ -91,7 +128,7 @@ const ViewAllEmployees = ( ) => {
                         <MdModeEdit color='#4B49AC' />
                     </IconButton>
 
-                    <IconButton aria-label='Delete Staff' onClick={() => {}}>
+                    <IconButton aria-label='Delete Staff' onClick={ HandleOpenActionDialog }>
                         <MdDelete color='#D22B2B' />
                     </IconButton>
                 </div>
@@ -168,6 +205,10 @@ const ViewAllEmployees = ( ) => {
                                 
                             )} 
                             onRowDoubleClick={( rows ) => navigate(`/fetch-employee-details/${ rows.id }`) }
+                            onRowClick={( rows ) => {
+                                staffToDeleteID.current = rows.id
+                                console.log( 'staff to del id = ', staffToDeleteID.current )
+                            }}
                             />
                     </div>
 
@@ -176,6 +217,10 @@ const ViewAllEmployees = ( ) => {
 
             <ErrorDialog open={ openErrorDialog } handleClose={ HandleCloseErrorDialog }
                           dialogContentText="Oops! It looks like we're having trouble loading the dashboard. Please check your internet connection and refresh the page."/>
+        
+            <ActionDialog open={ openActionDialog } handleClose={ HandleCloseActionDialog }
+                          dialogTitle='Delete Record' handleDelete={() => DeleteStaffRecord( staffToDeleteID ) }
+                          dialogContentText="Are you sure you want to erase staff from the database? This action cannot be undone." />
 
         </div>
     )
