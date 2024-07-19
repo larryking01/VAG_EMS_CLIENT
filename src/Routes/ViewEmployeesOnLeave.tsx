@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ProSidebar from "../Navigation/ProSidebar"
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid'
@@ -8,12 +8,18 @@ import { MdModeEdit } from "react-icons/md"
 import { MdDelete } from "react-icons/md"
 
 import ErrorDialog from './ErrorDialog'
+import ActionDialog from './ActionDialog'
+
+
+
 
 
 
 const ViewAllEmployeesOnLeave = ( ) => {
 
     const navigate = useNavigate()
+
+    const deletePassRecordID = useRef<any>( )
 
     // server urls
     // dev_server = import.meta.env.VITE_DEV_SERVER_URL
@@ -26,42 +32,45 @@ const ViewAllEmployeesOnLeave = ( ) => {
     // for error dialog
     const [ openErrorDialog, setOpenErrorDialog ] = useState<boolean>( false )
 
+    // for action dialog
+    const [ openActionDialog, setOpenActionDialog ] = useState<boolean>( false )
 
+
+    // function to fetch all staff on leave.
+    const FetchAllStaffOnLeaveOrPass = async ( ) => {
+        try {
+            const controller = new AbortController()
+            const id = setTimeout(() => controller.abort, 10000 )
+            let response = await fetch(`${ server_url }/get/fetch-all-leave-records`, {
+                method: 'GET',
+                signal: controller.signal
+            })
+            if( response.status === 200 ) {
+                let totalStaffOnLeaveOrPass = await response.json()
+                setLoadingAllStaffOnLeave( false )
+                setAllStaffOnLeaveArray( totalStaffOnLeaveOrPass )
+                console.log('all staff on leave fetched successfully')
+                console.log( AllStaffOnLeaveArray )
+            }
+            else {
+                console.log(`failed to fetch all staff on leave`)
+                setAllStaffOnLeaveArray([ ])
+            }
+            clearTimeout( id )
+        }
+        catch( error ) {
+            console.log(`error is ${ error }`)
+            setLoadingAllStaffOnLeave( false )
+            HandleOpenErrorDialog()
+            // alert('bad network connection.. try again later')
+            
+        }
+    }
 
 
     // effect hook to fetch all staff on leave.
     useEffect(() => {
-        const FetchAllStaffOnLeaveOrPass = async ( ) => {
-            try {
-                const controller = new AbortController()
-                const id = setTimeout(() => controller.abort, 10000 )
-                let response = await fetch(`${ server_url }/get/fetch-all-leave-records`, {
-                    method: 'GET',
-                    signal: controller.signal
-                })
-                if( response.status === 200 ) {
-                    let totalStaffOnLeaveOrPass = await response.json()
-                    setLoadingAllStaffOnLeave( false )
-                    setAllStaffOnLeaveArray( totalStaffOnLeaveOrPass )
-                    console.log('all staff on leave fetched successfully')
-                    console.log( AllStaffOnLeaveArray )
-                }
-                else {
-                    console.log(`failed to fetch all staff on leave`)
-                    setAllStaffOnLeaveArray([ ])
-                }
-                clearTimeout( id )
-            }
-            catch( error ) {
-                console.log(`error is ${ error }`)
-                setLoadingAllStaffOnLeave( false )
-                HandleOpenErrorDialog()
-                // alert('bad network connection.. try again later')
-                
-            }
-        }
         FetchAllStaffOnLeaveOrPass()
-    
     
     }, [ ])
 
@@ -76,6 +85,34 @@ const ViewAllEmployeesOnLeave = ( ) => {
     }
 
 
+    // for the action dialog
+    const HandleOpenActionDialog = ( ) => {
+        // console.log(`del leave id = ${ deletePassRecordID.current }`)
+        setOpenActionDialog( true )
+    }
+
+    const HandleCloseActionDialog = ( ) => {
+        setOpenActionDialog( false )
+    }
+
+    // function to delete leave record
+    const DeleteLeaveOrPassRecord = async ( params: any ) => {
+        let response = await fetch(`${ server_url }/del/delete-employee-leave-instance/${ params.current }`, {
+            method: 'DELETE'
+        })
+
+        if( response.status === 200 ) {
+            HandleCloseActionDialog()
+            FetchAllStaffOnLeaveOrPass()
+        }
+        else {
+            HandleCloseActionDialog()
+            alert(`failed to delete leave record, ${ params.current }`)
+        }
+        
+    }
+
+
     // the data-table definition
     const columns: GridColDef[ ] = [
         { field: 'Actions', headerName:'Actions', headerClassName: 'display-employees-grid-header', width: 120,
@@ -85,7 +122,7 @@ const ViewAllEmployeesOnLeave = ( ) => {
                     <MdModeEdit color='#4B49AC' />
                 </IconButton>
 
-                <IconButton aria-label='Delete Leave Record' onClick={() => console.log( params.id )}>
+                <IconButton aria-label='Delete Leave Record' onClick={ HandleOpenActionDialog }>
                     <MdDelete color='#D22B2B' />
                 </IconButton>
 
@@ -146,7 +183,11 @@ const ViewAllEmployeesOnLeave = ( ) => {
                                     params.indexRelativeToCurrentPage % 2 === 0 ? 'even-rows' : 'odd-rows'
                                     
                                 )} 
-                                // onRowDoubleClick={( rows ) => navigate(`/fetch-employee-details/${ rows.id }`) }
+                                onRowClick={( rows ) => {
+                                    deletePassRecordID.current = rows.id
+                                    console.log(`leave record to del = ${ deletePassRecordID.current }`)
+                                }}
+                                onRowDoubleClick={( rows ) => navigate(`/leave-record-details/${ rows.id }`) }
                                 />
                         </div>
                 }
@@ -155,6 +196,9 @@ const ViewAllEmployeesOnLeave = ( ) => {
             <ErrorDialog open={ openErrorDialog } handleClose={ HandleCloseErrorDialog }
                          dialogContentText="Oops! It looks like we're having trouble loading the dashboard. Please check your internet connection and refresh the page."/>
 
+            <ActionDialog open={ openActionDialog } handleClose={ HandleCloseActionDialog }
+                          handleDelete={() => DeleteLeaveOrPassRecord( deletePassRecordID )} dialogTitle='Delete Leave/Pass Record' 
+                          dialogContentText='Are you sure you want to erase leave/pass record from the database? This action cannot be undone.' />
         </div>
     )
 
