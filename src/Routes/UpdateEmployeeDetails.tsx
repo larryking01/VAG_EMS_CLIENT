@@ -15,7 +15,6 @@ import { RiBankCardFill } from "react-icons/ri"
 import { HiMiniBuildingOffice } from "react-icons/hi2"
 import { SiOnlyoffice } from "react-icons/si"
 import ProSidebar from '../Navigation/ProSidebar'
-import { IoPersonCircleOutline } from "react-icons/io5"
 
 
 
@@ -231,16 +230,7 @@ const UpdateEmployeeDetails = ( ) => {
                                 <Col>
                                     <div className='update-employee-current-image'>
                                         <img className='rounded-full' width={ 300 }  src={ employeePhoto } alt='' />
-                                        <p>Current Photo</p>
-                                    </div>
-                                </Col>
-
-                                <Col>
-                                    <div className='update-employee-current-image'>
-                                        {/* <img className='rounded-full' width={ 200 }  src={ updatedEmployeePhoto.split('').length > 4? updatedEmployeePhoto : no_person } alt='' /> */}
-                                        {/* <IoPersonSharp size={ 200 } /> */}
-                                        { updatedEmployeePhoto.split('').length > 4? <img src={ updatedEmployeePhoto } alt='' width='300' /> : <IoPersonCircleOutline size={ 200 } /> }
-                                        <p>New Photo</p>
+                                        {/* <p className=''>Profile Photo</p> */}
                                     </div>
                                 </Col>
                             </Row>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ProSidebar from "../Navigation/ProSidebar"
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid'
@@ -9,6 +9,10 @@ import { MdDelete } from "react-icons/md"
 import Avatar from '@mui/material/Avatar'
 
 import ErrorDialog from './ErrorDialog'
+import ActionDialog from './ActionDialog'
+
+
+
 
 
 
@@ -16,6 +20,8 @@ import ErrorDialog from './ErrorDialog'
 const ViewAllNSPs = ( ) => {
 
     const navigate = useNavigate()
+
+    const deleteShortTermStaffID = useRef<any>( )
 
     // server urls
     // dev_server = import.meta.env.VITE_DEV_SERVER_URL
@@ -28,39 +34,44 @@ const ViewAllNSPs = ( ) => {
     // for error dialog
     const [ openErrorDialog, setOpenErrorDialog ] = useState<boolean>( false )
 
+    // for action dialog
+    const [ openActionDialog, setOpenActionDialog ] = useState<boolean>( false )
+
+
+    // function to fetch all short term staff.
+    const FetchAllShortTermStaff = async ( ) => {
+        try {
+            const controller = new AbortController()
+            const id = setTimeout( () => controller.abort(), 10000 )
+            let response = await fetch(`${ server_url }/get/fetch-all-nsps`, {
+                method: 'GET'
+                })
+                if( response.status === 200 ) {
+                    let totalNSPs = await response.json()
+                    setLoadingAllNSPs( false )
+                    setAllNSPsArray( totalNSPs )
+                    console.log('all nsps fetched successfully')
+                    console.log( AllNSPsArray )
+                }
+                else {
+                    console.log(`failed to fetch all staff on leave`)
+                    setAllNSPsArray([ ])
+                }
+                clearTimeout( id )
+        }
+        catch( error ) {
+            console.log(`error is ${ error }`)
+            setLoadingAllNSPs( false )
+            // alert('bad network connection.. try again later')
+            HandleOpenErrorDialog()
+            
+        }
+    }
+
 
     // effect hook to fetch all staff on leave.
     useEffect(() => {
-        const FetchAllShortTermStaff = async ( ) => {
-            try {
-                const controller = new AbortController()
-                const id = setTimeout( () => controller.abort(), 10000 )
-                let response = await fetch(`${ server_url }/get/fetch-all-nsps`, {
-                    method: 'GET'
-                    })
-                    if( response.status === 200 ) {
-                        let totalNSPs = await response.json()
-                        setLoadingAllNSPs( false )
-                        setAllNSPsArray( totalNSPs )
-                        console.log('all nsps fetched successfully')
-                        console.log( AllNSPsArray )
-                    }
-                    else {
-                        console.log(`failed to fetch all staff on leave`)
-                        setAllNSPsArray([ ])
-                    }
-                    clearTimeout( id )
-            }
-            catch( error ) {
-                console.log(`error is ${ error }`)
-                setLoadingAllNSPs( false )
-                // alert('bad network connection.. try again later')
-                HandleOpenErrorDialog()
-                
-            }
-        }
         FetchAllShortTermStaff()
-    
     
     }, [ ])
 
@@ -74,17 +85,45 @@ const ViewAllNSPs = ( ) => {
         setOpenErrorDialog( false )
     }
 
+    // for the action dialog
+    const HandleOpenActionDialog = ( ) => {
+        setOpenActionDialog( true )
+    }
+
+    const HandleCloseActionDialog = ( ) => {
+        setOpenActionDialog( false )
+    }
+
+
+    // function to delete short term staff.
+    const DeleteShortTermStaff = async ( params: any ) => {
+        let response = await fetch(`${ server_url }/del/delete-nsp/${ params.current }`, {
+            method: 'DELETE'
+        })
+        
+        if( response.status === 200 ) {
+            HandleCloseActionDialog()
+            FetchAllShortTermStaff()
+            // alert(`nsp deleted, ${ params.current }`)
+        }
+        else {
+            HandleCloseActionDialog()
+            alert(`failed to delete nsp ${ params.current }`)
+        }
+    }
+    
+
 
     // the data-table definition
     const columns: GridColDef[ ] = [
         { field: 'Actions', headerName: 'Actions', headerClassName: 'display-employees-grid-header', width: 120,
           renderCell: (( params: any ) => 
             <div>
-                <IconButton aria-label='Edit Short-Term Staff' onClick={() => { console.log( params.id )}}>
+                <IconButton aria-label='Edit Short-Term Staff' onClick={() => navigate(`/short-term-staff-details/${ params.id }`)}>
                     <MdModeEdit color='#4B49AC'/>
                 </IconButton>
 
-                <IconButton aria-label='Delete Short-Term Staff' onClick={() => { console.log( params.id )}}>
+                <IconButton aria-label='Delete Short-Term Staff' onClick={ HandleOpenActionDialog }>
                     <MdDelete color='#D22B2B'/>
                 </IconButton>
 
@@ -151,6 +190,10 @@ const ViewAllNSPs = ( ) => {
                                     params.indexRelativeToCurrentPage % 2 === 0 ? 'even-rows' : 'odd-rows'
                                     
                                 )} 
+                                onRowClick={( rows ) => {
+                                    deleteShortTermStaffID.current = rows.id
+                                    console.log(`short term staff to delete = ${ deleteShortTermStaffID.current }`)
+                                }}
                                 onRowDoubleClick={( rows ) => navigate(`/short-term-staff-details/${ rows.id }`) }
                                 />
                         </div>
@@ -160,7 +203,10 @@ const ViewAllNSPs = ( ) => {
 
             <ErrorDialog open={ openErrorDialog } handleClose={ HandleCloseErrorDialog }
                           dialogContentText="Oops! It looks like we're having trouble loading the dashboard. Please check your internet connection and refresh the page."/>
-
+            
+            <ActionDialog open={ openActionDialog } handleClose={ HandleCloseActionDialog }
+                          dialogTitle='Delete Short-Term Staff' handleDelete={() => DeleteShortTermStaff( deleteShortTermStaffID )}
+                          dialogContentText='Are you sure you want to erase short-term staff record from the database? This action cannot be undone.' />
         </div>
     )
 

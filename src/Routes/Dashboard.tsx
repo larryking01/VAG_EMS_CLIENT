@@ -56,6 +56,7 @@ const Dashboard = ( ) => {
                 if( response.status === 200 ) {
                     let totalEmployees = await response.json()
                     setTotalStaff( totalEmployees )
+                    console.log( totalEmployees )
                     // alert(`total staff = ${ totalStaff }`)
                 }
                 else {
