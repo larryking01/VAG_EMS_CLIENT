@@ -319,7 +319,7 @@ const AddNewNSP = ( ) => {
                         <label className='label_styling'>Photo *</label>
                         <InputGroup>
                             <Form.Control type='file' required placeholder='' aria-label='Short Term Staff Photo'
-                                          accept='.jpg, .jpeg, .png' onChange={ UpdateProfilePhoto } />
+                                          accept='.jpg, .jpeg, .png, .webp' onChange={ UpdateProfilePhoto } />
                             <InputGroup.Text><IoPerson /></InputGroup.Text>
                         </InputGroup>
 

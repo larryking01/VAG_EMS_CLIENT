@@ -442,7 +442,7 @@ const AddNewEmployee = ( ) => {
                             <label className='label_styling'>Employee Photo *</label>
                             <InputGroup>
                                 <Form.Control type='file' required placeholder='' aria-label='Employee Photo' 
-                                    accept='.jpg, .jpeg, .png' onChange={ UpdateEmployeePhoto } />
+                                    accept='.jpg, .jpeg, .png, .webp' onChange={ UpdateEmployeePhoto } />
                                 <InputGroup.Text><IoPerson /></InputGroup.Text>
                             </InputGroup>
                         </Col>
