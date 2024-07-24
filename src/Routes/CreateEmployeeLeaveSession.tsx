@@ -26,7 +26,7 @@ import SuccessDialog from './SuccessDialog'
 const CreateEmployeeLeaveSession = ( ) => {
 
     // server urls
-    // dev_server = import.meta.env.VITE_DEV_SERVER_URL
+    // let dev_server = import.meta.env.VITE_DEV_SERVER_URL
     // online_server = import.meta.env.VITE_PROD_SERVER_URL
     let server_url = import.meta.env.VITE_PROD_SERVER_URL
     
@@ -35,8 +35,7 @@ const CreateEmployeeLeaveSession = ( ) => {
     const [ leaveEmployeeID, setLeaveEmployeeID ] = useState('')
     const [ leaveEmployeeFirstName, setLeaveEmployeeFirstName ] = useState('')
     const [ leaveEmployeeLastName, setLeaveEmployeeLastName ] = useState('')
-    // const [ employeeOtherNames, setEmployeeOtherNames ] = useState('')
-    const [ leaveEmployeeDepartment, setLeaveEmployeeDepartment ] = useState('')
+    const [ lengthOfLeave, setLengthOfLeave ] = useState('')
     const [ leaveEmployeeContactNumber, setLeaveEmployeeContactNumber ] = useState('')
     const [ employeeLeaveType, setEmployeeLeaveType] = useState('') 
     const [ reasonForLeave, setReasonForLeave ] = useState('')
@@ -74,22 +73,8 @@ const CreateEmployeeLeaveSession = ( ) => {
         setLeaveEmployeeLastName( event.target.value )
     }
 
-    const UpdateLeaveEmployeeDepartment = ( event: any ) => {
-        setLeaveEmployeeDepartment( event.target.value )
-    }
-
     const UpdateLeaveEmployeeContactNumber = ( event: any ) => {
         setLeaveEmployeeContactNumber( event.target.value )
-    }
-
-    const UpdateLeaveEmployeeLeaveType = ( event: any ) => {
-        setError( false )
-        setEmployeeLeaveType( event.target.value )
-    }
-
-    const UpdateLeaveEmployeeReasonForLeave = ( event: any ) => {
-        setError( true )
-        setReasonForLeave( event.target.value )
     }
 
     const UpdateLeaveEmployeeStartDate = ( date: Dayjs | null ) => {
@@ -112,6 +97,22 @@ const CreateEmployeeLeaveSession = ( ) => {
           }
     }
 
+    const UpdateLengthOfLeave = ( event: any ) => {
+        setLengthOfLeave( event.target.value )
+    }
+
+    const UpdateLeaveEmployeeLeaveType = ( event: any ) => {
+        setError( false )
+        setEmployeeLeaveType( event.target.value )
+    }
+
+    const UpdateLeaveEmployeeReasonForLeave = ( event: any ) => {
+        setError( true )
+        setReasonForLeave( event.target.value )
+    }
+
+
+
 
     const HandleCreateLeavePeriod = async ( event: any ) => {
         event?.preventDefault()
@@ -128,21 +129,27 @@ const CreateEmployeeLeaveSession = ( ) => {
             setError( true )
             setErrorMessage('The ending date of the leave is required')
         }
+        else if( lengthOfLeave === '' ) {
+            setError( true )
+            setErrorMessage('Enter the length of days of the leave')
+        }
         else if( reasonForLeave === '' ) {
             setError( true )
             setErrorMessage('Enter the employee\'s reason for requesting a leave')
         }
+
         else {
             setCreatingLeavePeriod( true )
             let new_leave_object = {
-                vagEmployeeID: leaveEmployeeID.trim(),
-                employeeFirstName: leaveEmployeeFirstName.trim(),
-                // employeeOtherNames: { type: String, required: false },
-                employeeLastName: leaveEmployeeLastName.trim(),
+                vagEmployeeID: leaveEmployeeID.trim().toUpperCase(),
+                employeeFirstName: leaveEmployeeFirstName.trim().toUpperCase(),
+                employeeLastName: leaveEmployeeLastName.trim().toUpperCase(),
                 leaveStartDate: leaveStartDateString,
                 leaveEndDate: leaveEndDateString,
-                typeOfLeave: employeeLeaveType,
-                reasonForLeave: reasonForLeave
+                lengthOfLeaveDays: lengthOfLeave.trim().toUpperCase(),
+                typeOfLeave: employeeLeaveType.trim().toUpperCase(),
+                reasonForLeave: reasonForLeave.trim().toUpperCase(),
+                contactNumber: leaveEmployeeContactNumber.trim().toUpperCase()
             }
 
             // actually saving the leave record into the database.
@@ -161,7 +168,7 @@ const CreateEmployeeLeaveSession = ( ) => {
                 setLeaveEmployeeID('')
                 setLeaveEmployeeFirstName('')
                 setLeaveEmployeeLastName('')
-                setLeaveEmployeeDepartment('')
+                setLengthOfLeave('')
                 setLeaveEmployeeContactNumber('')
                 setEmployeeLeaveType('')
                 setLeaveStartDate( null )
@@ -194,16 +201,16 @@ const CreateEmployeeLeaveSession = ( ) => {
                         <Col className='input-form-ctrl-mb'>
                             <Form.Label className='text-slate-500'> Employee ID *</Form.Label>
                             <InputGroup>
-                                <Form.Control required type='text' aria-label='Employee ID' onChange={ UpdateLeaveEmployeeID } value={ leaveEmployeeID } />
-                                <InputGroup.Text> <IoPerson /> </InputGroup.Text>
+                                <Form.Control style={{ border: '1px solid rgb(3 105 161)'}} required type='text' aria-label='Employee ID' onChange={ UpdateLeaveEmployeeID } value={ leaveEmployeeID } />
+                                <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}> <IoPerson /> </InputGroup.Text>
                             </InputGroup>
                         </Col>
 
                         <Col className='input-form-ctrl-mb'>
                             <Form.Label className='text-slate-500'> First Name *</Form.Label>
                             <InputGroup>
-                                <Form.Control required type='text' aria-label='First Name' onChange={ UpdateLeaveEmployeeFirstName } value={ leaveEmployeeFirstName } />
-                                <InputGroup.Text> <IoPerson /> </InputGroup.Text>
+                                <Form.Control style={{ border: '1px solid rgb(3 105 161)'}} required type='text' aria-label='First Name' onChange={ UpdateLeaveEmployeeFirstName } value={ leaveEmployeeFirstName } />
+                                <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}> <IoPerson /> </InputGroup.Text>
                             </InputGroup>
                         </Col>
                     </Row>
@@ -213,40 +220,16 @@ const CreateEmployeeLeaveSession = ( ) => {
                         <Col className='input-form-ctrl-mb'>
                             <Form.Label className='text-slate-500'> Last Name *</Form.Label>
                             <InputGroup>
-                                <Form.Control required type='text' aria-label='Last Name' onChange={ UpdateLeaveEmployeeLastName } value={ leaveEmployeeLastName } />
-                                <InputGroup.Text> <IoPerson /> </InputGroup.Text>
+                                <Form.Control style={{ border: '1px solid rgb(3 105 161)'}} required type='text' aria-label='Last Name' onChange={ UpdateLeaveEmployeeLastName } value={ leaveEmployeeLastName } />
+                                <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}> <IoPerson /> </InputGroup.Text>
                             </InputGroup>
                         </Col>
 
-                        <Col className='input-form-ctrl-mb'>
-                            <Form.Label className='text-slate-500'> Department *</Form.Label>
-                            <InputGroup>
-                                <Form.Control required type='text' aria-label='Department' onChange={ UpdateLeaveEmployeeDepartment } value={ leaveEmployeeDepartment } />
-                                <InputGroup.Text> <IoPerson /> </InputGroup.Text>
-                            </InputGroup>
-                        </Col>
-
-                    </Row>
-
-
-                    <Row xs={ 1 } md={ 2 }>
                         <Col className='input-form-ctrl-mb'>
                             <Form.Label className='text-slate-500'> Contact Number *</Form.Label>
                             <InputGroup>
-                                <Form.Control required type='text' aria-label='Contact Number' onChange={ UpdateLeaveEmployeeContactNumber } value={ leaveEmployeeContactNumber } />
-                                <InputGroup.Text> <IoPerson /> </InputGroup.Text>
-                            </InputGroup>
-                        </Col>
-
-
-                        <Col className='input-form-ctrl-mb'>
-                            <Form.Label className='text-slate-500'> Type Of Leave/Pass *</Form.Label>
-                            <InputGroup>
-                                <Form.Select required onChange={ UpdateLeaveEmployeeLeaveType } value={ employeeLeaveType }>
-                                    <option id='--Select--'>--Select--</option>
-                                    <option id='Annual Leave'>Annual Leave</option>
-                                    <option id='Sick Leave'>Sick Leave</option>
-                                </Form.Select>
+                                <Form.Control style={{ border: '1px solid rgb(3 105 161)'}} required type='text' aria-label='Contact Number' onChange={ UpdateLeaveEmployeeContactNumber } value={ leaveEmployeeContactNumber } />
+                                <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}> <IoPerson /> </InputGroup.Text>
                             </InputGroup>
                         </Col>
 
@@ -277,10 +260,34 @@ const CreateEmployeeLeaveSession = ( ) => {
                     </Row>
 
 
+                    <Row xs={ 1 } md={ 2 }>
+                        <Col className='input-form-ctrl-mb'>
+                            <Form.Label className='text-slate-500'> Number Of Days *</Form.Label>
+                            <InputGroup>
+                                <Form.Control style={{ border: '1px solid rgb(3 105 161)'}} required type='text' aria-label='Contact Number' 
+                                              onChange={ UpdateLengthOfLeave } value={ lengthOfLeave } />
+                                <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}> <IoPerson /> </InputGroup.Text>
+                            </InputGroup>
+                        </Col>
+
+
+                        <Col className='input-form-ctrl-mb'>
+                            <Form.Label className='text-slate-500'> Type Of Leave/Pass *</Form.Label>
+                            <InputGroup>
+                                <Form.Select style={{ border: '1px solid rgb(3 105 161)'}} required onChange={ UpdateLeaveEmployeeLeaveType } value={ employeeLeaveType }>
+                                    <option id='--Select--'>--Select--</option>
+                                    <option id='Annual Leave'>Annual Leave</option>
+                                    <option id='Sick Leave'>Sick Leave</option>
+                                </Form.Select>
+                            </InputGroup>
+                        </Col>
+                    </Row>
+
+
                     <Row xs={ 1 } md={ 1 }>
                         <Col className='mb-4'>
                             <Form.Label required className='text-slate-500'> Reason For Leave * </Form.Label>
-                            <Form.Control as='textarea' aria-label='Reason For Leave' onChange={ UpdateLeaveEmployeeReasonForLeave } value={ reasonForLeave } />
+                            <Form.Control style={{ border: '1px solid rgb(3 105 161)'}} as='textarea' aria-label='Reason For Leave' onChange={ UpdateLeaveEmployeeReasonForLeave } value={ reasonForLeave } />
                         </Col>
                     </Row>
 

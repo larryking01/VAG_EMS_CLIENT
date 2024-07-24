@@ -50,6 +50,7 @@ const UpdateShortTermStaffDetails = ( ) => {
     const [ email, setEmail ] = useState<string>('')
     const [ nssStartDate, setNssStartDate ] = useState<string>('')
     const [ nssEndDate, setNssEndDate ] = useState<string>('')
+    const [ shortTermStaffPhoto, setShortTermStaffPhoto ] = useState<string>('')
     // const [ nssStartDateString, setNssStartDateString ] = useState<string>('')
     // const [ nssEndDateString, setNssEndDateString ] = useState<string>('')
     // const [ nspPhoto, setNspPhoto ] = useState<string>('')
@@ -78,6 +79,8 @@ const UpdateShortTermStaffDetails = ( ) => {
                 setNssEndDate( short_term_staff.nssEndDate)
                 setPhoneNumber( short_term_staff.nspPhoneNumber )
                 setEmail( short_term_staff.nspEmail )
+                setShortTermStaffPhoto( short_term_staff.nspPhoto )
+                console.log( short_term_staff )
             }
             else {
                 console.log('failed to fetch employee')
@@ -141,26 +144,34 @@ const UpdateShortTermStaffDetails = ( ) => {
                 { 
                     Object.keys( targetShortTermStaff ).length > 2 ?
                         <div className='details-form'>
-                            <h4 className='page-header-text mb-10'>Update Short-Term Staff Details</h4>
+                            <h4 className='page-header-text mb-10'>{`Update Short-Term Staff Details: ${ firstName } ${ otherNames } ${ lastName }`}</h4>
                             <Form className='add-new-employee-form'>
+                                <Row>
+                                    <Col>
+                                        <div className='update-employee-current-image'>
+                                            <img className='rounded-full' width={ 300 }  src={ shortTermStaffPhoto } alt='' />
+                                            {/* <p className=''>Profile Photo</p> */}
+                                        </div>
+                                    </Col>
+                                </Row>
+
                                 <Row>
                                     <Col className='add-employee-form-input-row'>
                                         <Form.Label className='text-slate-500'>NSP ID*</Form.Label>
                                         <InputGroup>
-                                            <Form.Control type='text' required
-                                                        aria-label='Employee ID' onChange={ UpdateShortTermStaffID } 
+                                            <Form.Control type='text' required  style={{ border: '1px solid rgb(3 105 161)'}}                                                     aria-label='Employee ID' onChange={ UpdateShortTermStaffID } 
                                                         value={ uniqueNssID }/>
-                                            <InputGroup.Text><IoShieldCheckmarkSharp /></InputGroup.Text>
+                                            <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><IoShieldCheckmarkSharp /></InputGroup.Text>
                                         </InputGroup>
                                     </Col>
 
                                     <Col className='add-employee-form-input-row'>
                                         <Form.Label className='text-slate-500'>First Name *</Form.Label>
                                         <InputGroup>
-                                            <Form.Control type='text' required 
+                                            <Form.Control type='text' required style={{ border: '1px solid rgb(3 105 161)'}}
                                                         aria-label='First Name' onChange={ UpdateShortTermStaffFirstName }
                                                         value={ firstName } />
-                                            <InputGroup.Text><IoPerson /></InputGroup.Text>
+                                            <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><IoPerson /></InputGroup.Text>
                                         </InputGroup>
                                     </Col>
                                 </Row>
@@ -170,20 +181,20 @@ const UpdateShortTermStaffDetails = ( ) => {
                                     <Col className='add-employee-form-input-row'>
                                         <Form.Label className='text-slate-500'>Last Name*</Form.Label>
                                         <InputGroup>
-                                            <Form.Control type='text' required
+                                            <Form.Control type='text' required style={{ border: '1px solid rgb(3 105 161)'}}
                                                         aria-label='Last Name' onChange={ UpdateShortTermStaffLastName } 
                                                         value={ lastName }/>
-                                            <InputGroup.Text><IoShieldCheckmarkSharp /></InputGroup.Text>
+                                            <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><IoShieldCheckmarkSharp /></InputGroup.Text>
                                         </InputGroup>
                                     </Col>
 
                                     <Col className='add-employee-form-input-row'>
                                         <Form.Label className='text-slate-500'>Other Name(s) *</Form.Label>
                                         <InputGroup>
-                                            <Form.Control type='text' required 
+                                            <Form.Control type='text' required style={{ border: '1px solid rgb(3 105 161)'}}
                                                         aria-label='Other Name' onChange={ UpdateShortTermStaffOtherNames }
                                                         value={ otherNames } />
-                                            <InputGroup.Text><IoPerson /></InputGroup.Text>
+                                            <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><IoPerson /></InputGroup.Text>
                                         </InputGroup>
                                     </Col>
                                 </Row>
@@ -193,20 +204,20 @@ const UpdateShortTermStaffDetails = ( ) => {
                                     <Col className='add-employee-form-input-row'>
                                         <Form.Label className='text-slate-500'>Phone Number*</Form.Label>
                                         <InputGroup>
-                                            <Form.Control type='text' required
+                                            <Form.Control type='text' required style={{ border: '1px solid rgb(3 105 161)'}}
                                                         aria-label='Phone Number' onChange={ UpdateShortTermStaffPhoneNumber } 
                                                         value={ phoneNumber }/>
-                                            <InputGroup.Text><FaPhone /></InputGroup.Text>
+                                            <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><FaPhone /></InputGroup.Text>
                                         </InputGroup>
                                     </Col>
 
                                     <Col className='add-employee-form-input-row'>
                                         <Form.Label className='text-slate-500'>E-mail *</Form.Label>
                                         <InputGroup>
-                                            <Form.Control type='text' required 
+                                            <Form.Control type='text' required style={{ border: '1px solid rgb(3 105 161)'}}
                                                         aria-label='E-mail' onChange={ UpdateShortTermStaffEmail }
                                                         value={ email } />
-                                            <InputGroup.Text><MdEmail /></InputGroup.Text>
+                                            <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><MdEmail /></InputGroup.Text>
                                         </InputGroup>
                                     </Col>
                                 </Row>
@@ -216,20 +227,20 @@ const UpdateShortTermStaffDetails = ( ) => {
                                     <Col className='add-employee-form-input-row'>
                                         <Form.Label className='text-slate-500'>University/Institution Attended*</Form.Label>
                                         <InputGroup>
-                                            <Form.Control type='text' required
+                                            <Form.Control type='text' required style={{ border: '1px solid rgb(3 105 161)'}}
                                                         aria-label='University/Institution Attended' onChange={ UpdateShortTermStaffUniversityAttended } 
                                                         value={ universityAttended }/>
-                                            <InputGroup.Text><FaUniversity /></InputGroup.Text>
+                                            <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><FaUniversity /></InputGroup.Text>
                                         </InputGroup>
                                     </Col>
 
                                     <Col className='add-employee-form-input-row'>
                                         <Form.Label className='text-slate-500'>Programme Studied *</Form.Label>
                                         <InputGroup>
-                                            <Form.Control type='text' required 
+                                            <Form.Control type='text' required style={{ border: '1px solid rgb(3 105 161)'}}
                                                         aria-label='Programme Studied' onChange={ UpdateShortTermStaffProgrammeStudied }
                                                         value={ programmeStudied } />
-                                            <InputGroup.Text><MdEmail /></InputGroup.Text>
+                                            <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><MdEmail /></InputGroup.Text>
                                         </InputGroup>
                                     </Col>
                                 </Row>
@@ -239,20 +250,20 @@ const UpdateShortTermStaffDetails = ( ) => {
                                     <Col className='add-employee-form-input-row'>
                                         <Form.Label className='text-slate-500'>Service Start Date *</Form.Label>
                                         <InputGroup>
-                                            <Form.Control type='text' required
+                                            <Form.Control type='text' required style={{ border: '1px solid rgb(3 105 161)'}}
                                                         aria-label='Service Start Date' onChange={ UpdateShortTermStaffServiceStartDate } 
                                                         value={ nssStartDate }/>
-                                            <InputGroup.Text><BsCalendar2DateFill /></InputGroup.Text>
+                                            <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><BsCalendar2DateFill /></InputGroup.Text>
                                         </InputGroup>
                                     </Col>
 
                                     <Col className='add-employee-form-input-row'>
                                         <Form.Label className='text-slate-500'>Service End Date *</Form.Label>
                                         <InputGroup>
-                                            <Form.Control type='text' required 
+                                            <Form.Control type='text' required style={{ border: '1px solid rgb(3 105 161)'}}
                                                         aria-label='Service End Date' onChange={ UpdateShortTermStaffServiceEndDate }
                                                         value={ nssEndDate } />
-                                            <InputGroup.Text><BsCalendar2DateFill /></InputGroup.Text>
+                                            <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><BsCalendar2DateFill /></InputGroup.Text>
                                         </InputGroup>
                                     </Col>
                                 </Row>

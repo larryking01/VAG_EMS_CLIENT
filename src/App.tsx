@@ -21,6 +21,8 @@ import ViewAllNSPs from './Routes/ViewAllNSPs'
 import ViewLeaveRecordDetails from './Routes/ViewLeaveRecordDetails'
 import ViewShortTermStaffDetails from './Routes/ViewShortTermStaffDetails'
 import UpdateShortTermStaffDetails from './Routes/UpdateShortTermStaffDetails'
+import UpdateLeaveRequestDetails from './Routes/UpdateLeaveRequestDetails'
+
 
 
 
@@ -48,6 +50,7 @@ const App = ( ) => {
             <Route path='/pass-request' element={ <CreateEmployeeLeaveSession /> } />
             <Route path='/employee-pass-log' element={ <ViewAllEmployeesOnLeave /> } />
             <Route path='/leave-record-details/:empID' element={ <ViewLeaveRecordDetails /> } />
+            <Route path='/update-leave-request-details/:empID' element={ <UpdateLeaveRequestDetails /> } />
             <Route path='/sidebar' element={ <ProSidebar /> } />
             <Route path='/navbar' element={ <NavBar /> } />
             <Route path='*' element={ <NotFound /> } />

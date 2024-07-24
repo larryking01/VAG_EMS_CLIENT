@@ -51,11 +51,11 @@ const FetchEmployeeDetails = ( ) => {
         <div className='flex'>
             <ProSidebar />
 
-            <div className='w-full mt-4'>
-                <h3 className='page-header-text'>View Employee Details </h3>
+            <div className='w-full pt-3 main_content_styling'>
+                <h3 className='page-header-text'>{ `Profile Overview (Permanent Staff): ${ targetEmployee.firstName } ${ targetEmployee.otherNames } ${ targetEmployee.lastName }`}</h3>
                 {
                     Object.keys( targetEmployee ).length > 2?
-                        <div className='shadow-lg rounded-md display-emp-det-div'>
+                        <div className='bg-white shadow-lg rounded-md display-emp-det-div'>
                             <Row xs={ 1 } md={ 2 }>
                                 <Col md={ 4 } className='mt-5'>
                                     <img src={ targetEmployee.employeePhoto } className='rounded-full p-2 aspect-square' alt='' width={ 400 } />
@@ -148,7 +148,7 @@ const FetchEmployeeDetails = ( ) => {
                                         </Col>
                                     </Row>
 
-                                    <Row xs={ 1 } md={ 2 }>
+                                    <Row xs={ 1 } md={ 1 }>
                                         <Col className='mb-2 md:mb-1'>
                                             <Button type='button' variant='custom' 
                                                 aria-label='update details'
@@ -158,12 +158,12 @@ const FetchEmployeeDetails = ( ) => {
                                             </Button>
                                         </Col>
 
-                                        <Col>
+                                        {/* <Col>
                                             <Button type='button' variant='custom' aria-label='update details' 
                                                     style={{ backgroundColor: '#4B49AC', color: 'white', width: '80%' }}>
                                                 Other Action
                                             </Button>
-                                        </Col>
+                                        </Col> */}
                                     </Row>
 
                                 </Col>

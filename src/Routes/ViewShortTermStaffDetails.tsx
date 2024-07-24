@@ -60,7 +60,7 @@ const ViewShortTermStaffDetails = ( ) => {
             <ProSidebar />
 
             <div className='w-full mt-4'>
-                <h3 className='page-header-text'>Details Of Short Term Staff</h3>
+                <h3 className='page-header-text'>{`Profile Overview (Short-Term Staff): ${ targetShortTermStaff.nspFirstName } ${ targetShortTermStaff.nspOtherNames } ${ targetShortTermStaff.nspLastName }`}</h3>
                 {
                     Object.keys( targetShortTermStaff ).length > 2 ?
                         <div className='shadow-lg rounded-md display-emp-det-div'>

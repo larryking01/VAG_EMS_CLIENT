@@ -150,17 +150,17 @@ const AddNewNSP = ( ) => {
                 console.log( `download url is ${ downloadUrl }`)
                 // setAddingNSP( true )
                 let newNSP = {
-                    uniqueNSPID: uniqueNssID,
-                    nspFirstName: firstName,
-                    nspLastName: lastName,
-                    nspOtherNames: otherNames,
-                    nspInstitutionAttended: universityAttended,
-                    nspProgrammeStudied: programmeStudied,
-                    nspPhoneNumber: phoneNumber,
-                    nspEmail: email,
+                    uniqueNSPID: uniqueNssID.trim(),
+                    nspFirstName: firstName.trim().toUpperCase(),
+                    nspLastName: lastName.trim().toUpperCase(),
+                    nspOtherNames: otherNames.trim().toUpperCase(),
+                    nspInstitutionAttended: universityAttended.trim().toUpperCase(),
+                    nspProgrammeStudied: programmeStudied.trim().toUpperCase(),
+                    nspPhoneNumber: phoneNumber.trim().toUpperCase(),
+                    nspEmail: email.trim(),
                     nssStartDate: nssStartDateString,
                     nssEndDate: nssEndDateString,
-                    nspPhoto: downloadUrl
+                    nspPhoto: downloadUrl.trim()
                 }
                 console.log( newNSP )
 
@@ -219,8 +219,8 @@ const AddNewNSP = ( ) => {
                         <Col className='add-user-form-col-mb'>
                             <label className='label_styling'>Unique National Service ID *</label>
                             <InputGroup>
-                                <Form.Control type='text' required onChange={ UpdateNspUniqueID } value={ uniqueNssID } />
-                                <InputGroup.Text> <IoKey /> </InputGroup.Text>
+                                <Form.Control style={{ border: '1px solid rgb(3 105 161)'}} type='text' required onChange={ UpdateNspUniqueID } value={ uniqueNssID } />
+                                <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}> <IoKey /> </InputGroup.Text>
                             </InputGroup>
                         </Col>
 
@@ -228,8 +228,8 @@ const AddNewNSP = ( ) => {
                         <Col className='add-user-form-col-mb'>
                             <label className='label_styling'>First Name *</label>
                             <InputGroup>
-                                <Form.Control type='text' required onChange={ UpdateFirstName } value={ firstName } />
-                                <InputGroup.Text> <IoPerson /> </InputGroup.Text>
+                                <Form.Control style={{ border: '1px solid rgb(3 105 161)'}} type='text' required onChange={ UpdateFirstName } value={ firstName } />
+                                <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}> <IoPerson /> </InputGroup.Text>
                             </InputGroup>
                         </Col>
                     </Row>
@@ -239,8 +239,8 @@ const AddNewNSP = ( ) => {
                         <Col className='add-user-form-col-mb'>
                             <label className='label_styling'>Last Name *</label>
                             <InputGroup>
-                                <Form.Control type='text' required onChange={ UpdateLastName } value={ lastName } />
-                                <InputGroup.Text> <IoPerson /> </InputGroup.Text>
+                                <Form.Control style={{ border: '1px solid rgb(3 105 161)'}} type='text' required onChange={ UpdateLastName } value={ lastName } />
+                                <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}> <IoPerson /> </InputGroup.Text>
                             </InputGroup>
                         </Col>
 
@@ -248,8 +248,8 @@ const AddNewNSP = ( ) => {
                         <Col className='add-user-form-col-mb'>
                             <label className='label_styling'>Other Name(s)</label>
                             <InputGroup>
-                                <Form.Control type='text' required onChange={ UpdateOtherNames } value={ otherNames } />
-                                <InputGroup.Text> <IoPerson /> </InputGroup.Text>
+                                <Form.Control style={{ border: '1px solid rgb(3 105 161)'}} type='text' required onChange={ UpdateOtherNames } value={ otherNames } />
+                                <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}> <IoPerson /> </InputGroup.Text>
                             </InputGroup>
                         </Col>
                     </Row>
@@ -259,8 +259,8 @@ const AddNewNSP = ( ) => {
                         <Col className='add-user-form-col-mb'>
                             <label className='label_styling'>University/Institution Attended *</label>
                             <InputGroup>
-                                <Form.Control type='text' required onChange={ UpdateUniversityAttended } value={ universityAttended } />
-                                <InputGroup.Text> <FaUniversity /> </InputGroup.Text>
+                                <Form.Control style={{ border: '1px solid rgb(3 105 161)'}} type='text' required onChange={ UpdateUniversityAttended } value={ universityAttended } />
+                                <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}> <FaUniversity /> </InputGroup.Text>
                             </InputGroup>
                         </Col>
 
@@ -268,8 +268,8 @@ const AddNewNSP = ( ) => {
                         <Col className='add-user-form-col-mb'>
                             <label className='label_styling'>Programme Studied *</label>
                             <InputGroup>
-                                <Form.Control type='text' required onChange={ UpdateProgrammeStudied } value={ programmeStudied } />
-                                <InputGroup.Text> <IoSchool /> </InputGroup.Text>
+                                <Form.Control style={{ border: '1px solid rgb(3 105 161)'}} type='text' required onChange={ UpdateProgrammeStudied } value={ programmeStudied } />
+                                <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}> <IoSchool /> </InputGroup.Text>
                             </InputGroup>
                         </Col>
                     </Row>
@@ -279,8 +279,8 @@ const AddNewNSP = ( ) => {
                         <Col className='add-user-form-col-mb'>
                             <label className='label_styling'>Phone Number *</label>
                             <InputGroup>
-                                <Form.Control type='text' required onChange={ UpdatePhoneNumber } value={ phoneNumber } />
-                                <InputGroup.Text> <FaPhone /> </InputGroup.Text>
+                                <Form.Control style={{ border: '1px solid rgb(3 105 161)'}} type='text' required onChange={ UpdatePhoneNumber } value={ phoneNumber } />
+                                <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}> <FaPhone /> </InputGroup.Text>
                             </InputGroup>
                         </Col>
 
@@ -288,8 +288,8 @@ const AddNewNSP = ( ) => {
                         <Col className='add-user-form-col-mb'>
                             <label className='label_styling'>Email *</label>
                             <InputGroup>
-                                <Form.Control type='text' required onChange={ UpdateEmail } value={ email } />
-                                <InputGroup.Text> <MdEmail /> </InputGroup.Text>
+                                <Form.Control style={{ border: '1px solid rgb(3 105 161)'}} type='text' required onChange={ UpdateEmail } value={ email } />
+                                <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}> <MdEmail /> </InputGroup.Text>
                             </InputGroup>
                         </Col>
                     </Row>
@@ -299,7 +299,7 @@ const AddNewNSP = ( ) => {
                         <Col className='add-user-form-col-mb'>
                             <label className='label_styling'>NSS Start Date *</label>
                             <LocalizationProvider dateAdapter={ AdapterDayjs }>
-                                <DatePicker className='datepicker_styling' 
+                                <DatePicker className='datepicker_styling'
                                     onChange={ UpdateNssStartDate } value={ nssStartDate } />
                             </LocalizationProvider>
                         </Col>
@@ -308,7 +308,7 @@ const AddNewNSP = ( ) => {
                         <Col className='add-user-form-col-mb'>
                             <label className='label_styling'>NSS End Date *</label>
                             <LocalizationProvider dateAdapter={ AdapterDayjs }>
-                                <DatePicker className='datepicker_styling' 
+                                <DatePicker className='datepicker_styling'
                                     onChange={ UpdateNssEndDate } value={ nssEndDate } />
                             </LocalizationProvider>
                         </Col>
@@ -318,9 +318,9 @@ const AddNewNSP = ( ) => {
                     <Row className='add-user-form-last-row'>
                         <label className='label_styling'>Photo *</label>
                         <InputGroup>
-                            <Form.Control type='file' required placeholder='' aria-label='Short Term Staff Photo'
+                            <Form.Control style={{ border: '1px solid rgb(3 105 161)'}} type='file' required placeholder='' aria-label='Short Term Staff Photo'
                                           accept='.jpg, .jpeg, .png, .webp' onChange={ UpdateProfilePhoto } />
-                            <InputGroup.Text><IoPerson /></InputGroup.Text>
+                            <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><IoPerson /></InputGroup.Text>
                         </InputGroup>
 
                     </Row>
