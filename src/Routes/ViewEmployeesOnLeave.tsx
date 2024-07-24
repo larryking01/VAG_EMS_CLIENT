@@ -132,9 +132,11 @@ const ViewAllEmployeesOnLeave = ( ) => {
         { field: 'Employee_ID', headerName: 'Employee ID', headerClassName: 'display-employees-grid-header', width: 150 },
         { field: 'First_Name', headerName: 'First Name', headerClassName: 'display-employees-grid-header', width: 150 },
         { field: 'Last_Name', headerName: 'Last Name', headerClassName: 'display-employees-grid-header', width: 150 },
-        { field: 'Other_Names', headerName: 'Other Names', headerClassName: 'display-employees-grid-header', width: 150 },
+        // { field: 'Other_Names', headerName: 'Other Names', headerClassName: 'display-employees-grid-header', width: 150 },
+        { field: 'Contact', headerName: 'Contact', headerClassName: 'display-employees-grid-header', width: 150 },
         { field: 'Leave_Start_Date', headerName: 'Leave Start Date', headerClassName: 'display-employees-grid-header', width: 150 },
         { field: 'Leave_End_Date', headerName: 'Leave End Date', headerClassName: 'display-employees-grid-header', width: 150 },
+        { field: 'Number_Of_Days', headerName: 'Number Of Days', headerClassName: 'display-employees-grid-header', width: 150 },
         { field: 'Type_Of_Leave', headerName: 'Type Of Leave', headerClassName: 'display-employees-grid-header', width: 150 },
         { field: 'Reason_For_Leave', headerName: 'Reason For Leave', headerClassName: 'display-employees-grid-header', width: 150 },
     ]
@@ -146,9 +148,11 @@ const ViewAllEmployeesOnLeave = ( ) => {
             Employee_ID: staff.vagEmployeeID,
             First_Name: staff.employeeFirstName,
             Last_Name: staff.employeeLastName,
-            Other_Names: staff.employeeOtherNames,
+            // Other_Names: staff.employeeOtherNames,
+            Contact: staff.contactNumber,
             Leave_Start_Date: staff.leaveStartDate,
             Leave_End_Date: staff.leaveEndDate,
+            Number_Of_Days: staff.lengthOfLeaveDays,
             Type_Of_Leave: staff.typeOfLeave,
             Reason_For_Leave: staff.reasonForLeave
         }

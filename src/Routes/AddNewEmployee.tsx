@@ -290,16 +290,16 @@ const AddNewEmployee = ( ) => {
                         <Col className='add-employee-form-input-row'>
                             <label className='label_styling'>Employee ID *</label>
                             <InputGroup>
-                                <Form.Control className='form-control-border' type='text' required  placeholder='' aria-label='Employee ID' onChange={ UpdateEmployeeID } value={ vagEmployeeID } />
-                                <InputGroup.Text><IoShieldCheckmarkSharp /></InputGroup.Text>
+                                <Form.Control style={{ border: '1px solid rgb(3 105 161)'}} className='form-control-border' type='text' required  placeholder='' aria-label='Employee ID' onChange={ UpdateEmployeeID } value={ vagEmployeeID } />
+                                <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><IoShieldCheckmarkSharp /></InputGroup.Text>
                             </InputGroup>
                         </Col>
 
                         <Col className='add-employee-form-input-row'>
                             <label className='label_styling'>First Name * </label>
                             <InputGroup>
-                                <Form.Control type='text' required  placeholder='' aria-label='First Name' onChange={ UpdateFirstName } value={ firstName } />
-                                <InputGroup.Text><IoPerson /></InputGroup.Text>
+                                <Form.Control style={{ border: '1px solid rgb(3 105 161)'}} type='text' required  placeholder='' aria-label='First Name' onChange={ UpdateFirstName } value={ firstName } />
+                                <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><IoPerson /></InputGroup.Text>
                             </InputGroup>
                         </Col>
                     </Row>
@@ -308,16 +308,16 @@ const AddNewEmployee = ( ) => {
                         <Col className='add-employee-form-input-row'>
                             <label className='label_styling'>Last Name *</label>
                             <InputGroup>
-                                <Form.Control type='text' required  placeholder='' aria-label='Last Name' onChange={ UpdateLastName } value={ lastName } />
-                                <InputGroup.Text><IoPerson /></InputGroup.Text>
+                                <Form.Control style={{ border: '1px solid rgb(3 105 161)'}} type='text' required  placeholder='' aria-label='Last Name' onChange={ UpdateLastName } value={ lastName } />
+                                <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><IoPerson /></InputGroup.Text>
                             </InputGroup>
                         </Col>
 
                         <Col className='add-employee-form-input-row'>
                             <label className='label_styling'>Other Name (s)</label>
                             <InputGroup>
-                                <Form.Control type='text' placeholder='' aria-label='Other Name or Names' onChange={ UpdateOtherNames } value={ otherNames } />
-                                <InputGroup.Text><IoPerson /></InputGroup.Text>
+                                <Form.Control style={{ border: '1px solid rgb(3 105 161)'}} type='text' placeholder='' aria-label='Other Name or Names' onChange={ UpdateOtherNames } value={ otherNames } />
+                                <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><IoPerson /></InputGroup.Text>
                             </InputGroup>
                         </Col>
                     </Row>
@@ -349,20 +349,20 @@ const AddNewEmployee = ( ) => {
                         <Col className='add-employee-form-input-row'>
                             <label className='label_styling'>Gender</label>
                             <InputGroup>
-                                <Form.Select onChange={ UpdateGender } value={ gender } required  aria-label='Select employee gender'>
+                                <Form.Select style={{ border: '1px solid rgb(3 105 161)'}} onChange={ UpdateGender } value={ gender } required  aria-label='Select employee gender'>
                                     <option id='--Select--'>--Select--</option>
                                     <option id='Male'>MALE</option>
                                     <option id='Female'>FEMALE</option>
                                 </Form.Select>
-                                <InputGroup.Text><IoPerson /></InputGroup.Text>
+                                <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><IoPerson /></InputGroup.Text>
                             </InputGroup>
                         </Col>
 
                         <Col className='add-employee-form-input-row'>
                             <label className='label_styling'>Appointment *</label>
                             <InputGroup>
-                                <Form.Control type='text' required  placeholder='' aria-label='Employee Position' onChange={ UpdateAppointment } value={ appointment } />
-                                <InputGroup.Text><SiOnlyoffice /></InputGroup.Text>
+                                <Form.Control style={{ border: '1px solid rgb(3 105 161)'}} type='text' required  placeholder='' aria-label='Employee Position' onChange={ UpdateAppointment } value={ appointment } />
+                                <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><SiOnlyoffice /></InputGroup.Text>
                             </InputGroup>
                         </Col>
                     </Row>
@@ -372,16 +372,16 @@ const AddNewEmployee = ( ) => {
                         <Col className='add-employee-form-input-row'>
                             <label className='label_styling'>Primary Phone No. *</label>
                             <InputGroup>
-                                <Form.Control type='text' required placeholder='' aria-label='Primary Phone Number' onChange={ UpdatePrimaryPhoneNumber } value={ primaryMobileNumber } />
-                                <InputGroup.Text><FaPhone /></InputGroup.Text>
+                                <Form.Control style={{ border: '1px solid rgb(3 105 161)'}} type='text' required placeholder='' aria-label='Primary Phone Number' onChange={ UpdatePrimaryPhoneNumber } value={ primaryMobileNumber } />
+                                <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><FaPhone /></InputGroup.Text>
                             </InputGroup>
                         </Col>
 
                         <Col className='add-employee-form-input-row'>
                             <label className='label_styling'>Secondary Phone No.</label>
                             <InputGroup>
-                                <Form.Control type='text' placeholder='' aria-label='Secondary Phone Number' onChange={ UpdateSecondaryPhoneNumber } value={ secondaryMobileNumber } />
-                                <InputGroup.Text><FaPhone /></InputGroup.Text>
+                                <Form.Control style={{ border: '1px solid rgb(3 105 161)'}} type='text' placeholder='' aria-label='Secondary Phone Number' onChange={ UpdateSecondaryPhoneNumber } value={ secondaryMobileNumber } />
+                                <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><FaPhone /></InputGroup.Text>
                             </InputGroup>
                         </Col>
                     </Row>
@@ -390,16 +390,16 @@ const AddNewEmployee = ( ) => {
                         <Col className='add-employee-form-input-row'>
                             <label className='label_styling'>Primary E-mail *</label>
                             <InputGroup>
-                                <Form.Control type='email' required placeholder='' aria-label='Primary E-mail' onChange={ UpdatePrimaryEmail } value={ primaryEmail } />
-                                <InputGroup.Text><MdEmail /></InputGroup.Text>
+                                <Form.Control style={{ border: '1px solid rgb(3 105 161)'}} type='email' required placeholder='' aria-label='Primary E-mail' onChange={ UpdatePrimaryEmail } value={ primaryEmail } />
+                                <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><MdEmail /></InputGroup.Text>
                             </InputGroup>
                         </Col>
 
                         <Col className='add-employee-form-input-row'>
                             <label className='label_styling'>Secondary E-mail</label>
                             <InputGroup>
-                                <Form.Control type='email' placeholder='' aria-label='Secondary E-mail' onChange={ UpdateSecondaryEmail } value={ secondaryEmail } />
-                                <InputGroup.Text><MdEmail /></InputGroup.Text>
+                                <Form.Control style={{ border: '1px solid rgb(3 105 161)'}} type='email' placeholder='' aria-label='Secondary E-mail' onChange={ UpdateSecondaryEmail } value={ secondaryEmail } />
+                                <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><MdEmail /></InputGroup.Text>
                             </InputGroup>
                         </Col>
                     </Row>
@@ -410,21 +410,21 @@ const AddNewEmployee = ( ) => {
                         <Col className='add-employee-form-input-row'>
                             <label className='label_styling'>Employee Category</label>
                             <InputGroup>
-                                <Form.Select onChange={ UpdateEmployeeCategory } value={ employeeCategory } required aria-label='Employee Category'>
+                                <Form.Select style={{ border: '1px solid rgb(3 105 161)'}} onChange={ UpdateEmployeeCategory } value={ employeeCategory } required aria-label='Employee Category'>
                                     <option id='--Select--'>--Select--</option>
                                     <option id='CIVILIAN'>CIVILIAN</option>
                                     <option id='MILITARY (ACTIVE)'>MILITARY (ACTIVE)</option>
                                     <option id='MILITARY (RETIRED)'>MILITARY (RETIRED)</option>
                                 </Form.Select>
-                                <InputGroup.Text><HiMiniBuildingOffice /></InputGroup.Text>
+                                <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><HiMiniBuildingOffice /></InputGroup.Text>
                             </InputGroup>
                         </Col>
 
                         <Col className='add-employee-form-input-row'>
                             <label className='label_styling'>Bank Account No. *</label>
                             <InputGroup>
-                                <Form.Control type='text' required placeholder='' aria-label='Bank Account Number' onChange={ UpdateBankAccountNumber } value={ bankAccountNumber } />
-                                <InputGroup.Text><RiBankCardFill /></InputGroup.Text>
+                                <Form.Control style={{ border: '1px solid rgb(3 105 161)'}} type='text' required placeholder='' aria-label='Bank Account Number' onChange={ UpdateBankAccountNumber } value={ bankAccountNumber } />
+                                <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><RiBankCardFill /></InputGroup.Text>
                             </InputGroup>
                         </Col>
                     </Row>
@@ -433,17 +433,17 @@ const AddNewEmployee = ( ) => {
                         <Col className='add-employee-form-input-row'>
                             <label className='label_styling'>SSNIT No. *</label>
                             <InputGroup>
-                                <Form.Control type='text' required placeholder='' aria-label='SSNIT Number' onChange={ UpdateSSNIT } value={ ssnitNumber } />
-                                <InputGroup.Text><RiBankCardFill /></InputGroup.Text>
+                                <Form.Control style={{ border: '1px solid rgb(3 105 161)'}} type='text' required placeholder='' aria-label='SSNIT Number' onChange={ UpdateSSNIT } value={ ssnitNumber } />
+                                <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><RiBankCardFill /></InputGroup.Text>
                             </InputGroup>
                         </Col>
 
                         <Col className='add-employee-form-input-row'>
                             <label className='label_styling'>Employee Photo *</label>
                             <InputGroup>
-                                <Form.Control type='file' required placeholder='' aria-label='Employee Photo' 
-                                    accept='.jpg, .jpeg, .png' onChange={ UpdateEmployeePhoto } />
-                                <InputGroup.Text><IoPerson /></InputGroup.Text>
+                                <Form.Control style={{ border: '1px solid rgb(3 105 161)'}} type='file' required placeholder='' aria-label='Employee Photo' 
+                                    accept='.jpg, .jpeg, .png, .webp' onChange={ UpdateEmployeePhoto } />
+                                <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><IoPerson /></InputGroup.Text>
                             </InputGroup>
                         </Col>
                     </Row>

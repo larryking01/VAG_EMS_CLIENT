@@ -96,6 +96,13 @@
     padding: 2%;
 }
 
+.display-leave-record-det {
+    height: 85%;
+    margin-left: 2%;
+    margin-right: 2%;
+    padding: 10%;
+}
+
 .add-emp-btn {
     width: 100%;
     background-color: blue;
@@ -142,6 +149,10 @@
 
 .form-control-border {
     border-color: red
+}
+
+.form-controls-styling {
+    border: 1px solid #4B49AC;
 }
 
 

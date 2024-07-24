@@ -204,27 +204,17 @@ const UpdateEmployeeDetails = ( ) => {
     }
 
 
-    // useEffect(( ) => {
-    //     console.log('hello')
-    // }, [ updatedEmployeePhoto ])
-
-
-
-
-
-
-
 
 
     return (
         <div className='flex'>
             <ProSidebar /> 
 
-            <div className='w-full'>
+            <div className='w-full main_content_styling'>
             {
                 Object.keys( targetEmployee ).length > 2 ? 
                     <div className='details-form'>
-                        <h4 className='page-header-text'>Update Employee Details</h4>
+                        <h4 className='page-header-text'>{ `Update Profile: ${ firstName } ${ otherNames } ${ lastName } `}</h4>
                         <Form className='add-new-employee-form' onSubmit={ UpdateEmployeeDetails }>
                             <Row>
                                 <Col>
@@ -239,20 +229,20 @@ const UpdateEmployeeDetails = ( ) => {
                                 <Col className='add-employee-form-input-row'>
                                     <Form.Label className='text-slate-500'>Employee ID *</Form.Label>
                                     <InputGroup>
-                                        <Form.Control type='text' required
+                                        <Form.Control style={{ border: '1px solid rgb(3 105 161)'}} type='text' required
                                                       aria-label='Employee ID' onChange={ UpdateEmployeeID } 
                                                       value={ vagEmployeeID }/>
-                                        <InputGroup.Text><IoShieldCheckmarkSharp /></InputGroup.Text>
+                                        <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><IoShieldCheckmarkSharp /></InputGroup.Text>
                                     </InputGroup>
                                 </Col>
 
                                 <Col className='add-employee-form-input-row'>
                                     <Form.Label className='text-slate-500'>First Name *</Form.Label>
                                     <InputGroup>
-                                        <Form.Control type='text' required 
+                                        <Form.Control style={{ border: '1px solid rgb(3 105 161)'}} type='text' required 
                                                       aria-label='First Name' onChange={ UpdateFirstName }
                                                       value={ firstName } />
-                                        <InputGroup.Text><IoPerson /></InputGroup.Text>
+                                        <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><IoPerson /></InputGroup.Text>
                                     </InputGroup>
                                 </Col>
                             </Row>
@@ -261,19 +251,19 @@ const UpdateEmployeeDetails = ( ) => {
                                 <Col className='add-employee-form-input-row'>
                                     <Form.Label className='text-slate-500'>Last Name *</Form.Label>
                                     <InputGroup>
-                                        <Form.Control type='text' required  
+                                        <Form.Control style={{ border: '1px solid rgb(3 105 161)'}} type='text' required  
                                                       aria-label='Last Name' onChange={ UpdateLastName }
                                                       value={ lastName } />
-                                        <InputGroup.Text><IoPerson /></InputGroup.Text>
+                                        <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><IoPerson /></InputGroup.Text>
                                     </InputGroup>
                                 </Col>
 
                                 <Col className='add-employee-form-input-row'>
                                     <Form.Label className='text-slate-500'>Other Name (s)</Form.Label>
                                     <InputGroup>
-                                        <Form.Control type='text' 
+                                        <Form.Control type='text' style={{ border: '1px solid rgb(3 105 161)'}}
                                             aria-label='Other Name or Names' onChange={ UpdateOtherNames } value={ otherNames } />
-                                        <InputGroup.Text><IoPerson /></InputGroup.Text>
+                                        <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><IoPerson /></InputGroup.Text>
                                     </InputGroup>
                                 </Col>
                             </Row>
@@ -283,21 +273,21 @@ const UpdateEmployeeDetails = ( ) => {
                                 <Col className='add-employee-form-input-row'>
                                     <Form.Label className='text-slate-500'>Select Gender *</Form.Label>
                                     <InputGroup>
-                                        <Form.Select required aria-label='Select employee gender' onChange={ UpdateGender } value={ gender }>
+                                        <Form.Select style={{ border: '1px solid rgb(3 105 161)'}} required aria-label='Select employee gender' onChange={ UpdateGender } value={ gender }>
                                             <option id='Select Gender *' value='Select Gender *'>Select Gender</option>
                                             <option id='Male' value='Male'>MALE</option>
                                             <option id='Female' value='Female'>FEMALE</option>
                                         </Form.Select>
-                                        <InputGroup.Text><IoPerson /></InputGroup.Text>
+                                        <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><IoPerson /></InputGroup.Text>
                                     </InputGroup>
                                 </Col>
 
                                 <Col className='add-employee-form-input-row'>
                                     <Form.Label className='text-slate-500'>Date Of Birth (dd/mm/yyyy) *</Form.Label>
                                     <InputGroup>
-                                        <Form.Control type='text' required 
+                                        <Form.Control type='text' required style={{ border: '1px solid rgb(3 105 161)'}}
                                                 aria-label='Date of birth' onChange={ UpdateDateOfBirth } value={ dateOfBirth } />
-                                        <InputGroup.Text><BsCalendar2DateFill /></InputGroup.Text>
+                                        <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><BsCalendar2DateFill /></InputGroup.Text>
                                     </InputGroup>
                                 </Col>
                             </Row>
@@ -307,22 +297,22 @@ const UpdateEmployeeDetails = ( ) => {
                                 <Col className='add-employee-form-input-row'>
                                     <Form.Label className='text-slate-500'>Appointment *</Form.Label>
                                     <InputGroup>
-                                        <Form.Control type='text' required
+                                        <Form.Control type='text' required style={{ border: '1px solid rgb(3 105 161)'}}
                                             aria-label='Employee Position' onChange={ UpdateAppointment } value={ appointment } />
-                                        <InputGroup.Text><SiOnlyoffice /></InputGroup.Text>
+                                        <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><SiOnlyoffice /></InputGroup.Text>
                                     </InputGroup>
                                 </Col>
 
                                 <Col className='add-employee-form-input-row'>
                                     <Form.Label className='text-slate-500'>Employee Category *</Form.Label>
                                     <InputGroup>
-                                        <Form.Select required aria-label='Employee Category' onChange={ UpdateEmployeeCategory } value={ employeeCategory }>
+                                        <Form.Select style={{ border: '1px solid rgb(3 105 161)'}} required aria-label='Employee Category' onChange={ UpdateEmployeeCategory } value={ employeeCategory }>
                                             <option id='SELECT EMPLOYEE CATEGORY *'>SELECT EMPLOYEE CATEGORY</option>
                                             <option id='CIVILIAN'>CIVILIAN</option>
                                             <option id='MILITARY (ACTIVE)'>MILITARY (ACTIVE)</option>
                                             <option id='MILITARY (RETIRED)'>MILITARY (RETIRED)</option>
                                         </Form.Select>
-                                        <InputGroup.Text><HiMiniBuildingOffice /></InputGroup.Text>
+                                        <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><HiMiniBuildingOffice /></InputGroup.Text>
                                     </InputGroup>
                                 </Col>
                             </Row>
@@ -332,18 +322,18 @@ const UpdateEmployeeDetails = ( ) => {
                                 <Col className='add-employee-form-input-row'>
                                     <Form.Label className='text-slate-500'>Primary Phone No. *</Form.Label>
                                     <InputGroup>
-                                        <Form.Control type='text' required 
+                                        <Form.Control type='text' required style={{ border: '1px solid rgb(3 105 161)'}}
                                             aria-label='Primary Phone Number' onChange={ UpdatePrimaryPhoneNumber } value={ primaryMobileNumber }/>
-                                        <InputGroup.Text><FaPhone /></InputGroup.Text>
+                                        <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><FaPhone /></InputGroup.Text>
                                     </InputGroup>
                                 </Col>
 
                                 <Col className='add-employee-form-input-row'>
                                     <Form.Label className='text-slate-500'>Secondary Phone No. </Form.Label>
                                     <InputGroup>
-                                        <Form.Control type='text' 
+                                        <Form.Control type='text' style={{ border: '1px solid rgb(3 105 161)'}}
                                             aria-label='Secondary Phone Number' onChange={ UpdateSecondaryPhoneNumber } value={ secondaryMobileNumber }/>
-                                        <InputGroup.Text><FaPhone /></InputGroup.Text>
+                                        <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><FaPhone /></InputGroup.Text>
                                     </InputGroup>
                                 </Col>
                             </Row>
@@ -352,19 +342,19 @@ const UpdateEmployeeDetails = ( ) => {
                                 <Col className='add-employee-form-input-row'>
                                     <Form.Label className='text-slate-500'>Primary E-mail *</Form.Label>
                                     <InputGroup>
-                                        <Form.Control type='email' required 
+                                        <Form.Control type='email' required style={{ border: '1px solid rgb(3 105 161)'}}
                                             aria-label='Primary E-mail' onChange={ UpdatePrimaryEmail } value={ primaryEmail } />
-                                        <InputGroup.Text><MdEmail /></InputGroup.Text>
+                                        <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><MdEmail /></InputGroup.Text>
                                     </InputGroup>
                                 </Col>
 
                                 <Col className='add-employee-form-input-row'>
                                     <Form.Label className='text-slate-500'>Secondary E-mail</Form.Label>
                                     <InputGroup>
-                                        <Form.Control type='email' aria-label='Secondary E-mail'
+                                        <Form.Control type='email' aria-label='Secondary E-mail' style={{ border: '1px solid rgb(3 105 161)'}}
                                                       onChange={ UpdateSecondaryEmail } value={ secondaryEmail }
                                         />
-                                        <InputGroup.Text><MdEmail /></InputGroup.Text>
+                                        <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><MdEmail /></InputGroup.Text>
                                     </InputGroup>
                                 </Col>
                             </Row>
@@ -374,18 +364,18 @@ const UpdateEmployeeDetails = ( ) => {
                                 <Col className='add-employee-form-input-row'>
                                     <Form.Label className='text-slate-500'>Date Of Employment (dd/mm/yyyy) *</Form.Label>
                                     <InputGroup>
-                                        <Form.Control type='text' required  
+                                        <Form.Control type='text' required  style={{ border: '1px solid rgb(3 105 161)'}}
                                             aria-label='Date Of Employment' onChange={ UpdateDateOfEmployment} value={ dateOfEmployment } />
-                                        <InputGroup.Text><BsCalendar2DateFill /></InputGroup.Text>
+                                        <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><BsCalendar2DateFill /></InputGroup.Text>
                                     </InputGroup>
                                 </Col>
 
                                 <Col className='add-employee-form-input-row'>
                                     <Form.Label className='text-slate-500'>Bank Account No. *</Form.Label>
                                     <InputGroup>
-                                        <Form.Control type='text' required  
+                                        <Form.Control type='text' required  style={{ border: '1px solid rgb(3 105 161)'}}
                                             aria-label='Bank Account Number' onChange={ UpdateBankAccountNumber } value={ bankAccountNumber } />
-                                        <InputGroup.Text><RiBankCardFill /></InputGroup.Text>
+                                        <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><RiBankCardFill /></InputGroup.Text>
                                     </InputGroup>
                                 </Col>
                             </Row>
@@ -394,18 +384,18 @@ const UpdateEmployeeDetails = ( ) => {
                                 <Col className='add-employee-form-input-row'>
                                     <Form.Label className='text-slate-500'>SSNIT No. *</Form.Label>
                                     <InputGroup>
-                                        <Form.Control type='text' required
+                                        <Form.Control type='text' required style={{ border: '1px solid rgb(3 105 161)'}}
                                             aria-label='SSNIT Number' onChange={ UpdateSSNIT } value={ ssnitNumber } />
-                                        <InputGroup.Text><RiBankCardFill /></InputGroup.Text>
+                                        <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><RiBankCardFill /></InputGroup.Text>
                                     </InputGroup>
                                 </Col>
 
                                 <Col className='add-employee-form-input-row'>
                                     <Form.Label className='text-slate-500'>Employee Photo *</Form.Label>
                                     <InputGroup>
-                                        <Form.Control type='file' accept='.jpg, .jpeg, .png' 
+                                        <Form.Control type='file' accept='.jpg, .jpeg, .png' style={{ border: '1px solid rgb(3 105 161)'}}
                                             aria-label='Employee Photo' onChange={ UpdateEmployeePhoto } value={ updatedEmployeePhoto } />
-                                        <InputGroup.Text><IoPerson /></InputGroup.Text>
+                                        <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><IoPerson /></InputGroup.Text>
                                     </InputGroup>
                                 </Col>
                             </Row>
