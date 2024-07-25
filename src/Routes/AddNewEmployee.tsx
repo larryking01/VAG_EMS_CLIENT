@@ -212,7 +212,7 @@ const AddNewEmployee = ( ) => {
             () => {
                 // uploading employee photo to firestore database
                 // setAddingEmployee( true )
-                uploadTask.snapshot.ref.getDownloadURL().then( async (downloadUrl) => {
+                uploadTask.snapshot.ref.getDownloadURL().then( async ( downloadUrl ) => {
                     console.log( `download url is ${ downloadUrl }`)
                     let newEmployee = {
                         vagEmployeeID: vagEmployeeID.trim(),

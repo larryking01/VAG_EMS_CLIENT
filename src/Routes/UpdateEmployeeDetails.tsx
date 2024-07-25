@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import { firebaseStorage } from '../Navigation/FirebaseConfig'
 import SpinLoading from '../Navigation/SpinLoading'
 import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row'
@@ -29,6 +30,11 @@ type fetchedEmployeeDetails = {
 
 
 const UpdateEmployeeDetails = ( ) => {
+    
+    // server urls
+    // let dev_server = import.meta.env.VITE_DEV_SERVER_URL
+    let server_url = import.meta.env.VITE_PROD_SERVER_URL
+
 
     const params = useParams()
 
@@ -51,7 +57,8 @@ const UpdateEmployeeDetails = ( ) => {
     const [ bankAccountNumber, setBankAccountNumber ] = useState<string>('')
     const [ ssnitNumber, setSsnitNumber ] = useState<string>('')
     const [ employeePhoto, setEmployeePhoto ] = useState<string>('')
-    const [ updatedEmployeePhoto, setUpdatedEmployeePhoto ] = useState<string>('')
+    const [ updatedEmployeePhoto, setUpdatedEmployeePhoto ] = useState<any>( null )
+    const [ employeePhotoChanged, setEmployeePhotoChanged ] = useState<boolean>( false )
     // const [ formSubmitError, setFormSubmitError ] = useState<boolean>( false )
     // const [ errorText, setErrorText ] = useState<string>('')
     // const [ addingEmployee, setAddingEmployee ] = useState<boolean>(false)
@@ -61,7 +68,7 @@ const UpdateEmployeeDetails = ( ) => {
     useEffect( () => {
         const FetchTargetEmployee = async () => {
             // console.log(`target employee length = ${ targetEmployee }`)
-            let response = await fetch(`${ import.meta.env.VITE_PROD_SERVER_URL }/get/fetch-employee-details/${ params.empID }`, {
+            let response = await fetch(`${ server_url }/get/fetch-employee-details/${ params.empID }`, {
                 method: 'GET'
             })
     
@@ -173,34 +180,118 @@ const UpdateEmployeeDetails = ( ) => {
 
     const UpdateEmployeePhoto = ( event: any ) => {
         // setFormSubmitError( false )
-        setUpdatedEmployeePhoto( event.target.value )
-        console.log('employee photo = ' + employeePhoto )
+        if( event.target.files ) {
+            setUpdatedEmployeePhoto( event.target.files[0] )
+            setEmployeePhotoChanged( true )
+            console.log( event.target.files[0].name + ' is the new profile photo selected' )
+        }
+        else {
+            setUpdatedEmployeePhoto( null )
+        }
     }
 
 
     const UpdateEmployeeDetails = ( event: any ) => {
         event.preventDefault()
-        let updatedEmployee = {
-            vagEmployeeID,
-            firstName,
-            lastName,
-            otherNames,
-            primaryEmail,
-            secondaryEmail,
-            primaryMobileNumber,
-            secondaryMobileNumber,
-            gender,
-            employeeCategory,
-            ssnitNumber,
-            bankAccountNumber,
-            dateOfBirth,
-            dateOfEmployment,
-            appointment,
-            employeePhoto: updatedEmployeePhoto
+
+        // saving the new employee profile photo to firebase if it has been changed.
+        if( employeePhotoChanged === true ) {
+            let uploadTask = firebaseStorage.ref('VAG Permanent Staff Profile Photos')
+            .child(`${ vagEmployeeID }_${ firstName }_${ lastName }`).put( updatedEmployeePhoto )
+            uploadTask.on('state_changed', ( snapshot ) => {
+                let progress = ( snapshot.bytesTransferred / snapshot.totalBytes ) * 100
+                console.log(`upload is ${ progress }% done`)
+            },
+            ( error ) => {
+                console.error( error )
+            }, 
+            () => {
+                uploadTask.snapshot.ref.getDownloadURL().then( async ( downloadUrl ) => {
+                    console.log( `download url is ${ downloadUrl }`)
+                    // setUpdatedEmployeePhotoUrl( downloadUrl )
+                    // the updated employee object
+                    let updatedEmployee = {
+                        vagEmployeeID,
+                        firstName,
+                        lastName,
+                        otherNames,
+                        primaryEmail,
+                        secondaryEmail,
+                        primaryMobileNumber,
+                        secondaryMobileNumber,
+                        gender,
+                        employeeCategory,
+                        ssnitNumber,
+                        bankAccountNumber,
+                        dateOfBirth,
+                        dateOfEmployment,
+                        appointment,
+                        employeePhoto: downloadUrl
+                    }
+
+                    // saving the updated employee to mongodb database.
+                    let response = await fetch(`${ server_url }/put/update-employee-data/${ params.empID }`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify( updatedEmployee )
+                    })
+
+                    if( response.status === 200 ) {
+                        alert('employee details updated successfully')
+                    }
+                    else {
+                        alert('failed to update employee details')
+                    }
+            
+                })
+            }
+            )
         }
 
-        console.log('updated employee is')
-        console.log( updatedEmployee )
+        else {
+            const UpdateEmployeeDetailsPhotoUnchanged = async ( ) => {
+                // the updated employee object
+                let updatedEmployee = {
+                    vagEmployeeID,
+                    firstName,
+                    lastName,
+                    otherNames,
+                    primaryEmail,
+                    secondaryEmail,
+                    primaryMobileNumber,
+                    secondaryMobileNumber,
+                    gender,
+                    employeeCategory,
+                    ssnitNumber,
+                    bankAccountNumber,
+                    dateOfBirth,
+                    dateOfEmployment,
+                    appointment,
+                    employeePhoto
+                }
+
+                // saving the updated employee to mongodb database.
+                let response = await fetch(`${ server_url }/put/update-employee-data/${ params.empID }`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify( updatedEmployee )
+                })
+
+                if( response.status === 200 ) {
+                    alert('employee details updated successfully')
+                }
+                else {
+                    alert('failed to update employee details')
+                }
+            }
+
+            UpdateEmployeeDetailsPhotoUnchanged()
+
+        }
     }
 
 
@@ -394,7 +485,7 @@ const UpdateEmployeeDetails = ( ) => {
                                     <Form.Label className='text-slate-500'>Employee Photo *</Form.Label>
                                     <InputGroup>
                                         <Form.Control type='file' accept='.jpg, .jpeg, .png' style={{ border: '1px solid rgb(3 105 161)'}}
-                                            aria-label='Employee Photo' onChange={ UpdateEmployeePhoto } value={ updatedEmployeePhoto } />
+                                            aria-label='Employee Photo' onChange={ UpdateEmployeePhoto }/>
                                         <InputGroup.Text style={{ border: '1px solid rgb(3 105 161)'}}><IoPerson /></InputGroup.Text>
                                     </InputGroup>
                                 </Col>
@@ -405,7 +496,7 @@ const UpdateEmployeeDetails = ( ) => {
                                     <Button type='submit' variant='custom' aria-label='Save Employee' 
                                             className='add-emp-btn' style={{ backgroundColor: '#4B49AC', color: 'white' }}
                                             onClick={ UpdateEmployeeDetails }>
-                                        Save New Employee
+                                        Update Employee Details
                                     </Button>
                                     {/* { formSubmitError === true ? <p className='form-submit-error-text italic'>{ errorText }</p> : null } */}
                                 </div>
