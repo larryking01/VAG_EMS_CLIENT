@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
+import { firebaseStorage } from '../Navigation/FirebaseConfig'
 import SpinLoading from '../Navigation/SpinLoading'
 import ProSidebar from '../Navigation/ProSidebar'
 import Form from 'react-bootstrap/Form'
@@ -34,10 +35,10 @@ type ShortTermStaff = {
 const UpdateShortTermStaffDetails = ( ) => {
 
     // server urls
-    // dev_server = import.meta.env.VITE_DEV_SERVER_URL
+    // let dev_server = import.meta.env.VITE_DEV_SERVER_URL
     // online_server = import.meta.env.VITE_PROD_SERVER_URL
     let server_url = import.meta.env.VITE_PROD_SERVER_URL
-    // let navigate = useNavigate()
+    let navigate = useNavigate()
 
     const [ targetShortTermStaff, setTargetShortTermStaff ] = useState<ShortTermStaff>({ })
     const [ uniqueNssID, setUniqueNssID ] = useState<string>('')
@@ -51,6 +52,9 @@ const UpdateShortTermStaffDetails = ( ) => {
     const [ nssStartDate, setNssStartDate ] = useState<string>('')
     const [ nssEndDate, setNssEndDate ] = useState<string>('')
     const [ shortTermStaffPhoto, setShortTermStaffPhoto ] = useState<string>('')
+    const [ updatedShortTermStaffPhoto, setUpdatedShortTermStaffPhoto ] = useState<any>( null )
+    const [ newProfilePhotoSelected, setNewProfilePhotoSelected ] = useState<boolean>( false )
+    const [ updatingShortTermStaffDetails, setUpdatingShortTermStaffDetails ] = useState<boolean>( false )
     // const [ nssStartDateString, setNssStartDateString ] = useState<string>('')
     // const [ nssEndDateString, setNssEndDateString ] = useState<string>('')
     // const [ nspPhoto, setNspPhoto ] = useState<string>('')
@@ -58,7 +62,6 @@ const UpdateShortTermStaffDetails = ( ) => {
     // const [ profilePhoto, setProfilePhoto ] = useState<any>(null)
 
     const params = useParams()
-
 
     useEffect(() => {
         const FetchTargetShortTermStaff = async () => {
@@ -134,6 +137,115 @@ const UpdateShortTermStaffDetails = ( ) => {
         setEmail( event.target.value )
     }
 
+    const UpdateShortTermStaffPhoto = ( event: any ) => {
+        if( event.target.files ) {
+            setUpdatedShortTermStaffPhoto( event.target.files[0] )
+            setNewProfilePhotoSelected( true )
+            // setTimeout(() => console.log( shortTermStaffPhoto ), 2000 )
+        }
+        else {
+            setUpdatedShortTermStaffPhoto( null )
+            setNewProfilePhotoSelected( false )
+        }
+    }
+
+
+    // function to update the short term staff details.
+    const UpdateShortTermStaffDetails = async ( event: any ) => {
+        event?.preventDefault()
+        setUpdatingShortTermStaffDetails( true )
+        if( newProfilePhotoSelected === true ) {
+            let uploadTask = firebaseStorage.ref('VAG Short-Term Staff Profile Photos')
+            .child(`${ uniqueNssID }_${ firstName }_${ lastName }`).put( updatedShortTermStaffPhoto )
+            uploadTask.on('state_changed', ( snapshot ) => {
+                let bytesTransferred = ( snapshot.bytesTransferred / snapshot.totalBytes ) * 100
+                console.log(`bytes transferred = ${ bytesTransferred }`)
+            },
+            ( error ) => {
+                console.error( error )
+                setUpdatingShortTermStaffDetails( false )
+            },
+            () => {
+                uploadTask.snapshot.ref.getDownloadURL().then( async ( downloadUrl ) => {
+                    console.log(`new photo url is ${ downloadUrl }`)
+
+                    let updatedShortTermStaff = {
+                        uniqueNSPID: uniqueNssID,
+                        nspFirstName: firstName,
+                        nspLastName: lastName,
+                        nspOtherNames: otherNames,
+                        nspInstitutionAttended: universityAttended,
+                        nspProgrammeStudied: programmeStudied,
+                        nspPhoneNumber: phoneNumber,
+                        nspEmail: email,
+                        nssStartDate: nssStartDate,
+                        nssEndDate: nssEndDate,
+                        nspPhoto: downloadUrl,
+                    }
+
+                    // updating the details in the mongodb database.
+                    let response = await fetch(`${ server_url }/put/update-nsp/${ params.nspID }`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify( updatedShortTermStaff )
+                    })
+                    if( response.status === 200 ) {
+                        alert('Short-Term staff details updated')
+                        setUpdatingShortTermStaffDetails( false )
+                        navigate(`/short-term-staff-details/${ params.nspID }`)
+                    }
+                    else {
+                        alert('Failed to update short term staff details')
+                        setUpdatingShortTermStaffDetails( false )
+                    }
+                })
+            }
+            )
+        }
+
+        else {
+            const UpdateShortTermStaffProfilePhotoNotUpdated = async ( ) => {
+                let updatedShortTermStaff = {
+                    uniqueNSPID: uniqueNssID,
+                    nspFirstName: firstName,
+                    nspLastName: lastName,
+                    nspOtherNames: otherNames,
+                    nspInstitutionAttended: universityAttended,
+                    nspProgrammeStudied: programmeStudied,
+                    nspPhoneNumber: phoneNumber,
+                    nspEmail: email,
+                    nssStartDate: nssStartDate,
+                    nssEndDate: nssEndDate,
+                    nspPhoto: shortTermStaffPhoto,
+                }
+
+                // updating the details in the mongodb database.
+                let response = await fetch(`${ server_url }/put/update-nsp/${ params.nspID }`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify( updatedShortTermStaff )
+                })
+                if( response.status === 200 ) {
+                    alert('Short-Term staff details updated')
+                    setUpdatingShortTermStaffDetails( false )
+                    navigate(`/short-term-staff-details/${ params.nspID }`)
+
+                }
+                else {
+                    alert('Failed to update short term staff details')
+                    setUpdatingShortTermStaffDetails( false )
+                }
+            }
+            UpdateShortTermStaffProfilePhotoNotUpdated()
+        }
+
+
+    }
+
 
 
     return (
@@ -145,7 +257,7 @@ const UpdateShortTermStaffDetails = ( ) => {
                     Object.keys( targetShortTermStaff ).length > 2 ?
                         <div className='details-form'>
                             <h4 className='page-header-text mb-10'>{`Update Short-Term Staff Details: ${ firstName } ${ otherNames } ${ lastName }`}</h4>
-                            <Form className='add-new-employee-form'>
+                            <Form className='add-new-employee-form' onSubmit={ UpdateShortTermStaffDetails }>
                                 <Row>
                                     <Col>
                                         <div className='update-employee-current-image'>
@@ -268,13 +380,21 @@ const UpdateShortTermStaffDetails = ( ) => {
                                     </Col>
                                 </Row>
 
+                                <Row>
+                                    <Col className='add-employee-form-input-row'>
+                                        <Form.Label className='text-slate-500'>Profile Photo</Form.Label>
+                                        <Form.Control type='file' required style={{ border: '1px solid rgb(3 105 161)'}}
+                                                      aria-label='Profile Photo' onChange={ UpdateShortTermStaffPhoto } />
+                                    </Col>
+                                </Row>
+
 
                                 <Row>
                                     <div className='text-center my-3'>
                                         <Button type='submit' variant='custom' aria-label='Save Employee' 
                                                 className='add-emp-btn' style={{ backgroundColor: '#4B49AC', color: 'white' }}
                                         >
-                                            Update Details
+                                            { updatingShortTermStaffDetails === true ? 'Updating Details....' : 'Update Details'}
                                         </Button>
                                         {/* { formSubmitError === true ? <p className='form-submit-error-text italic'>{ errorText }</p> : null } */}
                                     </div>
