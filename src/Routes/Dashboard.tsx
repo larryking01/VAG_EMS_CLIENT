@@ -47,11 +47,11 @@ const Dashboard = ( ) => {
         const FetchAllStaff = async ( ) => {
             try {
                 // for aborting fetch operation after given time.
-                const controller = new AbortController()
-                const id = setTimeout(() => controller.abort(), 10000)
+                // const controller = new AbortController()
+                // const id = setTimeout(() => controller.abort(), 10000)
                 let response = await fetch(`${ server_url }/get/fetch-all-employees`, {
                     method: 'GET',
-                    signal: controller.signal
+                    // signal: controller.signal
                 })
                 if( response.status === 200 ) {
                     let totalEmployees = await response.json()
@@ -62,7 +62,7 @@ const Dashboard = ( ) => {
                 else {
                     setTotalStaff([ ])
                 }
-                clearTimeout( id )
+                // clearTimeout( id )
             }
             catch( error ) {
                 console.log( error )
