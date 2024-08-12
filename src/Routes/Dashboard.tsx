@@ -66,7 +66,7 @@ const Dashboard = ( ) => {
             }
             catch( error ) {
                 console.log( error )
-                HandleOpenErrorDialog()
+                // HandleOpenErrorDialog()
             }
         }
         FetchAllStaff()
