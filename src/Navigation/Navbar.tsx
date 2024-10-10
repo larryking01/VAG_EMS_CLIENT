@@ -56,7 +56,7 @@ const NavBar = ( ) => {
                                 <>
                                     <img src={ vag_logo } width='50' className="cursor-pointer rounded-full d-inline-block" 
                                          alt='vag logo' onClick={() => navigate('/') } /> {''} 
-                                    <h5 className='mt-2 ml-2 font-semibold'>Veterans Administration, Ghana (VAG)</h5>
+                                    <h5 className='mt-2 ml-2 font-semibold italic'>Veterans Administration, Ghana (VAG)</h5>
                                 </>
                                 :
                                 <>

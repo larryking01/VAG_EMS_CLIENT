@@ -10,13 +10,14 @@ import { MdDashboard } from "react-icons/md"
 import { AiOutlineMenu } from 'react-icons/ai'
 import { IoSchool } from "react-icons/io5"
 import { FaHome } from "react-icons/fa"
-import { MdEmail } from "react-icons/md"
 // import { MdPrivacyTip } from "react-icons/md"
-import { FaExpeditedssl } from "react-icons/fa";
-import { IoAddCircle } from "react-icons/io5"
-import { IoIosLogOut } from "react-icons/io"
-import { MdModeEdit } from "react-icons/md"
-import { IoCheckmarkCircleSharp } from "react-icons/io5"
+// import { FaExpeditedssl } from "react-icons/fa";
+// import { IoAddCircle } from "react-icons/io5"
+// import { IoIosLogOut } from "react-icons/io"
+// import { MdModeEdit } from "react-icons/md"
+// import { IoCheckmarkCircleSharp } from "react-icons/io5"
+// import { MdEmail } from "react-icons/md"
+
 
 
 
@@ -79,13 +80,13 @@ const ProSidebar = ( ) => {
                         <MenuItem component={ <Link to='/nsp-enrollment' /> } icon={ <FaUserEdit /> }>NSP Enrollment</MenuItem>
                         <MenuItem component={ <Link to='/nsp-roster' /> } icon={ <IoSchool /> }>NSPs Roster</MenuItem>
                     </SubMenu>
-                    <MenuItem component={ <Link to='#' /> } icon={ <MdEmail /> } >Send E-mail</MenuItem>
+                    {/* <MenuItem component={ <Link to='#' /> } icon={ <MdEmail /> } >Send E-mail</MenuItem>
                     <SubMenu label='Account' icon={ <FaExpeditedssl /> }>
                         <MenuItem component={ <Link to='#' /> } icon={ <IoAddCircle /> }>Sign Up</MenuItem>
                         <MenuItem component={ <Link to='#' /> } icon={ <IoCheckmarkCircleSharp /> }>Sign In</MenuItem>
                         <MenuItem component={ <Link to='#' /> } icon={ <MdModeEdit /> }>Update Credentials</MenuItem>
                         <MenuItem component={ <Link to='#' /> } icon={ <IoIosLogOut /> }>Sign Out</MenuItem>
-                    </SubMenu>
+                    </SubMenu> */}
                 </Menu>
             </Sidebar>
 

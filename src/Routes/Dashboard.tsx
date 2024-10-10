@@ -312,9 +312,9 @@ const Dashboard = ( ) => {
                 </section>
 
 
-                <section className='mx-3 mt-5'>
+                {/* <section className='mx-3 mt-5'>
                     <h4 className='page-header-text'>Upcoming Events.</h4>
-                </section>
+                </section> */}
 
                 <ErrorDialog open={ openErrorDialog } handleClose={ HandleCloseErrorDialog }
                              dialogContentText="Oops! It looks like we're having trouble loading the dashboard. Please check your internet connection and refresh the page." />
