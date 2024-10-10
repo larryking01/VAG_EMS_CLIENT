@@ -198,9 +198,9 @@ const Dashboard = ( ) => {
 
 
     // for the error dialog
-    const HandleOpenErrorDialog = ( ) => {
-        setOpenErrorDialog( true )
-    }
+    // const HandleOpenErrorDialog = ( ) => {
+    //     setOpenErrorDialog( true )
+    // }
 
     const HandleCloseErrorDialog = ( ) => {
         setOpenErrorDialog( false )
