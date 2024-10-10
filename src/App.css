@@ -52,6 +52,7 @@
     /* text-align: center; */
     margin-left: 15%;
     margin-top: 1%;
+    
     background-color: white;
 }
 
@@ -103,11 +104,10 @@
     padding: 10%;
 }
 
-.add-emp-btn {
-    width: 100%;
-    background-color: blue;
+/* .add-emp-btn {
+    width: 40%;
     
-}
+} */
 
 
 .update-employee-details {

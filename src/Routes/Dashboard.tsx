@@ -47,11 +47,11 @@ const Dashboard = ( ) => {
         const FetchAllStaff = async ( ) => {
             try {
                 // for aborting fetch operation after given time.
-                const controller = new AbortController()
-                const id = setTimeout(() => controller.abort(), 10000)
+                // const controller = new AbortController()
+                // const id = setTimeout(() => controller.abort(), 10000)
                 let response = await fetch(`${ server_url }/get/fetch-all-employees`, {
                     method: 'GET',
-                    signal: controller.signal
+                    // signal: controller.signal
                 })
                 if( response.status === 200 ) {
                     let totalEmployees = await response.json()
@@ -62,11 +62,11 @@ const Dashboard = ( ) => {
                 else {
                     setTotalStaff([ ])
                 }
-                clearTimeout( id )
+                // clearTimeout( id )
             }
             catch( error ) {
                 console.log( error )
-                HandleOpenErrorDialog()
+                // HandleOpenErrorDialog()
             }
         }
         FetchAllStaff()
@@ -198,9 +198,9 @@ const Dashboard = ( ) => {
 
 
     // for the error dialog
-    const HandleOpenErrorDialog = ( ) => {
-        setOpenErrorDialog( true )
-    }
+    // const HandleOpenErrorDialog = ( ) => {
+    //     setOpenErrorDialog( true )
+    // }
 
     const HandleCloseErrorDialog = ( ) => {
         setOpenErrorDialog( false )
@@ -312,9 +312,9 @@ const Dashboard = ( ) => {
                 </section>
 
 
-                <section className='mx-3 mt-5'>
+                {/* <section className='mx-3 mt-5'>
                     <h4 className='page-header-text'>Upcoming Events.</h4>
-                </section>
+                </section> */}
 
                 <ErrorDialog open={ openErrorDialog } handleClose={ HandleCloseErrorDialog }
                              dialogContentText="Oops! It looks like we're having trouble loading the dashboard. Please check your internet connection and refresh the page." />

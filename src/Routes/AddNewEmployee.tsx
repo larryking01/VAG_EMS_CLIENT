@@ -330,6 +330,7 @@ const AddNewEmployee = ( ) => {
                                 <DatePicker className='datepicker_styling' 
                                     onChange={ UpdateDateOfBirth } 
                                     value={ dateOfBirth }
+                                    
                                 />
                             </LocalizationProvider>
                         </Col>

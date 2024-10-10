@@ -184,11 +184,6 @@ const CreateEmployeeLeaveSession = ( ) => {
     }
 
 
-
-
-
-
-
     return (
         <div className='flex'>
             <ProSidebar />
@@ -292,7 +287,7 @@ const CreateEmployeeLeaveSession = ( ) => {
                     </Row>
 
                     <Row>
-                        <Button type='submit' variant='custom' aria-label='Save Employee' className='add-emp-btn' style={{ backgroundColor: '#4B49AC', color: 'white' }} >
+                        <Button type='submit' variant='custom' aria-label='Save Employee' style={{ backgroundColor: '#4B49AC', color: 'white' }} >
                             { 
                                 creatingLeavePeriod === true ? 
                                     <div className='text-center flex'>
